@@ -1,0 +1,114 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #0e0e0e;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    font-family: 'Inter', sans-serif;
+    overflow: hidden; 
+}
+
+
+.gradient {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 600px;
+    
+    background: rgba(182, 160, 255, 0.08);
+    filter: blur(80px);
+    z-index: 0;
+    pointer-events: none;
+}
+
+
+.content-404-page {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    text-align: center;
+}
+
+#text-404 {
+    font-family: 'Manrope', sans-serif;
+    font-size: 280px; 
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -10px;
+    background: linear-gradient(180deg, #FFFFFF 0%, #A282FF 60%, #302050 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 24px;
+}
+
+.text-404-1 {
+    color: #FFF;
+    font-family: 'Manrope', sans-serif;
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.text-404-2 {
+    color: #ADAAAA;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    max-width: 500px;
+    margin-bottom: 40px; 
+}
+
+
+.buttons-wrapper {
+    display: flex;
+    gap: 20px; 
+    justify-content: center;
+}
+
+ 
+.btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px; 
+    height: 56px;
+    padding: 0 32px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none; 
+    transition: 0.2s;
+}
+
+
+.btn-primary {
+    background: #B6A0FF;
+    color: #1A1A1A;
+    box-shadow: 0 0 40px -10px rgba(182, 160, 255, 0.40);
+}
+
+.btn-primary:hover {
+    background: #C4B2FF;
+}
+
+
+.btn-secondary {
+    background: rgba(26, 26, 26, 0.50);
+    color: #ADAAAA;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
