@@ -1,11 +1,19 @@
 const express = require("express");
 const fs = require("fs");
+const path = require("path");
 
 const app = express();
 const PORT = 3000;
 
 app.use(express.json());
-app.use(express.static("public"));
+
+/*
+  🔥 VERY IMPORTANT
+  This serves ALL folders (main, Profile, etc.)
+*/
+app.use(express.static(path.join(__dirname)));
+
+// ===== DATABASE =====
 
 function read() {
     return JSON.parse(fs.readFileSync("data.json", "utf8"));
@@ -15,14 +23,26 @@ function save(data) {
     fs.writeFileSync("data.json", JSON.stringify(data, null, 2));
 }
 
+// ===== ROUTES =====
+
+// Default page (Discover)
 app.get("/", (req, res) => {
-    res.sendFile(__dirname + "/public/index.html");
+    res.sendFile(path.join(__dirname, "main/html/index_homePage_SearchBar.html.html"));
 });
 
+// Profile shortcut route
+app.get("/profile", (req, res) => {
+    res.sendFile(path.join(__dirname, "Profile/html/profile.html"));
+});
+
+// ===== API =====
+
+// GET all titles
 app.get("/api/titles", (req, res) => {
     res.json(read().titles);
 });
 
+// ADD title (with duplicate protection)
 app.post("/api/titles", (req, res) => {
     const data = read();
 
@@ -48,15 +68,13 @@ app.post("/api/titles", (req, res) => {
     res.json(newTitle);
 });
 
+// UPDATE title
 app.put("/api/titles/:id", (req, res) => {
     const data = read();
-
     const title = data.titles.find(t => t.id === req.params.id);
 
     if (!title) {
-        return res.status(404).json({
-            error: "Title not found"
-        });
+        return res.status(404).json({ error: "Title not found" });
     }
 
     title.status = req.body.status;
@@ -64,10 +82,10 @@ app.put("/api/titles/:id", (req, res) => {
     title.rating = req.body.rating === "" ? null : Number(req.body.rating);
 
     save(data);
-
     res.json(title);
 });
 
+// DELETE title
 app.delete("/api/titles/:id", (req, res) => {
     const data = read();
 
@@ -75,11 +93,11 @@ app.delete("/api/titles/:id", (req, res) => {
 
     save(data);
 
-    res.json({
-        success: true
-    });
+    res.json({ success: true });
 });
 
+// ===== START SERVER =====
+
 app.listen(PORT, () => {
-    console.log("Running on http://localhost:3000");
+    console.log(`Server running at http://localhost:${PORT}`);
 });
