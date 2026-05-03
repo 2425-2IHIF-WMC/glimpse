@@ -36,22 +36,6 @@
       ]
     },
     {
-      "id": "1777807366823",
-      "rating": null,
-      "watchedEpisodes": 26,
-      "status": "Completed",
-      "name": "Kaichou wa Maid-sama!",
-      "image": "https://myanimelist.net/images/anime/6/25254.jpg",
-      "description": "Misaki Ayuzawa is a unique phenomenon within Seika High School. In a predominantly male institution, she became the first-ever female student council president through her honesty and diligence. Ever since Misaki got promoted to the position, she has been working tirelessly to ensure a better school life for all girls. Despite that, Misaki is very strict with the boys, which has earned her the title \"Demon President.\" \n\nOne day, after hearing a girl cry in the hallway, Misaki encounters Takumi Usui—the most popular boy in the school—as he rejects a love confession. Enraged at what she is seeing, Misaki reprimands him for making the girl cry. However, Usui is indifferent and brushes it off as nothing.\n\nUnexpectedly, Misaki soon runs into Usui again, but this time when she is working at a maid cafe! Embarrassed that someone has found out about her secret occupation, Misaki promises herself not to let Usui destroy her reputation. However, the mysterious boy now begins to visit the same cafe regularly to observe and tease Misaki. When push comes to shove, will Usui still be able to keep the president's secret?\n\n[Written by MAL Rewrite]",
-      "mal_id": 7054,
-      "score": 7.99,
-      "episodes": 26,
-      "genres": [
-        "Comedy",
-        "Romance"
-      ]
-    },
-    {
       "id": "1777807390890",
       "rating": null,
       "watchedEpisodes": 12,
@@ -98,6 +82,23 @@
         "Action",
         "Fantasy",
         "Sci-Fi"
+      ]
+    },
+    {
+      "id": "1777810854913",
+      "rating": 9,
+      "watchedEpisodes": 1,
+      "status": "Completed",
+      "name": "One Piece Movie 01",
+      "image": "https://myanimelist.net/images/anime/1770/97704.jpg",
+      "description": "Many years ago, Woonan, a legendary pirate, plundered one-third of the world's gold and stashed it away on his secret island shrouded in mystery. \n\nIn the present, Luffy and the rest of the Straw Hats continue on their journey to the Grand Line. They are robbed by a group of bandits. Led by their captain, El Drago, these same bandits are headed towards Woonan's famed island. Even though the Straw Hat Pirates must now recover their stolen treasure, they have gained another objective: to discover the lost island, its treasures, and learn about the legend of Woonan.\n\n[Written by MAL Rewrite]",
+      "mal_id": 459,
+      "score": 7.1,
+      "episodes": 1,
+      "genres": [
+        "Action",
+        "Adventure",
+        "Fantasy"
       ]
     }
   ]
