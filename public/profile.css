@@ -1,0 +1,132 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0a0a0f;
+    color: white;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 18px 30px;
+    background: #111118;
+}
+
+nav a {
+    color: #a78bfa;
+    text-decoration: none;
+}
+
+.layout {
+    display: flex;
+}
+
+.sidebar {
+    width: 220px;
+    min-height: calc(100vh - 60px);
+    background: #111118;
+    padding: 20px;
+}
+
+.sidebar button {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    background: #16161f;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    text-align: left;
+}
+
+.sidebar button.active {
+    background: #7c6af7;
+}
+
+.content {
+    flex: 1;
+    padding: 30px;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.stats div,
+.panel,
+.list-card {
+    background: #16161f;
+    padding: 20px;
+    border-radius: 14px;
+}
+
+.stats h2 {
+    color: #a78bfa;
+    font-size: 36px;
+    margin: 0;
+}
+
+.panel {
+    margin-top: 30px;
+}
+
+.list-card {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 18px;
+    margin-bottom: 16px;
+}
+
+.list-card img {
+    width: 90px;
+    height: 130px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+select,
+input {
+    padding: 9px;
+    border-radius: 8px;
+    border: none;
+}
+
+button {
+    padding: 9px 12px;
+    border: none;
+    border-radius: 8px;
+    background: #7c6af7;
+    color: white;
+    cursor: pointer;
+}
+
+.delete {
+    background: #d83b3b;
+}
+
+.genre-row {
+    margin-bottom: 12px;
+}
+
+.genre-bar {
+    height: 7px;
+    background: #2a2a35;
+    border-radius: 20px;
+}
+
+.genre-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #7c6af7, #3ee0c4);
+    border-radius: 20px;
+}

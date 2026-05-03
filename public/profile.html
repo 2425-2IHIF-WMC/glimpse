@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Glimpse Profile</title>
+    <link rel="stylesheet" href="profile.css">
+</head>
+<body>
+
+<nav>
+    <h2>Glimpse Profile</h2>
+    <a href="index.html">Discover</a>
+</nav>
+
+<div class="layout">
+
+    <aside class="sidebar">
+        <button onclick="showSection('stats')" class="active" id="statsBtn">Stats</button>
+        <button onclick="showSection('list')" id="listBtn">My List</button>
+    </aside>
+
+    <main class="content">
+
+        <section id="statsSection">
+            <h1>Stats</h1>
+
+            <div class="stats">
+                <div>
+                    <h2 id="total">0</h2>
+                    <p>Total Titles</p>
+                </div>
+
+                <div>
+                    <h2 id="watching">0</h2>
+                    <p>Watching</p>
+                </div>
+
+                <div>
+                    <h2 id="completed">0</h2>
+                    <p>Completed</p>
+                </div>
+
+                <div>
+                    <h2 id="average">0</h2>
+                    <p>Average Rating</p>
+                </div>
+            </div>
+
+            <div class="panel">
+                <h2>Top Genres</h2>
+                <div id="genres"></div>
+            </div>
+        </section>
+
+        <section id="listSection" style="display:none;">
+            <h1>My List</h1>
+            <div id="myList"></div>
+        </section>
+
+    </main>
+
+</div>
+
+<script src="profile.js"></script>
+</body>
+</html>
