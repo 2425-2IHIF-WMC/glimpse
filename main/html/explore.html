@@ -10,6 +10,10 @@
     <link rel="stylesheet" href="../styles/explore.css">
     <link rel="stylesheet" href="../styles/header.css">
     <link rel="stylesheet" href="../styles/sideMenu.css">
+    <link rel="stylesheet" href="../styles/discover-image.css">
+    <link rel="stylesheet" href="../styles/category-filter.css">
+    <link rel="stylesheet" href="../styles/search.css">
+    <link rel="stylesheet" href="../styles/card.css">
 </head>
 <body>
 
@@ -57,8 +61,8 @@
                 </linearGradient>
             </defs>
         </svg>
-        </div> 
-        <span class="logo">Glimpse</span>
+        </div>
+        <span class="logo-text">Glimpse</span>
     </div>
 
     <div class="user-profile">
@@ -70,19 +74,66 @@
 <section class="hero">
     <div class="hero-overlay">
         <div class="hero-content">
+
             <div class="logo-item">
-                <h1 class="hero-title">Glimpse</h1>
-                
+                <div class="logo-icon-on-image">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="80" height="69" viewBox="0 0 80 69" fill="none">
+                        <g opacity="0.96">
+                            <path d="M0.381348 68.367L79.9999 69L73.7678 57.9854L0.381348 68.367Z" fill="url(#paint0_linear_244_845)"/>
+                            <path d="M1.00098 68.4932L69.062 50.262L65.3736 44.3115L1.00098 68.4932Z" fill="url(#paint1_linear_244_845)"/>
+                            <path d="M0.126953 69.0003L61.4307 36.8425L58.251 31.3984L0.126953 69.0003Z" fill="url(#paint2_linear_244_845)"/>
+                            <path d="M0.254395 68.873L68.9349 50.262L65.5009 44.3115L0.254395 68.873Z" fill="url(#paint3_linear_244_845)"/>
+                            <path d="M0 68.9833L54.0541 24.3079L50.6201 18.7373L0 68.9833Z" fill="url(#paint4_linear_244_845)"/>
+                            <path d="M0 69L46.423 11.0147L39.6821 0L0 69Z" fill="url(#paint5_linear_244_845)"/>
+                        </g>
+                        <defs>
+                            <linearGradient id="paint0_linear_244_845" x1="1.39896" y1="69.1266" x2="73.9665" y2="53.7128" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#FF5FF4"/>
+                                <stop offset="0.471154" stop-color="#5D46FF"/>
+                                <stop offset="1" stop-color="#00AAB8"/>
+                            </linearGradient>
+                            <linearGradient id="paint1_linear_244_845" x1="216.471" y1="55.7819" x2="260.014" y2="10.3204" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#BB4CE8" stop-opacity="0.2"/>
+                                <stop offset="0.25" stop-color="#BB4CE8" stop-opacity="0.8"/>
+                                <stop offset="1" stop-color="#00BBC8"/>
+                            </linearGradient>
+                            <linearGradient id="paint2_linear_244_845" x1="0.381323" y1="68.4938" x2="53.3174" y2="26.221" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#FF5FF4"/>
+                                <stop offset="0.519231" stop-color="#5D46FF"/>
+                                <stop offset="1" stop-color="#00CCD8"/>
+                            </linearGradient>
+                            <linearGradient id="paint3_linear_244_845" x1="1.65344" y1="68.873" x2="62.5054" y2="38.2413" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#FF5FF4"/>
+                                <stop offset="0.475962" stop-color="#5D46FF"/>
+                                <stop offset="1" stop-color="#00CCD8"/>
+                            </linearGradient>
+                            <linearGradient id="paint4_linear_244_845" x1="-5.4324e-07" y1="68.9833" x2="45.5415" y2="16.5314" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#FF5FF4"/>
+                                <stop offset="0.5" stop-color="#5D46FF"/>
+                                <stop offset="1" stop-color="#00DDEE"/>
+                            </linearGradient>
+                            <linearGradient id="paint5_linear_244_845" x1="-5.16412e-05" y1="69" x2="11.2967" y2="-0.295545" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#FF5FF4"/>
+                                <stop offset="0.509615" stop-color="#5D46FF"/>
+                                <stop offset="1" stop-color="#00EEFF"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+
             </div>
-            <h1 class="hero-title">Glimpse</h1>
+            <span class="hero-title">Glimpse</span>
             <p class="hero-description">
                 Curated experiences across cinema, literature, and culture. Find your next obsession.
             </p>
 
-           
-            <div class="search-container">
-                <input type="text" placeholder="Search for movies, games, or destinations..." class="search-input">
-                <button class="search-btn">Explore</button>
+
+            <div class="search-container" style="position: relative;">
+                <input type="text" id="searchInput" placeholder="Search for movies, games, or destinations..." class="search-input">
+
+                <button id="searchBtn" class="search-btn">Explore</button>
+
+                <div id="liveResults" class="live-results"></div>
             </div>
         </div>
     </div>
@@ -135,11 +186,274 @@
     </aside>
 
     <main class="content">
-        <h1 style="color: white;">Content</h1>
+        <div class="category-filters">
+            <button class="filter-btn active" data-type="all">All</button>
+            <button class="filter-btn" data-type="anime">Anime</button>
+            <button class="filter-btn" data-type="series">Series</button>
+            <button class="filter-btn" data-type="movie">Films</button>
+            <button class="filter-btn" data-type="documentary">Documentary</button>
+        </div>
+
+        <div class="top-movies">
+            <div class="section-header">
+                <h1 id="top-h1">Top this week</h1>
+                <a href="#" class="view-all-link">View all</a>
+            </div>
+            <div class="results-grid-top">
+                <div class="anime-card">
+                    <div class="card-poster">
+                        <img src="https://m.media-amazon.com/images/M/MV5BN2QyZGU4ZDctOWMzMy00NTc5LThlOGQtODhmNDI1NmY5YzAwXkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_.jpg" alt="Dune: Part Two">
+                    </div>
+
+                    <div class="card-info">
+                        <h3 class="card-title">Dune: Part Two</h3>
+
+                        <div class="card-meta">
+                            <span class="type">Cinema</span>
+                            <span class="dot">•</span>
+                            <span class="author">Denis Villeneuve</span>
+                        </div>
+
+                        <div class="card-extra">
+                            <button class="save-btn" onclick="toggleSave(this, event)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="9" height="11" viewBox="0 0 9 11" fill="none">
+                                    <path d="M7.35714 0.5C7.66025 0.5 7.95094 0.617065 8.16527 0.825443C8.37959 1.03382 8.5 1.31644 8.5 1.61113V9.94461C8.49997 10.0419 8.47366 10.1375 8.4237 10.2218C8.37375 10.3061 8.3019 10.3761 8.21535 10.425C8.12879 10.4738 8.03057 10.4997 7.9305 10.5C7.83044 10.5003 7.73203 10.4751 7.64514 10.4268L5.06686 8.9946C4.89421 8.89872 4.69883 8.84829 4.5 8.84829C4.30117 8.84829 4.10579 8.89872 3.93314 8.9946L1.35486 10.4268C1.26797 10.4751 1.16956 10.5003 1.0695 10.5C0.969431 10.4997 0.871207 10.4738 0.784653 10.425C0.6981 10.3761 0.626251 10.3061 0.576297 10.2218C0.526342 10.1375 0.500032 10.0419 0.5 9.94461V1.61113C0.5 1.31644 0.620408 1.03382 0.834735 0.825443C1.04906 0.617065 1.33975 0.5 1.64286 0.5H7.35714Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span class="save-text">Save</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="all">
+            
+            <div class="section-header">
+                <h1 id="all">All</h1>
+                <a href="#" class="view-all-link">View all</a>
+            </div>
+            <div class="results-grid-all">
+                <div class="anime-card">
+                    <div class="card-poster">
+                        <img src="https://m.media-amazon.com/images/M/MV5BN2QyZGU4ZDctOWMzMy00NTc5LThlOGQtODhmNDI1NmY5YzAwXkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_.jpg" alt="Dune: Part Two">
+                    </div>
+
+                    <div class="card-info">
+                        <h3 class="card-title">Dune: Part Two</h3>
+
+                        <div class="card-meta">
+                            <span class="type">Cinema</span>
+                            <span class="dot">•</span>
+                            <span class="author">Denis Villeneuve</span>
+                        </div>
+
+                        <div class="card-extra">
+                            <button class="save-btn" onclick="toggleSave(this, event)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="9" height="11" viewBox="0 0 9 11" fill="none">
+                                    <path d="M7.35714 0.5C7.66025 0.5 7.95094 0.617065 8.16527 0.825443C8.37959 1.03382 8.5 1.31644 8.5 1.61113V9.94461C8.49997 10.0419 8.47366 10.1375 8.4237 10.2218C8.37375 10.3061 8.3019 10.3761 8.21535 10.425C8.12879 10.4738 8.03057 10.4997 7.9305 10.5C7.83044 10.5003 7.73203 10.4751 7.64514 10.4268L5.06686 8.9946C4.89421 8.89872 4.69883 8.84829 4.5 8.84829C4.30117 8.84829 4.10579 8.89872 3.93314 8.9946L1.35486 10.4268C1.26797 10.4751 1.16956 10.5003 1.0695 10.5C0.969431 10.4997 0.871207 10.4738 0.784653 10.425C0.6981 10.3761 0.626251 10.3061 0.576297 10.2218C0.526342 10.1375 0.500032 10.0419 0.5 9.94461V1.61113C0.5 1.31644 0.620408 1.03382 0.834735 0.825443C1.04906 0.617065 1.33975 0.5 1.64286 0.5H7.35714Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span class="save-text">Save</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+
+        <div class="anime-movies">
+            <div class="section-header">
+                <h1 id="anime-h1">Anime Hub</h1>
+                <a href="#" class="view-all-link">View all</a>
+            </div>
+            <div class="results-grid-anime">
+                <div class="anime-card">
+                    <div class="card-poster">
+                        <img src="https://m.media-amazon.com/images/M/MV5BN2QyZGU4ZDctOWMzMy00NTc5LThlOGQtODhmNDI1NmY5YzAwXkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_.jpg" alt="Dune: Part Two">
+                    </div>
+
+                    <div class="card-info">
+                        <h3 class="card-title">Dune: Part Two</h3>
+
+                        <div class="card-meta">
+                            <span class="type">Cinema</span>
+                            <span class="dot">•</span>
+                            <span class="author">Denis Villeneuve</span>
+                        </div>
+
+                        <div class="card-extra">
+                            <button class="save-btn" onclick="toggleSave(this, event)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="9" height="11" viewBox="0 0 9 11" fill="none">
+                                    <path d="M7.35714 0.5C7.66025 0.5 7.95094 0.617065 8.16527 0.825443C8.37959 1.03382 8.5 1.31644 8.5 1.61113V9.94461C8.49997 10.0419 8.47366 10.1375 8.4237 10.2218C8.37375 10.3061 8.3019 10.3761 8.21535 10.425C8.12879 10.4738 8.03057 10.4997 7.9305 10.5C7.83044 10.5003 7.73203 10.4751 7.64514 10.4268L5.06686 8.9946C4.89421 8.89872 4.69883 8.84829 4.5 8.84829C4.30117 8.84829 4.10579 8.89872 3.93314 8.9946L1.35486 10.4268C1.26797 10.4751 1.16956 10.5003 1.0695 10.5C0.969431 10.4997 0.871207 10.4738 0.784653 10.425C0.6981 10.3761 0.626251 10.3061 0.576297 10.2218C0.526342 10.1375 0.500032 10.0419 0.5 9.94461V1.61113C0.5 1.31644 0.620408 1.03382 0.834735 0.825443C1.04906 0.617065 1.33975 0.5 1.64286 0.5H7.35714Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span class="save-text">Save</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="anime-subsections">
+
+                <div class="section-header">
+                    <h1 id="anime-top-tv-series-h1">Top TV Series</h1>
+                    <a href="viewAll.html?type=anime-tv&title=Top Anime TV Series" class="view-all-link">View all</a>
+                </div>
+                <div class="results-grid-anime-tv"></div>
+
+                <div class="section-header">
+                    <h1 id="anime-top-movies-h1">Top Movies</h1>
+                    <a href="viewAll.html?type=anime-movie&title=Top Anime Movies" class="view-all-link">View all</a>
+                </div>
+                <div class="results-grid-anime-movie"></div>
+
+                <div class="section-header">
+                    <h1 id="anime-ova-specials-h1">OVA & Specials</h1>
+                    <a href="viewAll.html?type=anime-ova&title=OVA %26 Specials" class="view-all-link">View all</a>
+                </div>
+                <div class="results-grid-anime-ova"></div>
+
+            </div>
+        </div>
+        <div class="series-movies">
+            <div class="section-header">
+                <h1 id="series-h1">Series</h1>
+                <a href="#" class="view-all-link">View all</a>
+            </div>
+            <div class="results-grid-series">
+                <div class="anime-card">
+                    <div class="card-poster">
+                        <img src="https://m.media-amazon.com/images/M/MV5BN2QyZGU4ZDctOWMzMy00NTc5LThlOGQtODhmNDI1NmY5YzAwXkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_.jpg" alt="Dune: Part Two">
+                    </div>
+
+                    <div class="card-info">
+                        <h3 class="card-title">Dune: Part Two</h3>
+
+                        <div class="card-meta">
+                            <span class="type">Cinema</span>
+                            <span class="dot">•</span>
+                            <span class="author">Denis Villeneuve</span>
+                        </div>
+
+                        <div class="card-extra">
+                            <button class="save-btn" onclick="toggleSave(this, event)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="9" height="11" viewBox="0 0 9 11" fill="none">
+                                    <path d="M7.35714 0.5C7.66025 0.5 7.95094 0.617065 8.16527 0.825443C8.37959 1.03382 8.5 1.31644 8.5 1.61113V9.94461C8.49997 10.0419 8.47366 10.1375 8.4237 10.2218C8.37375 10.3061 8.3019 10.3761 8.21535 10.425C8.12879 10.4738 8.03057 10.4997 7.9305 10.5C7.83044 10.5003 7.73203 10.4751 7.64514 10.4268L5.06686 8.9946C4.89421 8.89872 4.69883 8.84829 4.5 8.84829C4.30117 8.84829 4.10579 8.89872 3.93314 8.9946L1.35486 10.4268C1.26797 10.4751 1.16956 10.5003 1.0695 10.5C0.969431 10.4997 0.871207 10.4738 0.784653 10.425C0.6981 10.3761 0.626251 10.3061 0.576297 10.2218C0.526342 10.1375 0.500032 10.0419 0.5 9.94461V1.61113C0.5 1.31644 0.620408 1.03382 0.834735 0.825443C1.04906 0.617065 1.33975 0.5 1.64286 0.5H7.35714Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span class="save-text">Save</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="series-subsections">
+                <h1 style="color: white; margin-top: 30px;">Netflix Series</h1>
+                <div class="results-grid-series-netflix"></div>
+                <h1 style="color: white; margin-top: 30px;">HBO Series</h1>
+                <div class="results-grid-series-hbo"></div>
+            </div>
+            
+        </div>
+        <div class="films-movies">
+            <div class="section-header">
+                <h1 id="films-h1">Films</h1>
+                <a href="#" class="view-all-link">View all</a>
+            </div>
+            <div class="results-grid-films">
+                <div class="anime-card">
+                    <div class="card-poster">
+                        <img src="https://m.media-amazon.com/images/M/MV5BN2QyZGU4ZDctOWMzMy00NTc5LThlOGQtODhmNDI1NmY5YzAwXkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_.jpg" alt="Dune: Part Two">
+                    </div>
+
+                    <div class="card-info">
+                        <h3 class="card-title">Dune: Part Two</h3>
+
+                        <div class="card-meta">
+                            <span class="type">Cinema</span>
+                            <span class="dot">•</span>
+                            <span class="author">Denis Villeneuve</span>
+                        </div>
+
+                        <div class="card-extra">
+                            <button class="save-btn" onclick="toggleSave(this, event)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="9" height="11" viewBox="0 0 9 11" fill="none">
+                                    <path d="M7.35714 0.5C7.66025 0.5 7.95094 0.617065 8.16527 0.825443C8.37959 1.03382 8.5 1.31644 8.5 1.61113V9.94461C8.49997 10.0419 8.47366 10.1375 8.4237 10.2218C8.37375 10.3061 8.3019 10.3761 8.21535 10.425C8.12879 10.4738 8.03057 10.4997 7.9305 10.5C7.83044 10.5003 7.73203 10.4751 7.64514 10.4268L5.06686 8.9946C4.89421 8.89872 4.69883 8.84829 4.5 8.84829C4.30117 8.84829 4.10579 8.89872 3.93314 8.9946L1.35486 10.4268C1.26797 10.4751 1.16956 10.5003 1.0695 10.5C0.969431 10.4997 0.871207 10.4738 0.784653 10.425C0.6981 10.3761 0.626251 10.3061 0.576297 10.2218C0.526342 10.1375 0.500032 10.0419 0.5 9.94461V1.61113C0.5 1.31644 0.620408 1.03382 0.834735 0.825443C1.04906 0.617065 1.33975 0.5 1.64286 0.5H7.35714Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span class="save-text">Save</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="films-subsections">
+                <h1 style="color: white; margin-top: 30px;">Now in Cinemas</h1>
+                <div class="results-grid-films-now"></div>
+
+                <h1 style="color: white; margin-top: 30px;">Upcoming Movies</h1>
+                <div class="results-grid-films-upcoming"></div>
+
+                <h1 style="color: white; margin-top: 30px;">Top Rated Classics</h1>
+                <div class="results-grid-films-top"></div>
+
+                <h1 style="color: white; margin-top: 30px;">Action Movies</h1>
+                <div class="results-grid-films-action"></div>
+
+                <h1 style="color: white; margin-top: 30px;">Horror Movies</h1>
+                <div class="results-grid-films-horror"></div>
+
+                <h1 style="color: white; margin-top: 30px;">SciFi Movies</h1>
+                <div class="results-grid-films-scifi"></div>
+            </div>
+        </div>
+        <div class="documentary-movies">
+            <div class="section-header">
+                <h1 id="documentary-h1">Documentary</h1>
+                <a href="#" class="view-all-link">View all</a>
+            </div>
+            <div class="results-grid-documentary">
+                <div class="anime-card">
+                    <div class="card-poster">
+                        <img src="https://m.media-amazon.com/images/M/MV5BN2QyZGU4ZDctOWMzMy00NTc5LThlOGQtODhmNDI1NmY5YzAwXkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_.jpg" alt="Dune: Part Two">
+                    </div>
+
+                    <div class="card-info">
+                        <h3 class="card-title">Dune: Part Two</h3>
+
+                        <div class="card-meta">
+                            <span class="type">Cinema</span>
+                            <span class="dot">•</span>
+                            <span class="author">Denis Villeneuve</span>
+                        </div>
+
+                        <div class="card-extra">
+                            <button class="save-btn" onclick="toggleSave(this, event)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="9" height="11" viewBox="0 0 9 11" fill="none">
+                                    <path d="M7.35714 0.5C7.66025 0.5 7.95094 0.617065 8.16527 0.825443C8.37959 1.03382 8.5 1.31644 8.5 1.61113V9.94461C8.49997 10.0419 8.47366 10.1375 8.4237 10.2218C8.37375 10.3061 8.3019 10.3761 8.21535 10.425C8.12879 10.4738 8.03057 10.4997 7.9305 10.5C7.83044 10.5003 7.73203 10.4751 7.64514 10.4268L5.06686 8.9946C4.89421 8.89872 4.69883 8.84829 4.5 8.84829C4.30117 8.84829 4.10579 8.89872 3.93314 8.9946L1.35486 10.4268C1.26797 10.4751 1.16956 10.5003 1.0695 10.5C0.969431 10.4997 0.871207 10.4738 0.784653 10.425C0.6981 10.3761 0.626251 10.3061 0.576297 10.2218C0.526342 10.1375 0.500032 10.0419 0.5 9.94461V1.61113C0.5 1.31644 0.620408 1.03382 0.834735 0.825443C1.04906 0.617065 1.33975 0.5 1.64286 0.5H7.35714Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <span class="save-text">Save</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="documentary-subsections">
+                <h1 style="color: white; margin-top: 30px;">Top Documentary Movies</h1>
+                <div class="results-grid-doc-movies"></div>
+
+                <h1 style="color: white; margin-top: 30px;">Docuseries</h1>
+                <div class="results-grid-doc-series"></div>
+
+                <h1 style="color: white; margin-top: 30px;">History & Events</h1>
+                <div class="results-grid-doc-history"></div>
+            </div>
+        </div>
+        
     </main>
 
 </div>
 
-
+<script src="../js/explorer-search.js"></script>
 </body>
 </html>

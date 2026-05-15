@@ -1,1 +1,41 @@
-﻿
+﻿body, html {
+    overflow-x: hidden; 
+}
+
+.content {
+    min-width: 0;
+}
+
+
+.section-header {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+
+    margin-bottom: 20px; 
+    padding-right: 15px; 
+}
+
+
+.section-header h1 {
+    margin: 0;
+    color: white;
+}
+
+
+.view-all-link {
+    color: #B6A0FF;
+    font-family: 'Inter', sans-serif; 
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+
+    text-decoration: none; 
+    transition: opacity 0.2s ease; 
+}
+
+
+.view-all-link:hover {
+    opacity: 0.8; 
+}

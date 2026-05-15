@@ -1,0 +1,437 @@
+﻿.anime-card {
+    background: transparent;
+    flex: 0 0 auto; 
+    width: 220px;
+    
+    border-radius: 16px;
+    overflow: hidden;
+    margin-top: 16px;
+    margin-left: 10px;
+    margin-right: 10px;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.anime-card:hover {
+    transform: translateY(-2px);
+}
+
+.results-grid-all {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 10px 0 30px 0;
+    scroll-behavior: smooth;
+    flex-wrap: nowrap;
+    width: 100%;
+    
+}
+
+.results-grid-all::-webkit-scrollbar {
+    display: none;
+}
+.results-grid-anime {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 10px 0 30px 0;
+    scroll-behavior: smooth;
+    flex-wrap: nowrap;
+    width: 100%;
+
+}
+
+.results-grid-anime::-webkit-scrollbar {
+    display: none;
+}
+.results-grid-films {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 10px 0 30px 0;
+    scroll-behavior: smooth;
+    flex-wrap: nowrap;
+    width: 100%;
+
+}
+
+.results-grid-films::-webkit-scrollbar {
+    display: none;
+}
+.results-grid-series {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 10px 0 30px 0;
+    scroll-behavior: smooth;
+    flex-wrap: nowrap;
+    width: 100%;
+
+}
+
+.results-grid-series::-webkit-scrollbar {
+    display: none;
+}
+.results-grid-documentary {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 10px 0 30px 0;
+    scroll-behavior: smooth;
+    flex-wrap: nowrap;
+    width: 100%;
+
+}
+
+.results-grid-documentary::-webkit-scrollbar {
+    display: none;
+}
+
+.results-grid-top {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 10px 0 30px 0;
+    scroll-behavior: smooth;
+    flex-wrap: nowrap;
+    width: 100%;
+
+}
+
+.results-grid-top::-webkit-scrollbar {
+    display: none;
+}
+
+
+.card-poster {
+    position: relative;
+    width: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.card-poster img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.card-info {
+    padding: 15px 5px;
+}
+
+.card-title {
+    color: #FFFFFF;
+    font-size: 22px;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    margin-top: 1px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #ADAAAA;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.card-meta .dot {
+    font-size: 20px;
+}
+
+.card-extra {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #666;
+    font-size: 12px;
+    margin-top: 10px;
+}
+.save-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px; 
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: #FFFFFF;
+    font-size: 14px;
+    padding: 8px 0;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+
+.results-grid-anime-tv {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 10px 0 30px 0;
+    scroll-behavior: smooth;
+    flex-wrap: nowrap;
+    width: 100%;
+
+}
+
+.results-grid-anime-tv::-webkit-scrollbar {
+    display: none;
+}
+.results-grid-anime-movie {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 10px 0 30px 0;
+    scroll-behavior: smooth;
+    flex-wrap: nowrap;
+    width: 100%;
+
+}
+
+.results-grid-anime-movie::-webkit-scrollbar {
+    display: none;
+}
+
+
+.results-grid-anime-ova {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 10px 0 30px 0;
+    scroll-behavior: smooth;
+    flex-wrap: nowrap;
+    width: 100%;
+
+}
+
+.results-grid-anime-ova::-webkit-scrollbar {
+    display: none;
+}
+
+.results-grid-series-top {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 10px 0 30px 0;
+    scroll-behavior: smooth;
+    flex-wrap: nowrap;
+    width: 100%;
+
+}
+
+.results-grid-series-top::-webkit-scrollbar {
+    display: none;
+}
+
+.results-grid-series-netflix {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 10px 0 30px 0;
+    scroll-behavior: smooth;
+    flex-wrap: nowrap;
+    width: 100%;
+
+}
+
+.results-grid-series-netflix::-webkit-scrollbar {
+    display: none;
+}
+
+.results-grid-series-hbo {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 10px 0 30px 0;
+    scroll-behavior: smooth;
+    flex-wrap: nowrap;
+    width: 100%;
+
+}
+
+.results-grid-series-hbo::-webkit-scrollbar {
+    display: none;
+}
+
+.results-grid-films-now {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 10px 0 30px 0;
+    scroll-behavior: smooth;
+    flex-wrap: nowrap;
+    width: 100%;
+
+}
+
+.results-grid-films-now::-webkit-scrollbar {
+    display: none;
+}
+.results-grid-films-action {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 10px 0 30px 0;
+    scroll-behavior: smooth;
+    flex-wrap: nowrap;
+    width: 100%;
+
+}
+
+.results-grid-films-action::-webkit-scrollbar {
+    display: none;
+}
+.results-grid-films-top {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 10px 0 30px 0;
+    scroll-behavior: smooth;
+    flex-wrap: nowrap;
+    width: 100%;
+
+}
+
+.results-grid-films-top::-webkit-scrollbar {
+    display: none;
+}
+
+.results-grid-films-now {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 10px 0 30px 0;
+    scroll-behavior: smooth;
+    flex-wrap: nowrap;
+    width: 100%;
+
+}
+
+.results-grid-films-now::-webkit-scrollbar {
+    display: none;
+}
+.results-grid-films-upcoming {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 10px 0 30px 0;
+    scroll-behavior: smooth;
+    flex-wrap: nowrap;
+    width: 100%;
+
+}
+
+.results-grid-films-upcoming::-webkit-scrollbar {
+    display: none;
+}
+.results-grid-films-top {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 10px 0 30px 0;
+    scroll-behavior: smooth;
+    flex-wrap: nowrap;
+    width: 100%;
+
+}
+
+.results-grid-films-top::-webkit-scrollbar {
+    display: none;
+}
+.results-grid-films-action {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 10px 0 30px 0;
+    scroll-behavior: smooth;
+    flex-wrap: nowrap;
+    width: 100%;
+
+}
+
+.results-grid-films-action::-webkit-scrollbar {
+    display: none;
+}
+.results-grid-films-horror {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 10px 0 30px 0;
+    scroll-behavior: smooth;
+    flex-wrap: nowrap;
+    width: 100%;
+
+}
+
+.results-grid-films-horror::-webkit-scrollbar {
+    display: none;
+}
+.results-grid-films-scifi {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 10px 0 30px 0;
+    scroll-behavior: smooth;
+    flex-wrap: nowrap;
+    width: 100%;
+
+}
+
+.results-grid-films-scifi::-webkit-scrollbar {
+    display: none;
+}
+
+.results-grid-doc-movies {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 10px 0 30px 0;
+    scroll-behavior: smooth;
+    flex-wrap: nowrap;
+    width: 100%;
+
+}
+
+.results-grid-doc-movies::-webkit-scrollbar {
+    display: none;
+}
+
+.results-grid-doc-series {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 10px 0 30px 0;
+    scroll-behavior: smooth;
+    flex-wrap: nowrap;
+    width: 100%;
+
+}
+
+.results-grid-doc-series::-webkit-scrollbar {
+    display: none;
+}
+.results-grid-doc-history {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 10px 0 30px 0;
+    scroll-behavior: smooth;
+    flex-wrap: nowrap;
+    width: 100%;
+
+}
+
+.results-grid-doc-history::-webkit-scrollbar {
+    display: none;
+}
+
+
+
+
+
+                                       
