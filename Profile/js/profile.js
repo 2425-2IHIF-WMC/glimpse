@@ -147,6 +147,7 @@ function renderFavorites() {
 }
 
 function renderList() {
+
     const list = document.getElementById("myList");
 
     if (titles.length === 0) {
@@ -167,6 +168,7 @@ function renderList() {
                 >
 
                 <div>
+
                     <h2>${title.name}</h2>
 
                     <p>
@@ -176,9 +178,57 @@ function renderList() {
                         episodes
                     </p>
 
-                    <p>Status: ${title.status}</p>
+                    <div class="controls">
 
-                    <p>Rating: ${title.rating || "-"}</p>
+                        <select id="status-${title.id}">
+                            <option ${title.status === "Plan to Watch" ? "selected" : ""}>
+                                Plan to Watch
+                            </option>
+
+                            <option ${title.status === "Watching" ? "selected" : ""}>
+                                Watching
+                            </option>
+
+                            <option ${title.status === "Completed" ? "selected" : ""}>
+                                Completed
+                            </option>
+
+                            <option ${title.status === "On Hold" ? "selected" : ""}>
+                                On Hold
+                            </option>
+
+                            <option ${title.status === "Dropped" ? "selected" : ""}>
+                                Dropped
+                            </option>
+                        </select>
+
+                        <input
+                            id="episodes-${title.id}"
+                            type="number"
+                            min="0"
+                            max="${title.episodes || 9999}"
+                            value="${title.watchedEpisodes || 0}"
+                        >
+
+                        <select id="rating-${title.id}">
+                            <option value="">Rating</option>
+
+                            ${createRatingOptions(title.rating)}
+                        </select>
+
+                        <button onclick="saveTitle('${title.id}')">
+                            Save
+                        </button>
+
+                        <button
+                            class="delete"
+                            onclick="deleteTitle('${title.id}')"
+                        >
+                            Delete
+                        </button>
+
+                    </div>
+
                 </div>
 
             </div>
