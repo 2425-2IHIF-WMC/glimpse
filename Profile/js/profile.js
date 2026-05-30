@@ -103,3 +103,45 @@ function renderGenres() {
 
     document.getElementById("genres").innerHTML = html;
 }
+
+function renderUpdates() {
+    const latest = [...titles].slice(-3).reverse();
+
+    let html = "";
+
+    for (const title of latest) {
+        html += `
+            <div class="update-card">
+                <img src="${title.image}" alt="${title.name}">
+
+                <div>
+                    <h3>${title.name}</h3>
+                    <p>${title.status}</p>
+                    <p>${title.watchedEpisodes || 0} / ${title.episodes || "?"} episodes</p>
+                    <p>Rating: ${title.rating || "-"}</p>
+                </div>
+            </div>
+        `;
+    }
+
+    document.getElementById("lastUpdates").innerHTML = html;
+}
+
+function renderFavorites() {
+    const favorites = titles.slice(0, 5);
+
+    let html = "";
+
+    for (const title of favorites) {
+        html += `
+            <img
+                class="favorite-img"
+                src="${title.image}"
+                alt="${title.name}"
+                title="${title.name}"
+            >
+        `;
+    }
+
+    document.getElementById("favorites").innerHTML = html;
+}
