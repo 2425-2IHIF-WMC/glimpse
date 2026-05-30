@@ -115,6 +115,23 @@
       "genres": [
         "Action"
       ]
+    },
+    {
+      "id": "1780177042401",
+      "rating": 10,
+      "watchedEpisodes": 1,
+      "status": "Completed",
+      "name": "One Piece 3D: Mugiwara Chase",
+      "image": "https://cdn.myanimelist.net/images/anime/4/32455.jpg",
+      "description": "According to Weekly Shonen Jump, 3D movies of One Piece and Toriko were announced to premiere on March 19th, 2011. One Piece 3D is an original story about the missing straw hat of Luffy.",
+      "mal_id": 9999,
+      "score": 6.88,
+      "episodes": 1,
+      "genres": [
+        "Action",
+        "Adventure",
+        "Fantasy"
+      ]
     }
   ]
 }

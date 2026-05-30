@@ -237,3 +237,72 @@ function renderList() {
 
     list.innerHTML = html;
 }
+
+function createRatingOptions(rating) {
+    let html = "";
+
+    for (let i = 1; i <= 10; i++) {
+        html += `
+            <option value="${i}" ${Number(rating) === i ? "selected" : ""}>
+                ${i}
+            </option>
+        `;
+    }
+
+    return html;
+}
+
+async function saveTitle(id) {
+    const title = titles.find(title => title.id === id);
+
+    const statusInput = document.getElementById(`status-${id}`);
+    const episodesInput = document.getElementById(`episodes-${id}`);
+    const ratingInput = document.getElementById(`rating-${id}`);
+
+    let status = statusInput.value;
+    let watchedEpisodes = Number(episodesInput.value);
+    const rating = ratingInput.value;
+
+    const totalEpisodes = Number(title.episodes);
+
+    if (watchedEpisodes < 0) {
+        watchedEpisodes = 0;
+    }
+
+    if (totalEpisodes && watchedEpisodes >= totalEpisodes) {
+        watchedEpisodes = totalEpisodes;
+        status = "Completed";
+    }
+
+    if (status === "Completed" && totalEpisodes) {
+        watchedEpisodes = totalEpisodes;
+    }
+
+    await fetch(`/api/titles/${id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            status: status,
+            watchedEpisodes: watchedEpisodes,
+            rating: rating
+        })
+    });
+
+    await loadData();
+}
+
+async function deleteTitle(id) {
+    await fetch(`/api/titles/${id}`, {
+        method: "DELETE"
+    });
+
+    await loadData();
+}
+
+document.getElementById("menuBtn").addEventListener("click", () => {
+    document.getElementById("dropdownMenu").classList.toggle("hidden");
+});
+
+loadData();
