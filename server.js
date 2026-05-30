@@ -27,7 +27,7 @@ function save(data) {
 
 // Default page (Discover)
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "main/html/index_homePage_SearchBar.html.html"));
+    res.sendFile(path.join(__dirname, "main/html/index_homePage_SearchBar.html"));
 });
 
 // Profile shortcut route

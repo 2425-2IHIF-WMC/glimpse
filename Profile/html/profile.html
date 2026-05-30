@@ -1,64 +1,112 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Glimpse Profile</title>
     <link rel="stylesheet" href="../css/profile.css">
 </head>
 <body>
 
-<nav>
-    <h2>Glimpse Profile</h2>
-    <a href="../../main/html/index_homePage_SearchBar.html">Discover</a>
-</nav>
+<header class="profile-header">
+    <div class="logo">Glimpse</div>
 
-<div class="layout">
+    <nav>
+        <a href="../../main/html/index_homePage_SearchBar.html">Discover</a>
+        <a href="#" onclick="showSection('stats')">Dashboard</a>
+        <a href="#" onclick="showSection('list')">My List</a>
+    </nav>
 
-    <aside class="sidebar">
-        <button onclick="showSection('stats')" class="active" id="statsBtn">Stats</button>
-        <button onclick="showSection('list')" id="listBtn">My List</button>
+    <div class="header-user">
+        <button id="menuBtn">☰</button>
+
+        <div id="dropdownMenu" class="dropdown hidden">
+            <button onclick="showSection('stats')">Dashboard</button>
+            <button onclick="showSection('list')">My List</button>
+            <button>Settings</button>
+        </div>
+    </div>
+</header>
+
+<main class="profile-shell">
+
+    <aside class="user-card">
+        <div class="avatar">G</div>
+        <h2 id="profileName">Glimpse User</h2>
+        <p>Track your anime journey.</p>
+
+        <div class="user-info">
+            <span>Joined</span>
+            <b>2026</b>
+        </div>
+
+        <div class="user-info">
+            <span>Status</span>
+            <b>Online</b>
+        </div>
+
+        <button onclick="showSection('list')" class="main-btn">Open My List</button>
     </aside>
 
-    <main class="content">
+    <section class="dashboard">
 
         <section id="statsSection">
-            <h1>Stats</h1>
+            <h1>Your Dashboard</h1>
 
-            <div class="stats">
-                <div>
-                    <h2 id="total">0</h2>
+            <div class="metric-grid">
+                <div class="metric-card">
                     <p>Total Titles</p>
+                    <h2 id="total">0</h2>
                 </div>
 
-                <div>
-                    <h2 id="watching">0</h2>
+                <div class="metric-card">
                     <p>Watching</p>
+                    <h2 id="watching">0</h2>
                 </div>
 
-                <div>
-                    <h2 id="completed">0</h2>
+                <div class="metric-card">
                     <p>Completed</p>
+                    <h2 id="completed">0</h2>
                 </div>
 
-                <div>
-                    <h2 id="average">0</h2>
+                <div class="metric-card">
                     <p>Average Rating</p>
+                    <h2 id="average">0</h2>
                 </div>
             </div>
 
-            <div class="panel">
-                <h2>Top Genres</h2>
-                <div id="genres"></div>
+            <div class="dashboard-grid">
+                <div class="panel">
+                    <h2>Progress Overview</h2>
+                    <div id="progressOverview"></div>
+                </div>
+
+                <div class="panel">
+                    <h2>Recent Updates</h2>
+                    <div id="lastUpdates"></div>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="panel">
+                    <h2>Top Genres</h2>
+                    <div id="genres"></div>
+                </div>
+
+                <div class="panel">
+                    <h2>Favorites</h2>
+                    <div id="favorites"></div>
+                </div>
             </div>
         </section>
 
-        <section id="listSection" style="display:none;">
+        <section id="listSection" class="hidden">
             <h1>My List</h1>
             <div id="myList"></div>
         </section>
 
-    </main>
+    </section>
 
-</div>
+</main>
 
 <script src="../js/profile.js"></script>
 </body>
