@@ -145,3 +145,45 @@ function renderFavorites() {
 
     document.getElementById("favorites").innerHTML = html;
 }
+
+function renderList() {
+    const list = document.getElementById("myList");
+
+    if (titles.length === 0) {
+        list.innerHTML = "<p>Your list is empty.</p>";
+        return;
+    }
+
+    let html = "";
+
+    for (const title of titles) {
+
+        html += `
+            <div class="list-card">
+
+                <img
+                    src="${title.image}"
+                    alt="${title.name}"
+                >
+
+                <div>
+                    <h2>${title.name}</h2>
+
+                    <p>
+                        ${title.watchedEpisodes || 0}
+                        /
+                        ${title.episodes || "?"}
+                        episodes
+                    </p>
+
+                    <p>Status: ${title.status}</p>
+
+                    <p>Rating: ${title.rating || "-"}</p>
+                </div>
+
+            </div>
+        `;
+    }
+
+    list.innerHTML = html;
+}
