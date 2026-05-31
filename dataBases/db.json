@@ -2,22 +2,78 @@
   "users": [
     {
       "email": "egorP@gmail.com",
-      "username": "egorius",
+      "username": "egonius",
       "password": "676767",
-      "id": "Lpq1SEaAOuQ"
+      "id": "LpqlSEaA0uQ"
     },
     {
       "email": "ryangosling@gmail.com",
       "username": "ryan_gosling",
       "password": "1234567",
-      "id": "DlozKJKTTD8"
+      "id": "DLozKJKTTD8"
     },
     {
       "email": "has@htl.leon",
       "username": "hasl",
       "password": "45",
-      "id": "HQMibL8hybk"
+      "id": "HQM1bl8hybk"
     }
   ],
-  "$schema": "./node_modules/json-server/schema.json"
+
+  "titles": [
+    {
+      "id": "1777806315527",
+      "name": "Be-Bop Highschool",
+      "image": "https://myanimelist.net/images/anime/1667/98768.jpg",
+      "description": "For the invincible and basically happy punk lads Hiroshi and Toru...",
+      "mal_id": 9645,
+      "score": 7.63,
+      "episodes": 7,
+      "status": "Completed",
+      "genres": ["Comedy"],
+      "watchedEpisodes": 7,
+      "rating": 1
+    },
+    {
+      "id": "1777806939682",
+      "name": "One Piece Film: Red",
+      "image": "https://myanimelist.net/images/anime/1668/125323.jpg",
+      "description": "As a child, Uta...",
+      "mal_id": 50410,
+      "score": 7.82,
+      "episodes": 1,
+      "watchedEpisodes": 1,
+      "rating": null,
+      "status": "Completed",
+      "genres": [
+        "Action",
+        "Adventure",
+        "Award Winning",
+        "Comedy",
+        "Drama",
+        "Fantasy"
+      ]
+    }
+  ],
+
+  "folders": [
+    {
+      "id": "folder1",
+      "name": "Favorites",
+      "titleIds": [
+        "1777806939682"
+      ],
+      "order": 0
+    },
+    {
+      "id": "folder2",
+      "name": "One Piece",
+      "titleIds": [
+        "1777806939682",
+        "1777810854913",
+        "1780177042401"
+      ],
+      "order": 1
+    }
+  ]
 }

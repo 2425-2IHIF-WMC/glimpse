@@ -16,13 +16,17 @@ app.use(express.static(path.join(__dirname)));
 // ===== DATABASE =====
 
 function read() {
-    return JSON.parse(fs.readFileSync("data.json", "utf8"));
+    return JSON.parse(
+        fs.readFileSync("dataBases/db.json", "utf8")
+    );
 }
 
 function save(data) {
-    fs.writeFileSync("data.json", JSON.stringify(data, null, 2));
+    fs.writeFileSync(
+        "dataBases/db.json",
+        JSON.stringify(data, null, 2)
+    );
 }
-
 // ===== ROUTES =====
 
 // Default page (Discover)
