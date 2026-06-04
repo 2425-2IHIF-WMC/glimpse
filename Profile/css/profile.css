@@ -291,3 +291,76 @@ button {
 .delete {
     background: #8b2f42;
 }
+.folder-section {
+    margin-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 16px;
+}
+
+.folder-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.folder-header h3 {
+    margin: 0;
+}
+
+#addFolderBtn {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    background: #8e75ff;
+    color: white;
+    border: none;
+}
+
+.folder-item {
+    padding: 10px;
+    margin-top: 8px;
+    background: #171727;
+    border: 1px solid #30304a;
+    border-radius: 10px;
+    cursor: grab;
+}
+
+.folder-item:hover {
+    background: #22223a;
+}
+
+.folder-item.active {
+    border-color: #8e75ff;
+}
+
+.folder-top {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.folder-title-card {
+    display: grid;
+    grid-template-columns: 70px 1fr auto;
+    gap: 14px;
+    align-items: center;
+    background: #161622;
+    border-radius: 14px;
+    padding: 12px;
+    margin-bottom: 12px;
+}
+
+.folder-title-card img {
+    width: 70px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.search-result {
+    padding: 10px;
+    background: #171727;
+    border-radius: 10px;
+    margin-bottom: 8px;
+    cursor: pointer;
+}

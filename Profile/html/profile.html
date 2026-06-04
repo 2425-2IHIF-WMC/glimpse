@@ -45,6 +45,15 @@
         </div>
 
         <button onclick="showSection('list')" class="main-btn">Open My List</button>
+
+        <div class="folder-section">
+            <div class="folder-header">
+                <h3>Folders</h3>
+                <button id="addFolderBtn">+</button>
+            </div>
+
+            <div id="foldersList"></div>
+        </div>
     </aside>
 
     <section class="dashboard">
@@ -102,6 +111,29 @@
         <section id="listSection" class="hidden">
             <h1>My List</h1>
             <div id="myList"></div>
+        </section>
+
+        <section id="folderSection" class="hidden">
+            <h1>Folder</h1>
+
+            <div class="folder-top">
+                <input id="folderNameInput" placeholder="Folder name">
+
+                <button id="renameFolderBtn">Rename</button>
+                <button id="deleteFolderBtn">Delete</button>
+                <button id="addTitleToFolderBtn">+</button>
+            </div>
+
+            <input
+                    id="folderSearchInput"
+                    class="hidden"
+                    placeholder="Search your titles..."
+            >
+
+            <div id="folderSearchResults"></div>
+
+            <h2>Folder Titles</h2>
+            <div id="folderTitles"></div>
         </section>
 
     </section>
