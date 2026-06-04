@@ -1,7 +1,17 @@
 let titles = [];
+let folders = [];
+let creatingFolder = false;
+
+// ===== LOAD DATA =====
 
 async function loadData() {
     const res = await fetch("/api/titles");
+
+    if (!res.ok) {
+        console.log("Could not load titles");
+        return;
+    }
+
     titles = await res.json();
 
     renderStats();
@@ -12,14 +22,39 @@ async function loadData() {
     renderList();
 }
 
+async function loadFolders() {
+    const res = await fetch("/api/folders");
+
+    if (!res.ok) {
+        console.log("Could not load folders");
+        return;
+    }
+
+    folders = await res.json();
+    renderFoldersList();
+}
+
+async function saveFolderToServer(folder) {
+    await fetch("/api/folders/" + folder.id, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(folder)
+    });
+}
+
+// ===== SECTIONS =====
+
 function showSection(section) {
     document.getElementById("statsSection").classList.toggle("hidden", section !== "stats");
     document.getElementById("listSection").classList.toggle("hidden", section !== "list");
 }
 
+// ===== STATS =====
+
 function renderStats() {
     const total = titles.length;
-
     const watching = titles.filter(title => title.status === "Watching").length;
     const completed = titles.filter(title => title.status === "Completed").length;
 
@@ -146,8 +181,9 @@ function renderFavorites() {
     document.getElementById("favorites").innerHTML = html;
 }
 
-function renderList() {
+// ===== LIST =====
 
+function renderList() {
     const list = document.getElementById("myList");
 
     if (titles.length === 0) {
@@ -158,17 +194,11 @@ function renderList() {
     let html = "";
 
     for (const title of titles) {
-
         html += `
             <div class="list-card">
-
-                <img
-                    src="${title.image}"
-                    alt="${title.name}"
-                >
+                <img src="${title.image}" alt="${title.name}">
 
                 <div>
-
                     <h2>${title.name}</h2>
 
                     <p>
@@ -179,27 +209,12 @@ function renderList() {
                     </p>
 
                     <div class="controls">
-
                         <select id="status-${title.id}">
-                            <option ${title.status === "Plan to Watch" ? "selected" : ""}>
-                                Plan to Watch
-                            </option>
-
-                            <option ${title.status === "Watching" ? "selected" : ""}>
-                                Watching
-                            </option>
-
-                            <option ${title.status === "Completed" ? "selected" : ""}>
-                                Completed
-                            </option>
-
-                            <option ${title.status === "On Hold" ? "selected" : ""}>
-                                On Hold
-                            </option>
-
-                            <option ${title.status === "Dropped" ? "selected" : ""}>
-                                Dropped
-                            </option>
+                            <option ${title.status === "Plan to Watch" ? "selected" : ""}>Plan to Watch</option>
+                            <option ${title.status === "Watching" ? "selected" : ""}>Watching</option>
+                            <option ${title.status === "Completed" ? "selected" : ""}>Completed</option>
+                            <option ${title.status === "On Hold" ? "selected" : ""}>On Hold</option>
+                            <option ${title.status === "Dropped" ? "selected" : ""}>Dropped</option>
                         </select>
 
                         <input
@@ -212,7 +227,6 @@ function renderList() {
 
                         <select id="rating-${title.id}">
                             <option value="">Rating</option>
-
                             ${createRatingOptions(title.rating)}
                         </select>
 
@@ -220,17 +234,11 @@ function renderList() {
                             Save
                         </button>
 
-                        <button
-                            class="delete"
-                            onclick="deleteTitle('${title.id}')"
-                        >
+                        <button class="delete" onclick="deleteTitle('${title.id}')">
                             Delete
                         </button>
-
                     </div>
-
                 </div>
-
             </div>
         `;
     }
@@ -253,7 +261,12 @@ function createRatingOptions(rating) {
 }
 
 async function saveTitle(id) {
-    const title = titles.find(title => title.id === id);
+    const title = titles.find(title => String(title.id) === String(id));
+
+    if (!title) {
+        console.log("Title not found");
+        return;
+    }
 
     const statusInput = document.getElementById(`status-${id}`);
     const episodesInput = document.getElementById(`episodes-${id}`);
@@ -301,8 +314,386 @@ async function deleteTitle(id) {
     await loadData();
 }
 
+// ===== MENU =====
+
 document.getElementById("menuBtn").addEventListener("click", () => {
     document.getElementById("dropdownMenu").classList.toggle("hidden");
 });
 
+// ===== FOLDERS =====
+
+function renderFoldersList() {
+    const container = document.getElementById("foldersList");
+
+    container.innerHTML = "";
+
+    if (folders.length === 0) {
+        return;
+    }
+
+    for (const folder of folders) {
+        const item = document.createElement("div");
+        item.className = "folder-item";
+
+        const amount = folder.titleIds ? folder.titleIds.length : 0;
+
+        item.innerHTML = `
+            <span>${folder.name}</span>
+        `;
+
+        item.addEventListener("click", () => openFolderModal(folder.id));
+        container.appendChild(item);
+    }
+}
+
+document.getElementById("addFolderBtn").addEventListener("click", () => {
+    if (creatingFolder) {
+        return;
+    }
+
+    creatingFolder = true;
+
+    const container = document.getElementById("foldersList");
+
+    const wrapper = document.createElement("div");
+    wrapper.style.cssText = "display:flex;gap:6px;margin-top:8px;";
+
+    const input = document.createElement("input");
+    input.placeholder = "Folder name";
+    input.style.cssText = "flex:1;padding:7px 10px;border-radius:10px;border:1px solid #33334a;background:#10101a;color:white;font-size:13px;";
+
+    const confirmBtn = document.createElement("button");
+    confirmBtn.textContent = "✓";
+    confirmBtn.style.cssText = "padding:7px 11px;border-radius:10px;background:#8e75ff;color:white;border:none;cursor:pointer;";
+
+    const cancelBtn = document.createElement("button");
+    cancelBtn.textContent = "✕";
+    cancelBtn.style.cssText = "padding:7px 11px;border-radius:10px;background:#2a2a3a;color:white;border:none;cursor:pointer;";
+
+    async function confirm() {
+        const name = input.value.trim();
+
+        if (!name) {
+            input.focus();
+            return;
+        }
+
+        await fetch("/api/folders", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                name: name
+            })
+        });
+
+        creatingFolder = false;
+        await loadFolders();
+    }
+
+    function cancel() {
+        creatingFolder = false;
+        renderFoldersList();
+    }
+
+    confirmBtn.addEventListener("click", confirm);
+
+    cancelBtn.addEventListener("click", cancel);
+
+    input.addEventListener("keydown", async e => {
+        if (e.key === "Enter") {
+            await confirm();
+        }
+
+        if (e.key === "Escape") {
+            cancel();
+        }
+    });
+
+    wrapper.appendChild(input);
+    wrapper.appendChild(confirmBtn);
+    wrapper.appendChild(cancelBtn);
+
+    container.appendChild(wrapper);
+    input.focus();
+});
+
+// ===== FOLDER MODAL =====
+
+function openFolderModal(folderId) {
+    const folder = folders.find(f => String(f.id) === String(folderId));
+
+    if (!folder) {
+        return;
+    }
+
+    const existing = document.getElementById("folderModal");
+
+    if (existing) {
+        existing.remove();
+    }
+
+    const overlay = document.createElement("div");
+    overlay.id = "folderModal";
+    overlay.style.cssText = `
+        position:fixed;
+        inset:0;
+        background:rgba(0,0,0,0.7);
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        z-index:1000;
+    `;
+
+    const modal = document.createElement("div");
+    modal.style.cssText = `
+        background:#12121e;
+        border:1px solid rgba(255,255,255,0.1);
+        border-radius:20px;
+        padding:28px;
+        width:480px;
+        max-width:95vw;
+        max-height:80vh;
+        display:flex;
+        flex-direction:column;
+        gap:16px;
+        box-shadow:0 24px 60px rgba(0,0,0,0.5);
+    `;
+
+    const header = document.createElement("div");
+    header.style.cssText = "display:flex;align-items:center;gap:10px;";
+
+    const titleEl = document.createElement("h2");
+    titleEl.textContent = folder.name;
+    titleEl.style.cssText = "margin:0;flex:1;font-size:20px;";
+
+    const renameInput = document.createElement("input");
+    renameInput.value = folder.name;
+    renameInput.style.cssText = "flex:1;padding:7px 10px;border-radius:10px;border:1px solid #33334a;background:#10101a;color:white;display:none;";
+
+    const renameBtn = document.createElement("button");
+    renameBtn.textContent = "Rename";
+    renameBtn.style.cssText = "padding:7px 12px;border-radius:10px;background:#2a2a3a;color:white;border:none;cursor:pointer;font-size:12px;";
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "Delete";
+    deleteBtn.style.cssText = "padding:7px 12px;border-radius:10px;background:#8b2f42;color:white;border:none;cursor:pointer;font-size:12px;";
+
+    const closeBtn = document.createElement("button");
+    closeBtn.textContent = "✕";
+    closeBtn.style.cssText = "padding:7px 11px;border-radius:10px;background:#1a1a28;color:white;border:none;cursor:pointer;";
+
+    let renaming = false;
+
+    renameBtn.addEventListener("click", async () => {
+        if (!renaming) {
+            renaming = true;
+
+            titleEl.style.display = "none";
+            renameInput.style.display = "block";
+            renameInput.focus();
+
+            renameBtn.textContent = "Save";
+        } else {
+            const newName = renameInput.value.trim();
+
+            if (!newName) {
+                return;
+            }
+
+            folder.name = newName;
+
+            await saveFolderToServer(folder);
+            await loadFolders();
+
+            titleEl.textContent = newName;
+            titleEl.style.display = "block";
+            renameInput.style.display = "none";
+
+            renameBtn.textContent = "Rename";
+            renaming = false;
+        }
+    });
+
+    deleteBtn.addEventListener("click", async () => {
+        await fetch("/api/folders/" + folderId, {
+            method: "DELETE"
+        });
+
+        await loadFolders();
+        overlay.remove();
+    });
+
+    closeBtn.addEventListener("click", () => overlay.remove());
+
+    overlay.addEventListener("click", e => {
+        if (e.target === overlay) {
+            overlay.remove();
+        }
+    });
+
+    header.appendChild(titleEl);
+    header.appendChild(renameInput);
+    header.appendChild(renameBtn);
+    header.appendChild(deleteBtn);
+    header.appendChild(closeBtn);
+
+    const searchWrap = document.createElement("div");
+    searchWrap.style.cssText = "position:relative;";
+
+    const searchInput = document.createElement("input");
+    searchInput.placeholder = "Search your titles to add...";
+    searchInput.style.cssText = "width:100%;padding:10px 14px;border-radius:12px;border:1px solid #33334a;background:#10101a;color:white;font-size:14px;box-sizing:border-box;";
+
+    const searchDropdown = document.createElement("div");
+    searchDropdown.style.cssText = `
+        position:absolute;
+        top:calc(100% + 6px);
+        left:0;
+        right:0;
+        background:#191927;
+        border:1px solid #33334a;
+        border-radius:12px;
+        max-height:220px;
+        overflow-y:auto;
+        z-index:10;
+        display:none;
+    `;
+
+    searchWrap.appendChild(searchInput);
+    searchWrap.appendChild(searchDropdown);
+
+    searchInput.addEventListener("input", () => {
+        const query = searchInput.value.trim().toLowerCase();
+
+        searchDropdown.innerHTML = "";
+
+        if (query.length < 1) {
+            searchDropdown.style.display = "none";
+            return;
+        }
+
+        const matches = titles.filter(t =>
+            t.name.toLowerCase().includes(query) &&
+            !folder.titleIds.includes(String(t.id))
+        );
+
+        if (matches.length === 0) {
+            searchDropdown.style.display = "none";
+            return;
+        }
+
+        for (const t of matches) {
+            const row = document.createElement("div");
+
+            row.style.cssText = "display:flex;align-items:center;gap:12px;padding:8px 12px;cursor:pointer;border-radius:8px;";
+
+            row.innerHTML = `
+                <img src="${t.image}" style="width:36px;height:52px;object-fit:cover;border-radius:6px;flex-shrink:0;">
+
+                <div>
+                    <div style="font-size:14px;color:#f3f3f7;">${t.name}</div>
+                    <div style="font-size:12px;color:#aaa9bd;">
+                        ${t.status} · ${t.watchedEpisodes || 0}/${t.episodes || "?"} eps
+                    </div>
+                </div>
+            `;
+
+            row.addEventListener("mouseenter", () => {
+                row.style.background = "#252539";
+            });
+
+            row.addEventListener("mouseleave", () => {
+                row.style.background = "";
+            });
+
+            row.addEventListener("click", async () => {
+                folder.titleIds.push(String(t.id));
+
+                await saveFolderToServer(folder);
+                await loadFolders();
+
+                searchInput.value = "";
+                searchDropdown.style.display = "none";
+
+                renderFolderTitles();
+            });
+
+            searchDropdown.appendChild(row);
+        }
+
+        searchDropdown.style.display = "block";
+    });
+
+    const titlesContainer = document.createElement("div");
+    titlesContainer.style.cssText = "overflow-y:auto;flex:1;display:flex;flex-direction:column;gap:10px;";
+
+    function renderFolderTitles() {
+        titlesContainer.innerHTML = "";
+
+        if (!folder.titleIds) {
+            folder.titleIds = [];
+        }
+
+        const folderTitles = folder.titleIds
+            .map(id => titles.find(t => String(t.id) === String(id)))
+            .filter(t => t);
+
+        if (folderTitles.length === 0) {
+            titlesContainer.innerHTML = `
+                <p style="color:#aaa9bd;margin:0;">
+                    No titles yet. Search above to add some.
+                </p>
+            `;
+            return;
+        }
+
+        for (const t of folderTitles) {
+            const card = document.createElement("div");
+
+            card.style.cssText = "display:flex;align-items:center;gap:14px;background:#171727;border-radius:12px;padding:10px 14px;";
+
+            card.innerHTML = `
+                <img src="${t.image}" style="width:44px;height:63px;object-fit:cover;border-radius:8px;flex-shrink:0;">
+
+                <div style="flex:1;">
+                    <div style="font-size:14px;font-weight:bold;">${t.name}</div>
+
+                    <div style="font-size:12px;color:#aaa9bd;margin-top:3px;">
+                        ${t.status} · ${t.watchedEpisodes || 0}/${t.episodes || "?"} eps · Rating: ${t.rating || "—"}
+                    </div>
+                </div>
+
+                <button data-remove="${t.id}" style="padding:6px 10px;border-radius:8px;background:#8b2f42;color:white;border:none;cursor:pointer;font-size:12px;flex-shrink:0;">
+                    Remove
+                </button>
+            `;
+
+            card.querySelector("[data-remove]").addEventListener("click", async () => {
+                folder.titleIds = folder.titleIds.filter(id => String(id) !== String(t.id));
+
+                await saveFolderToServer(folder);
+                await loadFolders();
+
+                renderFolderTitles();
+            });
+
+            titlesContainer.appendChild(card);
+        }
+    }
+
+    renderFolderTitles();
+
+    modal.appendChild(header);
+    modal.appendChild(searchWrap);
+    modal.appendChild(titlesContainer);
+
+    overlay.appendChild(modal);
+    document.body.appendChild(overlay);
+}
+
+// ===== INIT =====
+
 loadData();
+loadFolders();
