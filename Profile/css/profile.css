@@ -389,3 +389,28 @@ button {
     color: white;
     border: 1px solid #b7a8ff;
 }
+
+.list-tools {
+    display: flex;
+    gap: 12px;
+    margin: 15px 0;
+    flex-wrap: wrap;
+}
+
+.list-tools input,
+.list-tools select {
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 1px solid #33334a;
+    background-color: #10101a;
+    color: white;
+    font-size: 14px;
+}
+
+.list-tools input {
+    min-width: 240px;
+}
+
+.list-tools select {
+    cursor: pointer;
+}

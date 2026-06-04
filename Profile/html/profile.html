@@ -127,6 +127,24 @@
                 <button onclick="setStatusFilter('Dropped')">Dropped</button>
                 <button onclick="setStatusFilter('Plan to Watch')">Plan to Watch</button>
             </div>
+
+            <div class="list-tools">
+                <input
+                        id="listSearchInput"
+                        type="text"
+                        placeholder="Search in my list..."
+                >
+
+                <select id="sortSelect">
+                    <option value="recent">Last Updated</option>
+                    <option value="nameAZ">Name A-Z</option>
+                    <option value="nameZA">Name Z-A</option>
+                    <option value="ratingHigh">Rating High-Low</option>
+                    <option value="ratingLow">Rating Low-High</option>
+                    <option value="episodesHigh">Episodes High-Low</option>
+                    <option value="episodesLow">Episodes Low-High</option>
+                </select>
+            </div>
             <div id="myList"></div>
         </section>
 

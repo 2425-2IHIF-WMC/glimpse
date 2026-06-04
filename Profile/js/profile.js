@@ -4,6 +4,8 @@ let creatingFolder = false;
 
 let currentTypeFilter = "all";
 let currentStatusFilter = "all";
+let currentSearchText = "";
+let currentSort = "recent";
 
 // ===== LOAD DATA =====
 
@@ -57,6 +59,18 @@ async function saveFolderToServer(folder) {
 
 // ===== FILTERS =====
 
+function setTypeFilter(type) {
+    currentTypeFilter = type;
+    updateTypeButtons();
+    renderList();
+}
+
+function setStatusFilter(status) {
+    currentStatusFilter = status;
+    updateStatusButtons();
+    renderList();
+}
+
 function updateTypeButtons() {
     const buttons = document.querySelectorAll("#typeFilters button");
 
@@ -64,11 +78,7 @@ function updateTypeButtons() {
         button.classList.remove("active");
 
         if (
-            button.textContent.toLowerCase() === currentTypeFilter ||
-            (currentTypeFilter === "all" && button.textContent === "All") ||
-            (currentTypeFilter === "game" && button.textContent === "Games") ||
-            (currentTypeFilter === "movie" && button.textContent === "Movies") ||
-            (currentTypeFilter === "book" && button.textContent === "Books")
+            button.dataset.type === currentTypeFilter
         ) {
             button.classList.add("active");
         }
@@ -82,26 +92,11 @@ function updateStatusButtons() {
         button.classList.remove("active");
 
         if (
-            button.textContent === currentStatusFilter ||
-            (currentStatusFilter === "all" && button.textContent === "All")
+            button.dataset.status === currentStatusFilter
         ) {
             button.classList.add("active");
         }
     });
-}
-
-function setTypeFilter(type) {
-    currentTypeFilter = type;
-
-    updateTypeButtons();
-    renderList();
-}
-
-function setStatusFilter(status) {
-    currentStatusFilter = status;
-
-    updateStatusButtons();
-    renderList();
 }
 
 // ===== SECTIONS =====
@@ -246,7 +241,7 @@ function renderFavorites() {
 function renderList() {
     const list = document.getElementById("myList");
 
-    let filteredTitles = titles;
+    let filteredTitles = [...titles];
 
     if (currentTypeFilter !== "all") {
         filteredTitles = filteredTitles.filter(title =>
@@ -258,6 +253,42 @@ function renderList() {
         filteredTitles = filteredTitles.filter(title =>
             title.status === currentStatusFilter
         );
+    }
+
+    if (currentSearchText !== "") {
+        filteredTitles = filteredTitles.filter(title =>
+            title.name.toLowerCase().includes(currentSearchText)
+        );
+    }
+
+    if (currentSort === "recent") {
+        filteredTitles.sort((a, b) =>
+            Number(b.lastUpdated || b.id) - Number(a.lastUpdated || a.id)
+        );
+    }
+
+    if (currentSort === "nameAZ") {
+        filteredTitles.sort((a, b) => a.name.localeCompare(b.name));
+    }
+
+    if (currentSort === "nameZA") {
+        filteredTitles.sort((a, b) => b.name.localeCompare(a.name));
+    }
+
+    if (currentSort === "ratingHigh") {
+        filteredTitles.sort((a, b) => Number(b.rating || 0) - Number(a.rating || 0));
+    }
+
+    if (currentSort === "ratingLow") {
+        filteredTitles.sort((a, b) => Number(a.rating || 0) - Number(b.rating || 0));
+    }
+
+    if (currentSort === "episodesHigh") {
+        filteredTitles.sort((a, b) => Number(b.episodes || 0) - Number(a.episodes || 0));
+    }
+
+    if (currentSort === "episodesLow") {
+        filteredTitles.sort((a, b) => Number(a.episodes || 0) - Number(b.episodes || 0));
     }
 
     if (filteredTitles.length === 0) {
@@ -765,6 +796,18 @@ function openFolderModal(folderId) {
     overlay.appendChild(modal);
     document.body.appendChild(overlay);
 }
+
+// ===== SEARCH + SORT EVENTS =====
+
+document.getElementById("listSearchInput").addEventListener("input", e => {
+    currentSearchText = e.target.value.trim().toLowerCase();
+    renderList();
+});
+
+document.getElementById("sortSelect").addEventListener("change", e => {
+    currentSort = e.target.value;
+    renderList();
+});
 
 // ===== INIT =====
 

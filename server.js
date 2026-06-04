@@ -58,6 +58,7 @@ app.post("/api/titles", (req, res) => {
         watchedEpisodes: 0,
         status: "Plan to Watch",
         type: req.body.type || "anime",
+        lastUpdated: Date.now(),
         ...req.body
     };
 
@@ -83,6 +84,7 @@ app.put("/api/titles/:id", (req, res) => {
     title.status = req.body.status;
     title.watchedEpisodes = Number(req.body.watchedEpisodes);
     title.rating = req.body.rating === "" ? null : Number(req.body.rating);
+    title.lastUpdated = Date.now();
 
     save(data);
     res.json(title);
