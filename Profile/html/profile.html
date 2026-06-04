@@ -110,6 +110,23 @@
 
         <section id="listSection" class="hidden">
             <h1>My List</h1>
+            <div class="filter-tabs">
+                <button onclick="setTypeFilter('all')">All</button>
+                <button onclick="setTypeFilter('anime')">Anime</button>
+                <button onclick="setTypeFilter('manga')">Manga</button>
+                <button onclick="setTypeFilter('game')">Games</button>
+                <button onclick="setTypeFilter('movie')">Movies</button>
+                <button onclick="setTypeFilter('book')">Books</button>
+            </div>
+
+            <div class="filter-tabs">
+                <button onclick="setStatusFilter('all')">All</button>
+                <button onclick="setStatusFilter('Watching')">Watching</button>
+                <button onclick="setStatusFilter('Completed')">Completed</button>
+                <button onclick="setStatusFilter('On Hold')">On Hold</button>
+                <button onclick="setStatusFilter('Dropped')">Dropped</button>
+                <button onclick="setStatusFilter('Plan to Watch')">Plan to Watch</button>
+            </div>
             <div id="myList"></div>
         </section>
 
