@@ -19,49 +19,50 @@
       "id": "HQM1bl8hybk"
     }
   ],
-
   "titles": [
     {
-      "id": "1777806315527",
-      "name": "Be-Bop Highschool",
-      "image": "https://myanimelist.net/images/anime/1667/98768.jpg",
-      "description": "For the invincible and basically happy punk lads Hiroshi and Toru...",
-      "mal_id": 9645,
-      "score": 7.63,
-      "episodes": 7,
-      "status": "Completed",
-      "genres": ["Comedy"],
-      "watchedEpisodes": 7,
-      "rating": 1
+      "id": "1780578786186",
+      "rating": null,
+      "watchedEpisodes": 0,
+      "status": "Plan to Watch",
+      "type": "anime",
+      "name": "Darker than Black: Kuro no Keiyakusha",
+      "image": "https://cdn.myanimelist.net/images/anime/5/19570.jpg",
+      "description": "It has been 10 years since Heaven's Gate appeared in South America and Hell's Gate appeared in Japan, veiling the once familiar night sky with an oppressive skyscape. Their purposes unknown, these Gates are spaces in which the very laws of physics are ignored. With the appearance of the Gates emerged Contractors, who, in exchange for their humanity, are granted supernatural abilities.\n\nIn the Japanese city surrounding Hell's Gate, Section 4 Chief Misaki Kirihara finds herself at odds with an infamous Contractor codenamed Hei. Called \"Black Reaper\" in the underground world, Hei, like his associates, undertakes missions for the mysterious and ruthless Syndicate while slowly peeling back the dark layers covering a nefarious plot that threatens the very existence of Contractors.\n\nFrom the mind of Tensai Okamura comes a sci-fi thriller taking the form of a subtle exposé on a war in which political positions and justice have no sway—a war waged exclusively in the shadows.\n\n[Written by MAL Rewrite]",
+      "mal_id": 2025,
+      "score": 8.04,
+      "episodes": 25,
+      "genres": [
+        "Action",
+        "Mystery"
+      ]
     },
     {
-      "id": "1777806939682",
-      "name": "One Piece Film: Red",
-      "image": "https://myanimelist.net/images/anime/1668/125323.jpg",
-      "description": "As a child, Uta...",
-      "mal_id": 50410,
-      "score": 7.82,
-      "episodes": 1,
-      "watchedEpisodes": 1,
+      "id": "1780590759276",
       "rating": null,
-      "status": "Completed",
+      "watchedEpisodes": 0,
+      "status": "Watching",
+      "type": "anime",
+      "name": "One Piece Movie 01",
+      "image": "https://cdn.myanimelist.net/images/anime/1770/97704.jpg",
+      "description": "Many years ago, Woonan, a legendary pirate, plundered one-third of the world's gold and stashed it away on his secret island shrouded in mystery. \n\nIn the present, Luffy and the rest of the Straw Hats continue on their journey to the Grand Line. They are robbed by a group of bandits. Led by their captain, El Drago, these same bandits are headed towards Woonan's famed island. Even though the Straw Hat Pirates must now recover their stolen treasure, they have gained another objective: to discover the lost island, its treasures, and learn about the legend of Woonan.\n\n[Written by MAL Rewrite]",
+      "mal_id": 459,
+      "score": 7.1,
+      "episodes": 1,
       "genres": [
         "Action",
         "Adventure",
-        "Award Winning",
-        "Comedy",
-        "Drama",
         "Fantasy"
       ]
     }
   ],
-
   "folders": [
     {
       "id": "folder1",
       "name": "Favorites",
       "titleIds": [
-        "1777806939682"
+        "1777806939682",
+        "1780578786186"
       ],
       "order": 0
     },

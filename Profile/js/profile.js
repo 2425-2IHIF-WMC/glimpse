@@ -2,6 +2,9 @@ let titles = [];
 let folders = [];
 let creatingFolder = false;
 
+let currentTypeFilter = "all";
+let currentStatusFilter = "all";
+
 // ===== LOAD DATA =====
 
 async function loadData() {
@@ -35,13 +38,70 @@ async function loadFolders() {
 }
 
 async function saveFolderToServer(folder) {
+    if (!folder || !folder.id) {
+        console.log("Folder has no id:", folder);
+        return;
+    }
+
     await fetch("/api/folders/" + folder.id, {
         method: "PATCH",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(folder)
+        body: JSON.stringify({
+            name: folder.name,
+            titleIds: folder.titleIds
+        })
     });
+}
+
+// ===== FILTERS =====
+
+function updateTypeButtons() {
+    const buttons = document.querySelectorAll("#typeFilters button");
+
+    buttons.forEach(button => {
+        button.classList.remove("active");
+
+        if (
+            button.textContent.toLowerCase() === currentTypeFilter ||
+            (currentTypeFilter === "all" && button.textContent === "All") ||
+            (currentTypeFilter === "game" && button.textContent === "Games") ||
+            (currentTypeFilter === "movie" && button.textContent === "Movies") ||
+            (currentTypeFilter === "book" && button.textContent === "Books")
+        ) {
+            button.classList.add("active");
+        }
+    });
+}
+
+function updateStatusButtons() {
+    const buttons = document.querySelectorAll("#statusFilters button");
+
+    buttons.forEach(button => {
+        button.classList.remove("active");
+
+        if (
+            button.textContent === currentStatusFilter ||
+            (currentStatusFilter === "all" && button.textContent === "All")
+        ) {
+            button.classList.add("active");
+        }
+    });
+}
+
+function setTypeFilter(type) {
+    currentTypeFilter = type;
+
+    updateTypeButtons();
+    renderList();
+}
+
+function setStatusFilter(status) {
+    currentStatusFilter = status;
+
+    updateStatusButtons();
+    renderList();
 }
 
 // ===== SECTIONS =====
@@ -186,14 +246,28 @@ function renderFavorites() {
 function renderList() {
     const list = document.getElementById("myList");
 
-    if (titles.length === 0) {
-        list.innerHTML = "<p>Your list is empty.</p>";
+    let filteredTitles = titles;
+
+    if (currentTypeFilter !== "all") {
+        filteredTitles = filteredTitles.filter(title =>
+            title.type === currentTypeFilter
+        );
+    }
+
+    if (currentStatusFilter !== "all") {
+        filteredTitles = filteredTitles.filter(title =>
+            title.status === currentStatusFilter
+        );
+    }
+
+    if (filteredTitles.length === 0) {
+        list.innerHTML = "<p>No titles found.</p>";
         return;
     }
 
     let html = "";
 
-    for (const title of titles) {
+    for (const title of filteredTitles) {
         html += `
             <div class="list-card">
                 <img src="${title.image}" alt="${title.name}">
@@ -334,14 +408,10 @@ function renderFoldersList() {
     for (const folder of folders) {
         const item = document.createElement("div");
         item.className = "folder-item";
-
-        const amount = folder.titleIds ? folder.titleIds.length : 0;
-
-        item.innerHTML = `
-            <span>${folder.name}</span>
-        `;
+        item.textContent = folder.name;
 
         item.addEventListener("click", () => openFolderModal(folder.id));
+
         container.appendChild(item);
     }
 }
@@ -398,7 +468,6 @@ document.getElementById("addFolderBtn").addEventListener("click", () => {
     }
 
     confirmBtn.addEventListener("click", confirm);
-
     cancelBtn.addEventListener("click", cancel);
 
     input.addEventListener("keydown", async e => {
@@ -574,6 +643,10 @@ function openFolderModal(folderId) {
             return;
         }
 
+        if (!folder.titleIds) {
+            folder.titleIds = [];
+        }
+
         const matches = titles.filter(t =>
             t.name.toLowerCase().includes(query) &&
             !folder.titleIds.includes(String(t.id))
@@ -697,3 +770,5 @@ function openFolderModal(folderId) {
 
 loadData();
 loadFolders();
+updateTypeButtons();
+updateStatusButtons();

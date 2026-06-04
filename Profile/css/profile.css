@@ -364,3 +364,28 @@ button {
     margin-bottom: 8px;
     cursor: pointer;
 }
+
+.filter-tabs {
+    display: flex;
+    gap: 10px;
+    margin: 15px 0;
+    flex-wrap: wrap;
+}
+
+.filter-tabs button {
+    padding: 10px 16px;
+    border: none;
+    background-color: #222236;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.filter-tabs button:hover {
+    background-color: #3b6cff;
+}
+.filter-tabs button.active {
+    background-color: #8e75ff;
+    color: white;
+    border: 1px solid #b7a8ff;
+}
