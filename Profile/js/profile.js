@@ -16,9 +16,10 @@ if (!currentUser) {
 }
 
 // ===== LOAD DATA =====
-
 async function loadData() {
-    const res = await fetch("/api/titles");
+    const res = await fetch(
+        "/api/titles?userId=" + currentUser.id
+    );
 
     if (!res.ok) {
         console.log("Could not load titles");
@@ -867,6 +868,28 @@ document.getElementById("saveSettingsBtn").addEventListener("click", async () =>
 
 document.getElementById("logoutBtn").addEventListener("click", () => {
     localStorage.removeItem("currentUser");
+    window.location.href = "/login";
+});
+
+document.getElementById("deleteAccountBtn").addEventListener("click", async () => {
+    const sure = confirm("Are you sure you want to delete your account? This will delete all your titles and folders.");
+
+    if (!sure) {
+        return;
+    }
+
+    const response = await fetch("/api/users/" + currentUser.id, {
+        method: "DELETE"
+    });
+
+    if (!response.ok) {
+        alert("Could not delete account");
+        return;
+    }
+
+    localStorage.removeItem("currentUser");
+
+    alert("Account deleted");
     window.location.href = "/login";
 });
 

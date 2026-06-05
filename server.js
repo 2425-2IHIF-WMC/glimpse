@@ -277,6 +277,30 @@ app.patch("/api/users/:id", (req, res) => {
     res.json(user);
 });
 
+app.delete("/api/users/:id", (req, res) => {
+    const data = read();
+
+    const userId = req.params.id;
+
+    data.users = data.users.filter(user =>
+        String(user.id) !== String(userId)
+    );
+
+    data.titles = data.titles.filter(title =>
+        String(title.userId) !== String(userId)
+    );
+
+    data.folders = data.folders.filter(folder =>
+        String(folder.userId) !== String(userId)
+    );
+
+    save(data);
+
+    res.json({
+        success: true
+    });
+});
+
 // ===== START SERVER =====
 
 app.listen(PORT, () => {

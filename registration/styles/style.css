@@ -190,3 +190,9 @@ body {
     gap: 20px;
     width: 100%;
 }
+
+.delete-account-btn {
+    background-color: #8b2f42;
+    color: white;
+    margin-top: 15px;
+}
