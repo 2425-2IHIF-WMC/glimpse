@@ -33,6 +33,14 @@ app.get("/profile", (req, res) => {
     res.sendFile(path.join(__dirname, "Profile/html/profile.html"));
 });
 
+app.get("/login", (req, res) => {
+    res.sendFile(path.join(__dirname, "registration/login.html"));
+});
+
+app.get("/register", (req, res) => {
+    res.sendFile(path.join(__dirname, "registration/register.html"));
+});
+
 // ===== TITLES API =====
 
 app.get("/api/titles", (req, res) => {
