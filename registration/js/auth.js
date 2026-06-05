@@ -1,36 +1,39 @@
-﻿const registerForm = document.getElementById('registerForm');
+﻿const registerForm = document.getElementById("registerForm");
 
-registerForm.addEventListener("submit", async function(event){
+registerForm.addEventListener("submit", async function (event) {
     event.preventDefault();
-    
-    const emailValue = document.getElementById('email').value;
-    const usernameValue = document.getElementById('username').value;
-    const passwordValue = document.getElementById('password').value;
-    
-    const newUser = { 
-        email: emailValue,
-        username: usernameValue,
-        password: passwordValue
-    };
-    
-    try{
-        const response = await fetch("http://localhost:3000/users", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(newUser)
-        });
-        
-        if(response.ok){
-            alert("Successfully registered");
-            window.location.href="login.html";
-        }
-        else{
-            alert("Failed to register");
-        }
-    } catch(error){
-        console.log("Error with the connection", error);
-        alert("server doesnt response. Chech the connection; ", error.message);
+
+    const email = document.getElementById("email").value.trim();
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value.trim();
+
+    if (email === "" || username === "" || password === "") {
+        alert("Fill in all fields");
+        return;
     }
+
+    const response = await fetch("/api/register", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            email: email,
+            username: username,
+            password: password
+        })
+    });
+
+    if (!response.ok) {
+        const error = await response.json();
+        alert(error.error);
+        return;
+    }
+
+    const user = await response.json();
+
+    localStorage.setItem("currentUser", JSON.stringify(user));
+
+    alert("Successfully registered");
+    window.location.href = "/profile";
 });
