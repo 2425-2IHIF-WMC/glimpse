@@ -112,6 +112,7 @@ function updateStatusButtons() {
 function showSection(section) {
     document.getElementById("statsSection").classList.toggle("hidden", section !== "stats");
     document.getElementById("listSection").classList.toggle("hidden", section !== "list");
+    document.getElementById("settingsSection").classList.toggle("hidden", section !== "settings");
 }
 
 // ===== STATS =====
@@ -817,9 +818,56 @@ document.getElementById("sortSelect").addEventListener("change", e => {
     renderList();
 });
 
+// ===== USER SETTINGS =====
+
+function loadUserSettings() {
+    document.getElementById("profileName").textContent = currentUser.username;
+
+    document.getElementById("settingsEmail").value = currentUser.email;
+    document.getElementById("settingsUsername").value = currentUser.username;
+    document.getElementById("settingsPassword").value = currentUser.password;
+}
+
+document.getElementById("saveSettingsBtn").addEventListener("click", async () => {
+    const email = document.getElementById("settingsEmail").value.trim();
+    const username = document.getElementById("settingsUsername").value.trim();
+    const password = document.getElementById("settingsPassword").value.trim();
+
+    if (email === "" || username === "" || password === "") {
+        alert("Fill in all fields");
+        return;
+    }
+
+    const response = await fetch("/api/users/" + currentUser.id, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            email: email,
+            username: username,
+            password: password
+        })
+    });
+
+    if (!response.ok) {
+        alert("Could not update account");
+        return;
+    }
+
+    const updatedUser = await response.json();
+
+    localStorage.setItem("currentUser", JSON.stringify(updatedUser));
+
+    document.getElementById("profileName").textContent = updatedUser.username;
+
+    alert("Account updated");
+});
+
 // ===== INIT =====
 
 loadData();
 loadFolders();
+loadUserSettings();
 updateTypeButtons();
 updateStatusButtons();
