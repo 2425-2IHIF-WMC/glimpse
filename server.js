@@ -44,14 +44,22 @@ app.get("/register", (req, res) => {
 // ===== TITLES API =====
 
 app.get("/api/titles", (req, res) => {
-    res.json(read().titles);
+    const data = read();
+    const userId = req.query.userId;
+
+    const titles = data.titles.filter(title =>
+        String(title.userId) === String(userId)
+    );
+
+    res.json(titles);
 });
 
 app.post("/api/titles", (req, res) => {
     const data = read();
 
-    const exists = data.titles.find(
-        t => Number(t.mal_id) === Number(req.body.mal_id)
+    const exists = data.titles.find(t =>
+        Number(t.mal_id) === Number(req.body.mal_id) &&
+        String(t.userId) === String(req.body.userId)
     );
 
     if (exists) {
@@ -67,6 +75,7 @@ app.post("/api/titles", (req, res) => {
         status: "Plan to Watch",
         type: req.body.type || "anime",
         lastUpdated: Date.now(),
+        userId: req.body.userId,
         ...req.body
     };
 
@@ -116,13 +125,18 @@ app.delete("/api/titles/:id", (req, res) => {
 
 app.get("/api/folders", (req, res) => {
     const data = read();
+    const userId = req.query.userId;
 
     if (!data.folders) {
         data.folders = [];
         save(data);
     }
 
-    res.json(data.folders);
+    const folders = data.folders.filter(folder =>
+        String(folder.userId) === String(userId)
+    );
+
+    res.json(folders);
 });
 
 app.post("/api/folders", (req, res) => {
@@ -134,6 +148,7 @@ app.post("/api/folders", (req, res) => {
 
     const newFolder = {
         id: Date.now().toString(),
+        userId: req.body.userId,
         name: req.body.name,
         titleIds: [],
         order: data.folders.length
