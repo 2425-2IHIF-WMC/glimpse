@@ -1,12 +1,6 @@
 {
   "users": [
     {
-      "email": "egorP@gmail.com",
-      "username": "egonius",
-      "password": "676767",
-      "id": "LpqlSEaA0uQ"
-    },
-    {
       "email": "ryangosling@gmail.com",
       "username": "ryan_gosling",
       "password": "1234567",
@@ -133,6 +127,24 @@
       "genres": [
         "Action",
         "Mystery"
+      ]
+    },
+    {
+      "id": "1780690630932",
+      "rating": null,
+      "watchedEpisodes": 0,
+      "status": "Plan to Watch",
+      "type": "anime",
+      "lastUpdated": 1780690630932,
+      "userId": "HQM1bl8hybk",
+      "name": "Boku no Hero Academia: I Am a Hero Too",
+      "image": "https://cdn.myanimelist.net/images/anime/1697/157239.jpg",
+      "description": "Adaptation of the one-shot manga from the 2025 fanbook Boku no Hero Academia: Ultra-Age following high schooler Eri visit to U.A. High School.",
+      "mal_id": 64107,
+      "score": null,
+      "episodes": null,
+      "genres": [
+        "Action"
       ]
     }
   ],

@@ -70,7 +70,14 @@ async function saveFolderToServer(folder) {
 
 function setTypeFilter(type) {
     currentTypeFilter = type;
+
+    if (currentStatusFilter === "Watching" || currentStatusFilter === "Reading" || currentStatusFilter === "Playing") {
+        currentStatusFilter = "active";
+    }
+
+    updateStatusFilterLabels();
     updateTypeButtons();
+    updateStatusButtons();
     renderList();
 }
 
@@ -259,7 +266,11 @@ function renderList() {
         );
     }
 
-    if (currentStatusFilter !== "all") {
+    if (currentStatusFilter === "active") {
+        filteredTitles = filteredTitles.filter(title =>
+            title.status === getActiveStatusName()
+        );
+    } else if (currentStatusFilter !== "all") {
         filteredTitles = filteredTitles.filter(title =>
             title.status === currentStatusFilter
         );
@@ -325,8 +336,8 @@ function renderList() {
 
                     <div class="controls">
                         <select id="status-${title.id}">
-                            <option ${title.status === "Plan to Watch" ? "selected" : ""}>Plan to Watch</option>
-                            <option ${title.status === "Watching" ? "selected" : ""}>Watching</option>
+                            <option ${title.status === getPlanStatusName() ? "selected" : ""}>${getPlanStatusName()}</option>
+                            <option ${title.status === getActiveStatusName() ? "selected" : ""}>${getActiveStatusName()}</option>
                             <option ${title.status === "Completed" ? "selected" : ""}>Completed</option>
                             <option ${title.status === "On Hold" ? "selected" : ""}>On Hold</option>
                             <option ${title.status === "Dropped" ? "selected" : ""}>Dropped</option>
@@ -893,6 +904,43 @@ document.getElementById("deleteAccountBtn").addEventListener("click", async () =
     window.location.href = "/login";
 });
 
+function getActiveStatusName() {
+    if (currentTypeFilter === "book") {
+        return "Reading";
+    }
+
+    if(currentTypeFilter === "manga") {
+        return "Reading";
+    }
+
+    if (currentTypeFilter === "game") {
+        return "Playing";
+    }
+
+    return "Watching";
+}
+
+function getPlanStatusName() {
+    if (currentTypeFilter === "book" || currentTypeFilter === "manga") {
+        return "Plan to Read";
+    }
+
+    if (currentTypeFilter === "game") {
+        return "Plan to Play";
+    }
+
+    if (currentTypeFilter === "movie") {
+        return "Plan to Watch";
+    }
+
+    return "Plan to Watch";
+}
+
+function updateStatusFilterLabels() {
+    document.getElementById("activeStatusBtn").textContent = getActiveStatusName();
+    document.getElementById("planStatusBtn").textContent = getPlanStatusName();
+}
+
 // ===== INIT =====
 
 loadData();
@@ -900,3 +948,4 @@ loadFolders();
 loadUserSettings();
 updateTypeButtons();
 updateStatusButtons();
+updateStatusFilterLabels();
