@@ -17,6 +17,12 @@
       "username": "hasl",
       "password": "45",
       "id": "HQM1bl8hybk"
+    },
+    {
+      "id": "1780676478249",
+      "email": "aprozentuy@gmail.com",
+      "username": "angel",
+      "password": "1234"
     }
   ],
   "titles": [
@@ -88,6 +94,25 @@
       "episodes": 170,
       "genres": [
         "Action",
+        "Fantasy"
+      ]
+    },
+    {
+      "id": "1780676652541",
+      "rating": null,
+      "watchedEpisodes": 0,
+      "status": "Plan to Watch",
+      "type": "anime",
+      "lastUpdated": 1780676652541,
+      "name": "One Piece 3D: Mugiwara Chase",
+      "image": "https://cdn.myanimelist.net/images/anime/4/32455.jpg",
+      "description": "According to Weekly Shonen Jump, 3D movies of One Piece and Toriko were announced to premiere on March 19th, 2011. One Piece 3D is an original story about the missing straw hat of Luffy.",
+      "mal_id": 9999,
+      "score": 6.88,
+      "episodes": 1,
+      "genres": [
+        "Action",
+        "Adventure",
         "Fantasy"
       ]
     }
