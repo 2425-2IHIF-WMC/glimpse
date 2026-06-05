@@ -177,6 +177,83 @@ app.delete("/api/folders/:id", (req, res) => {
     });
 });
 
+// ===== USERS API =====
+
+app.get("/api/users", (req, res) => {
+    const data = read();
+    res.json(data.users || []);
+});
+
+app.post("/api/register", (req, res) => {
+    const data = read();
+
+    if (!data.users) {
+        data.users = [];
+    }
+
+    const exists = data.users.find(user =>
+        user.username === req.body.username ||
+        user.email === req.body.email
+    );
+
+    if (exists) {
+        return res.status(409).json({
+            error: "Username or email already exists"
+        });
+    }
+
+    const newUser = {
+        id: Date.now().toString(),
+        email: req.body.email,
+        username: req.body.username,
+        password: req.body.password
+    };
+
+    data.users.push(newUser);
+    save(data);
+
+    res.json(newUser);
+});
+
+app.post("/api/login", (req, res) => {
+    const data = read();
+
+    const user = data.users.find(user =>
+        user.username === req.body.username &&
+        user.password === req.body.password
+    );
+
+    if (!user) {
+        return res.status(401).json({
+            error: "Wrong username or password"
+        });
+    }
+
+    res.json(user);
+});
+
+app.patch("/api/users/:id", (req, res) => {
+    const data = read();
+
+    const user = data.users.find(user =>
+        String(user.id) === String(req.params.id)
+    );
+
+    if (!user) {
+        return res.status(404).json({
+            error: "User not found"
+        });
+    }
+
+    user.email = req.body.email;
+    user.username = req.body.username;
+    user.password = req.body.password;
+
+    save(data);
+
+    res.json(user);
+});
+
 // ===== START SERVER =====
 
 app.listen(PORT, () => {
