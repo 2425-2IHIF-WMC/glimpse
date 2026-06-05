@@ -7,6 +7,14 @@ let currentStatusFilter = "all";
 let currentSearchText = "";
 let currentSort = "recent";
 
+const currentUser = JSON.parse(
+    localStorage.getItem("currentUser")
+);
+
+if (!currentUser) {
+    window.location.href = "/login";
+}
+
 // ===== LOAD DATA =====
 
 async function loadData() {
