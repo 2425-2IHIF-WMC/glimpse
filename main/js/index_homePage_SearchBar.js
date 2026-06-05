@@ -4,7 +4,7 @@ let savedTitles = [];
 loadSavedTitles();
 
 async function loadSavedTitles() {
-    const res = await fetch("/api/titles");
+    const res = await fetch("/api/titles?userId=" + currentUser.id);
     savedTitles = await res.json();
 }
 

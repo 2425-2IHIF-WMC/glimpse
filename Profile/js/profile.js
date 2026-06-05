@@ -36,7 +36,7 @@ async function loadData() {
 }
 
 async function loadFolders() {
-    const res = await fetch("/api/folders");
+    const res = await fetch("/api/folders?userId=" + currentUser.id);
 
     if (!res.ok) {
         console.log("Could not load folders");
@@ -494,7 +494,8 @@ document.getElementById("addFolderBtn").addEventListener("click", () => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                name: name
+                name: name,
+                userId: currentUser.id
             })
         });
 
@@ -862,6 +863,11 @@ document.getElementById("saveSettingsBtn").addEventListener("click", async () =>
     document.getElementById("profileName").textContent = updatedUser.username;
 
     alert("Account updated");
+});
+
+document.getElementById("logoutBtn").addEventListener("click", () => {
+    localStorage.removeItem("currentUser");
+    window.location.href = "/login";
 });
 
 // ===== INIT =====
