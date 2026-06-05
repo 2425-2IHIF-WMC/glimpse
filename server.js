@@ -227,13 +227,13 @@ app.post("/api/login", (req, res) => {
     const data = read();
 
     const user = data.users.find(user =>
-        user.username === req.body.username &&
+        user.email === req.body.email &&
         user.password === req.body.password
     );
 
     if (!user) {
         return res.status(401).json({
-            error: "Wrong username or password"
+            error: "Wrong email or password"
         });
     }
 
