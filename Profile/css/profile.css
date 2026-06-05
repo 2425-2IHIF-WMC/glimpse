@@ -414,3 +414,46 @@ button {
 .list-tools select {
     cursor: pointer;
 }
+
+.hidden {
+    display: none;
+}
+
+#authModal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+#authModal.hidden {
+    display: none;
+}
+
+.auth-box {
+    background: #151522;
+    padding: 30px;
+    border-radius: 16px;
+    width: 360px;
+    color: white;
+}
+
+.auth-box input {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+
+.auth-box button {
+    padding: 10px 14px;
+    margin-top: 10px;
+}
+
+.auth-box span {
+    color: #8e75ff;
+    cursor: pointer;
+}
