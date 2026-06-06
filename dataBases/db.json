@@ -146,6 +146,62 @@
       "genres": [
         "Action"
       ]
+    },
+    {
+      "id": "1780762577266",
+      "rating": null,
+      "watchedEpisodes": 0,
+      "status": "Plan to Watch",
+      "type": "Movie",
+      "lastUpdated": 1780762577261,
+      "userId": "DLozKJKTTD8",
+      "externalId": "57555",
+      "name": "Chainsaw Man – The Movie: Reze Arc",
+      "image": "https://cdn.myanimelist.net/images/anime/1763/150638l.jpg",
+      "year": "N/A",
+      "apiSource": "Jikan"
+    },
+    {
+      "id": "1780762578265",
+      "rating": null,
+      "watchedEpisodes": 0,
+      "status": "Plan to Watch",
+      "type": "TV",
+      "lastUpdated": 1780762578263,
+      "userId": "DLozKJKTTD8",
+      "externalId": "5114",
+      "name": "Fullmetal Alchemist: Brotherhood",
+      "image": "https://cdn.myanimelist.net/images/anime/1208/94745l.jpg",
+      "year": "2009",
+      "apiSource": "Jikan"
+    },
+    {
+      "id": "1780762581609",
+      "rating": 5,
+      "watchedEpisodes": 0,
+      "status": "Plan to Watch",
+      "type": "Documentary",
+      "lastUpdated": 1780762598785,
+      "userId": "DLozKJKTTD8",
+      "externalId": "1522126",
+      "name": "1000 Men and Me: The Bonnie Blue Story",
+      "image": "https://image.tmdb.org/t/p/w500/5dcgoyf8nt6Xt4VSR6Nrn6nwhuz.jpg",
+      "year": "2025",
+      "apiSource": "TMDB"
+    },
+    {
+      "id": "1780762685626",
+      "rating": null,
+      "watchedEpisodes": 0,
+      "status": "Plan to Watch",
+      "type": "Series",
+      "lastUpdated": 1780762685609,
+      "userId": "DLozKJKTTD8",
+      "externalId": "76479",
+      "name": "The Boys",
+      "image": "https://image.tmdb.org/t/p/w500/in1R2dDc421JxsoRWaIIAqVI2KE.jpg",
+      "year": "2019",
+      "apiSource": "TMDB"
     }
   ],
   "folders": [
@@ -167,6 +223,16 @@
         "1780177042401"
       ],
       "order": 1
+    },
+    {
+      "id": "1780762621433",
+      "userId": "DLozKJKTTD8",
+      "name": "mine",
+      "titleIds": [
+        "1780762581609",
+        "1780762578265"
+      ],
+      "order": 2
     }
   ]
 }

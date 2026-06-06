@@ -51,7 +51,7 @@ async function loadCinemaDetails(id) {
         }
 
     } catch (error) {
-        console.error("Ошибка загрузки TMDB:", error);
+        console.error(error);
     }
 }
 
@@ -132,3 +132,22 @@ async function getTmdbBackdrop(title) {
     }
     return null;
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    // show the user name
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (currentUser) {
+        const nameEl = document.querySelector('.user-name');
+        if (nameEl) nameEl.textContent = currentUser.username;
+    } else {
+        window.location.href = '../../registration/login.html';
+    }
+    //ge tto the user profile page
+    const userProfile = document.querySelector('.user-profile');
+    if (userProfile) {
+        userProfile.style.cursor = 'pointer';
+        userProfile.addEventListener('click', () => {
+            window.location.href = '../../Profile/html/profile.html';
+        });
+    }
+});

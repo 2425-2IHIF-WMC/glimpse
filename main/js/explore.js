@@ -10,6 +10,22 @@ document.addEventListener('DOMContentLoaded', () => {
             currentFilter = btn.getAttribute('data-type');
         });
     });
+    //shows the username
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (currentUser) {
+        const nameEl = document.querySelector('.user-name');
+        if (nameEl) nameEl.textContent = currentUser.username;
+    } else {
+        window.location.href = '../../registration/login.html';
+    }
+    //get to the profile page
+    const userProfile = document.querySelector('.user-profile');
+    if (userProfile) {
+        userProfile.style.cursor = 'pointer';
+        userProfile.addEventListener('click', () => {
+            window.location.href = '../../Profile/html/profile.html';
+        });
+    }
 });
 
 function loadAllFilter(){
