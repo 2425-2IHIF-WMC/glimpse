@@ -94,6 +94,8 @@ async function liveSearchAnime() {
                 localStorage.setItem("selectedItemId", anime.mal_id);
                 localStorage.setItem("apiSource", "Jikan");
                 localStorage.setItem("mediaType", "Anime");
+                localStorage.setItem("mediaType", "Series");
+                localStorage.setItem("mediaType", "Movie");
 
                 window.location.href = "/main/html/content_card.html";
             });

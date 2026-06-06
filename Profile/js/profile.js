@@ -177,7 +177,9 @@ function renderGenres() {
     const genreCounts = {};
 
     for (const title of titles) {
-        for (const genre of title.genres || []) {
+        const genres = title.genres || [];
+
+        for (const genre of genres) {
             genreCounts[genre] = (genreCounts[genre] || 0) + 1;
         }
     }
@@ -186,7 +188,12 @@ function renderGenres() {
         .sort((a, b) => b[1] - a[1])
         .slice(0, 6);
 
-    const max = genres[0] ? genres[0][1] : 1;
+    if (genres.length === 0) {
+        document.getElementById("genres").innerHTML = "<p>No genres yet.</p>";
+        return;
+    }
+
+    const max = genres[0][1];
 
     let html = "";
 
@@ -261,9 +268,43 @@ function renderList() {
     let filteredTitles = [...titles];
 
     if (currentTypeFilter !== "all") {
-        filteredTitles = filteredTitles.filter(title =>
-            title.type === currentTypeFilter
-        );
+
+        filteredTitles = filteredTitles.filter(title => {
+
+            const type = String(title.type).toLowerCase();
+            const source = String(title.apiSource || "").toLowerCase();
+
+            if (currentTypeFilter === "anime") {
+                return (
+                    source === "jikan" ||
+                    type === "anime" ||
+                    type === "tv" ||
+                    type === "ova" ||
+                    type === "ona" ||
+                    type === "special"
+                );
+            }
+
+            if (currentTypeFilter === "series") {
+                return (
+                    source === "tmdb" &&
+                    type === "series"
+                );
+            }
+
+            if (currentTypeFilter === "movie") {
+                return (
+                    source === "tmdb" &&
+                    (
+                        type === "movie" ||
+                        type === "cinema" ||
+                        type === "documentary"
+                    )
+                );
+            }
+
+            return type === currentTypeFilter;
+        });
     }
 
     if (currentStatusFilter === "active") {
@@ -906,10 +947,6 @@ document.getElementById("deleteAccountBtn").addEventListener("click", async () =
 
 function getActiveStatusName() {
     if (currentTypeFilter === "book") {
-        return "Reading";
-    }
-
-    if(currentTypeFilter === "manga") {
         return "Reading";
     }
 

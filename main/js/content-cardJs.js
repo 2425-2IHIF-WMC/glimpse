@@ -19,6 +19,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+function getContentType() {
+    const type = String(mediaType).toLowerCase();
+
+    if (type === "series" || type === "tv") {
+        return "series";
+    }
+
+    if (
+        type === "documentary" ||
+        type === "cinema" ||
+        type === "movie" ||
+        type === "movies"
+    ) {
+        return "movie";
+    }
+
+    return "movie";
+}
 
 async function loadCinemaDetails(id) {
     try {
@@ -47,7 +65,7 @@ async function loadCinemaDetails(id) {
             watchedEpisodes: 0,
             rating: null,
             status: "Plan to Watch",
-            type: mediaType === "Series" ? "series" : "movie",
+            type: getContentType(),
             genres: data.genres ? data.genres.map(g => g.name) : []
         };
 
