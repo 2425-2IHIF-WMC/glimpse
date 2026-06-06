@@ -1,5 +1,5 @@
 ﻿body, html {
-    overflow-x: hidden; 
+    overflow-x: hidden;
 }
 
 .content {
@@ -8,12 +8,12 @@
 
 
 .section-header {
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-    margin-bottom: 20px; 
-    padding-right: 15px; 
+    margin-bottom: 20px;
+    padding-right: 15px;
 }
 
 
@@ -25,19 +25,19 @@
 
 .view-all-link {
     color: #B6A0FF;
-    font-family: 'Inter', sans-serif; 
+    font-family: 'Inter', sans-serif;
     font-size: 18px;
     font-style: normal;
     font-weight: 500;
     line-height: 20px;
 
-    text-decoration: none; 
-    transition: opacity 0.2s ease; 
+    text-decoration: none;
+    transition: opacity 0.2s ease;
 }
 
 
 .view-all-link:hover {
-    opacity: 0.8; 
+    opacity: 0.8;
 }
 
 
@@ -48,7 +48,7 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
-    z-index: 9999; 
+    z-index: 9999;
 }
 
 
@@ -64,19 +64,19 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    border-left: 4px solid; 
+    border-left: 4px solid;
 
-    
+
     animation: slideIn 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
 
 .toast.success {
-    border-left-color: #B6A0FF; 
+    border-left-color: #B6A0FF;
 }
 
 .toast.error {
-    border-left-color: #FF4A4A; 
+    border-left-color: #FF4A4A;
 }
 
 
@@ -98,11 +98,11 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 20px; 
+    margin-bottom: 20px;
 }
 
 .section-header h1 {
-    margin: 0; 
+    margin: 0;
     color: white;
     font-size: 24px;
 }
@@ -112,12 +112,12 @@
     font-family: 'Inter', sans-serif;
     font-size: 14px;
     font-weight: 600;
-    text-decoration: none; 
+    text-decoration: none;
     transition: color 0.3s ease;
 }
 
 
 .view-all-link:hover {
-    color: #FFF; 
-    text-decoration: underline; 
+    color: #FFF;
+    text-decoration: underline;
 }
