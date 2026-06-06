@@ -1,6 +1,9 @@
 ﻿const TMDB_API_KEY = "0564bb57f02f1478ec594f8c965796b5";
 const mediaType = localStorage.getItem('mediaType');
 
+let loadedTitle = null;
+let loadedSource = null;
+
 document.addEventListener('DOMContentLoaded', () => {
     const itemId = localStorage.getItem('selectedItemId');
     const apiSource = localStorage.getItem('apiSource');
@@ -29,6 +32,24 @@ async function loadCinemaDetails(id) {
 
         const response = await fetch(url);
         const data = await response.json();
+
+        loadedSource = "TMDB";
+
+        loadedTitle = {
+            externalId: "tmdb-" + id + "-" + mediaType,
+            name: data.title || data.name,
+            image: data.poster_path
+                ? "https://image.tmdb.org/t/p/w500" + data.poster_path
+                : "",
+            description: data.overview || "",
+            score: data.vote_average || null,
+            episodes: data.number_of_episodes || 1,
+            watchedEpisodes: 0,
+            rating: null,
+            status: "Plan to Watch",
+            type: mediaType === "Series" ? "series" : "movie",
+            genres: data.genres ? data.genres.map(g => g.name) : []
+        };
 
         const nameEl = document.querySelector('.name-item');
         if (nameEl) nameEl.textContent = data.title || data.name;
@@ -60,6 +81,23 @@ async function loadAnimeDetails(id) {
         const response = await fetch(`https://api.jikan.moe/v4/anime/${id}`);
         const result = await response.json();
         const anime = result.data;
+
+        loadedSource = "Jikan";
+
+        loadedTitle = {
+            externalId: "anime-" + anime.mal_id,
+            mal_id: anime.mal_id,
+            name: anime.title_english || anime.title,
+            image: anime.images.jpg.image_url,
+            description: anime.synopsis || "",
+            score: anime.score || null,
+            episodes: anime.episodes || null,
+            watchedEpisodes: 0,
+            rating: null,
+            status: "Plan to Watch",
+            type: "anime",
+            genres: anime.genres.map(g => g.name)
+        };
 
         const nameEl = document.querySelector('.name-item');
         if (nameEl) nameEl.textContent = anime.title_english || anime.title;
@@ -150,4 +188,55 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.href = '../../Profile/html/profile.html';
         });
     }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    const saveBtn = document.getElementById("saveTitleBtn");
+
+    if (!saveBtn) {
+        return;
+    }
+
+    saveBtn.addEventListener("click", async () => {
+        const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+        if (!currentUser) {
+            alert("Please login first.");
+            window.location.href = "/login";
+            return;
+        }
+
+        if (!loadedTitle) {
+            alert("Title is still loading.");
+            return;
+        }
+
+        const response = await fetch("/api/titles", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                userId: currentUser.id,
+                ...loadedTitle
+            })
+        });
+
+        if (response.status === 409) {
+            alert("This title is already in your list.");
+            saveBtn.textContent = "Saved";
+            saveBtn.disabled = true;
+            return;
+        }
+
+        if (!response.ok) {
+            alert("Could not save title.");
+            return;
+        }
+
+        saveBtn.textContent = "Saved";
+        saveBtn.disabled = true;
+
+        alert("Added to your list.");
+    });
 });

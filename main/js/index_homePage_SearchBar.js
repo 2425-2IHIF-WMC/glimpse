@@ -151,6 +151,11 @@ async function addToList(malId, button) {
 
     if (saveRes.status === 409) {
         alert("This title is already in your list.");
+
+        button.textContent = "Saved";
+        button.disabled = true;
+        button.classList.add("added");
+
         return;
     }
 
