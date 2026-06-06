@@ -1,17 +1,11 @@
 let liveSearchTimer;
 let savedTitles = [];
 
-const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-
 loadSavedTitles();
 
 async function loadSavedTitles() {
-    if (!currentUser) {
-        return;
-    }
-
-    const response = await fetch("/api/titles?userId=" + currentUser.id);
-    savedTitles = await response.json();
+    const res = await fetch("/api/titles");
+    savedTitles = await res.json();
 }
 
 async function liveSearchAnime() {
@@ -40,14 +34,14 @@ async function liveSearchAnime() {
             item.className = "live-item";
 
             item.innerHTML = `
-                <img src="${anime.images.jpg.image_url}">
-                <div>
-                    <div class="live-item-title">${anime.title}</div>
-                    <div class="live-item-meta">
-                        ${anime.type || "Anime"}, ${anime.year || "Unknown year"}
-                    </div>
-                </div>
-            `;
+        <img src="${anime.images.jpg.image_url}">
+        <div>
+          <div class="live-item-title">${anime.title}</div>
+          <div class="live-item-meta">
+            ${anime.type || "Anime"}, ${anime.year || "Unknown year"}
+          </div>
+        </div>
+      `;
 
             item.onclick = () => {
                 document.getElementById("searchInput").value = anime.title;
@@ -105,38 +99,28 @@ function createAnimeCard(anime) {
     const card = document.createElement("div");
     card.className = "card";
 
-    const isDuplicate = savedTitles.some(title =>
-        Number(title.mal_id) === Number(anime.mal_id)
-    );
+    const isDuplicate = savedTitles.some(title => title.mal_id === anime.mal_id);
 
     card.innerHTML = `
-        <img src="${anime.images.jpg.image_url}">
-        <h3>${anime.title}</h3>
-        <p>⭐ ${anime.score || "N/A"}</p>
-        <p>${anime.type || "Anime"} • ${anime.episodes || "?"} eps</p>
+    <img src="${anime.images.jpg.image_url}">
+    <h3>${anime.title}</h3>
+    <p>⭐ ${anime.score || "N/A"}</p>
+    <p>${anime.type || "Anime"} • ${anime.episodes || "?"} eps</p>
 
-        <button
-            class="${isDuplicate ? "added" : ""}"
-            ${isDuplicate ? "disabled" : ""}
-            onclick="addToList(${anime.mal_id}, this)"
-        >
-            ${isDuplicate ? "Already Added" : "Add to My List"}
-        </button>
-    `;
+    <button
+      class="${isDuplicate ? "added" : ""}"
+      ${isDuplicate ? "disabled" : ""}
+      onclick="addToList(${anime.mal_id}, this)"
+    >
+      ${isDuplicate ? "Already Added" : "Add to My List"}
+    </button>
+  `;
 
     return card;
 }
 
 async function addToList(malId, button) {
-    if (!currentUser) {
-        alert("Please login first.");
-        window.location.href = "/login";
-        return;
-    }
-
-    const alreadyExists = savedTitles.some(title =>
-        Number(title.mal_id) === Number(malId)
-    );
+    const alreadyExists = savedTitles.some(title => title.mal_id === malId);
 
     if (alreadyExists) {
         alert("This title is already in your list.");
@@ -152,7 +136,6 @@ async function addToList(malId, button) {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            userId: currentUser.id,
             name: anime.title,
             image: anime.images.jpg.image_url,
             description: anime.synopsis || "",
@@ -162,7 +145,6 @@ async function addToList(malId, button) {
             watchedEpisodes: 0,
             rating: null,
             status: "Plan to Watch",
-            type: "anime",
             genres: anime.genres.map(g => g.name)
         })
     });
@@ -179,5 +161,5 @@ async function addToList(malId, button) {
     button.disabled = true;
     button.classList.add("added");
 
-    alert("Added. Go to Profile → My List to edit it.");
+    alert("Added. Go to Profile ");
 }

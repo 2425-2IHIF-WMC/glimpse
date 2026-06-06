@@ -1,0 +1,90 @@
+﻿.anime-card {
+    background: transparent;
+    flex: 0 0 auto;
+    width: 220px;
+
+    border-radius: 16px;
+    overflow: hidden;
+    margin-top: 16px;
+    margin-left: 10px;
+    margin-right: 10px;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.anime-card:hover {
+    transform: translateY(-2px);
+}
+
+
+.card-poster {
+    position: relative;
+    width: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.card-poster img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.card-info {
+    padding: 15px 5px;
+}
+
+.card-title {
+    color: #FFFFFF;
+    font-size: 22px;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    margin-top: 1px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #ADAAAA;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.card-meta .dot {
+    font-size: 20px;
+}
+
+.card-extra {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #666;
+    font-size: 12px;
+    margin-top: 10px;
+}
+.save-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: #FFFFFF;
+    font-size: 14px;
+    padding: 8px 0;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+
+
+
+
+
+
+                                       

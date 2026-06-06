@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top This Week - Glimpse</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600&family=Manrope:wght@800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/header.css">
+    <link rel="stylesheet" href="../styles/sideMenu.css">
+    <link rel="stylesheet" href="styles-for-all-pages/grid-cards.css">
+    <link rel="stylesheet" href="../styles/back-button.css">
+</head>
+<body>
+
+<header class="header">
+    <div class="logo">
+        <div class="logo-icon"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 21" fill="none">
+            <g opacity="0.96">
+                <path d="M0.114258 20.8071L23.9998 20.9998L22.1302 17.6475L0.114258 20.8071Z" fill="url(#paint0_linear_415_869)"/>
+                <path d="M0.299805 20.846L20.7181 15.2973L19.6116 13.4863L0.299805 20.846Z" fill="url(#paint1_linear_415_869)"/>
+                <path d="M0.0380859 20.9997L18.4292 11.2125L17.4753 9.55566L0.0380859 20.9997Z" fill="url(#paint2_linear_415_869)"/>
+                <path d="M0.0761719 20.9616L20.6803 15.2973L19.6501 13.4863L0.0761719 20.9616Z" fill="url(#paint3_linear_415_869)"/>
+                <path d="M0 20.9954L16.2162 7.39854L15.186 5.70312L0 20.9954Z" fill="url(#paint4_linear_415_869)"/>
+                <path d="M0 21L13.9269 3.35229L11.9046 0L0 21Z" fill="url(#paint5_linear_415_869)"/>
+            </g>
+            <defs>
+                <linearGradient id="paint0_linear_415_869" x1="0.419542" y1="21.0383" x2="22.2165" y2="16.4746" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#FF5FF4"/>
+                    <stop offset="0.471154" stop-color="#5D46FF"/>
+                    <stop offset="1" stop-color="#00AAB8"/>
+                </linearGradient>
+                <linearGradient id="paint1_linear_415_869" x1="64.9408" y1="16.9773" x2="78.1998" y2="3.33182" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#BB4CE8" stop-opacity="0.2"/>
+                    <stop offset="0.25" stop-color="#BB4CE8" stop-opacity="0.8"/>
+                    <stop offset="1" stop-color="#00BBC8"/>
+                </linearGradient>
+                <linearGradient id="paint2_linear_415_869" x1="0.114397" y1="20.8456" x2="16.1726" y2="8.20527" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#FF5FF4"/>
+                    <stop offset="0.519231" stop-color="#5D46FF"/>
+                    <stop offset="1" stop-color="#00CCD8"/>
+                </linearGradient>
+                <linearGradient id="paint3_linear_415_869" x1="0.495886" y1="20.9616" x2="18.8568" y2="11.8511" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#FF5FF4"/>
+                    <stop offset="0.475962" stop-color="#5D46FF"/>
+                    <stop offset="1" stop-color="#00CCD8"/>
+                </linearGradient>
+                <linearGradient id="paint4_linear_415_869" x1="-1.62972e-07" y1="20.9954" x2="13.8871" y2="5.22961" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#FF5FF4"/>
+                    <stop offset="0.5" stop-color="#5D46FF"/>
+                    <stop offset="1" stop-color="#00DDEE"/>
+                </linearGradient>
+                <linearGradient id="paint5_linear_415_869" x1="-1.54924e-05" y1="21" x2="3.48532" y2="-0.0740203" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#FF5FF4"/>
+                    <stop offset="0.509615" stop-color="#5D46FF"/>
+                    <stop offset="1" stop-color="#00EEFF"/>
+                </linearGradient>
+            </defs>
+        </svg>
+        </div>
+        <span class="logo-text">Glimpse</span>
+    </div>
+
+    <div class="user-profile">
+        <span class="user-name">User Name</span>
+        <div class="avatar"></div>
+    </div>
+</header>
+
+<div class="main-layout">
+
+    <main class="content">
+        <a href="javascript:history.back()" class="back-link">Back</a>
+
+        <div class="top-movies">
+
+            <div class="section-header">
+                <h1 id="top-h1">Documentaries</h1>
+            </div>
+
+            <div class="results-grid-top" id="top-week-grid">
+            </div>
+
+        </div>
+    </main>
+
+</div>
+
+<script src="js-for-all-pages/all-docu.js"></script>
+<script src="js-for-all-pages/content-loader.js"></script>
+</body>
+</html>

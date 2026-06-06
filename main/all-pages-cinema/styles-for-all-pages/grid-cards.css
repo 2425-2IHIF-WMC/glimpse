@@ -1,0 +1,118 @@
+﻿.content {
+    flex: 1;
+    padding: 40px;
+    background: #0B0B12;
+    min-height: 100vh;
+}
+
+.section-header {
+    margin-bottom: 32px;
+}
+
+.section-header h1 {
+    color: #FFF;
+    font-family: 'Manrope', sans-serif; 
+    font-size: 42px;
+    font-weight: 800; 
+    margin: 0;
+}
+
+
+.results-grid-top {
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 40px 20px;  
+    width: 100%;
+    padding: 10px 0 60px 0;
+}
+
+
+.anime-card {
+    background: transparent;
+    flex: 0 0 auto;
+    width: 220px; 
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+
+    margin-top: 16px;
+}
+.anime-card:hover {
+    transform: translateY(-2px);
+}
+
+
+.card-poster {
+    position: relative;
+    width: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #1A1A1A;
+}
+
+.card-poster img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-info {
+    padding: 15px 5px;
+}
+
+.card-title {
+    color: #FFFFFF;
+    font-size: 22px;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    margin: 0 0 6px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #ADAAAA;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    margin-bottom: 12px;
+}
+
+.card-meta .dot {
+    font-size: 20px;
+    line-height: 0;
+}
+
+.card-extra {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #666;
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+.save-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: #FFFFFF;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    padding: 8px 0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.save-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+}

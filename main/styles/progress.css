@@ -1,0 +1,136 @@
+﻿#progressbar {
+    background-color: black;
+    border-radius: 13px;
+    padding: 1px;
+}
+
+#progressbar>div {
+    background: linear-gradient(90deg, #B6A0FF 0%, #4AF8E3 100%);
+    width: 10%;
+    height: 7px;
+    border-radius: 10px;
+}
+
+.content-text-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    align-self: stretch;
+}
+.text-1{
+    color: #B6A0FF;
+    text-align: center;
+    font-family: Manrope;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 20px; 
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+}
+.text-2{
+    color: #FFF;
+    text-align: center;
+    font-family: Manrope;
+    font-size: 60px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 60px; /* 100% */
+    letter-spacing: -3px;
+}
+.text-3{
+    color: #ADAAAA;
+    text-align: center;
+    font-family: Inter;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 29.25px; /* 162.5% */
+}
+.main-content{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 28px;
+}
+.films-to-choose{
+    margin-top: 28px;
+    width: 100%;
+    height: 230.245px;
+    transform: rotate(0deg);
+    grid-row: 1 / span 1;
+    grid-column: 1 / span 1;
+    border-radius: 8px;
+    border: 1px solid #B6A0FF;
+    background: rgba(32, 32, 31, 0.80);
+    backdrop-filter: blur(10px);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.00);
+    box-shadow: 0 0 30px -5px rgba(182, 160, 255, 0.30);
+}
+
+.films-to-choose-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+}
+.films-to-choose-content>h1{
+    font-size: 50px;
+    font-family: Manrope;
+    font-style: normal;
+    font-weight: 1000;
+}
+.films-to-choose-content>p{
+    font-family: Manrope;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 600;
+    color: rgba(173, 170, 170, 1);
+}
+
+.bottom-navbar {
+    position: fixed; 
+    bottom: 0;       
+    left: 0;
+    width: 100%;     
+    height: 90px;
+    background: rgba(11, 11, 18, 0.95);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    
+    display: flex;
+    justify-content: space-around; 
+    align-items: center;
+    padding: 15px 20px;
+
+    z-index: 1000; 
+}
+.nav-btn {
+    display: flex;
+    padding: 12px 32px;
+    align-items: center;
+    gap: 8px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #B6A0FF 0%, #A98FFF 100%);
+    border: none;
+    color: #340090;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    flex-direction: column;
+    transition: color 0.3s ease;
+}
+.nav-btn:hover,
+.nav-btn.active {
+    color: #190046;
+}
+#cancel{
+    color: rgba(255, 255, 255, 0.5);
+    text-align: center;
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 600;
+   
+}

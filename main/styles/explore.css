@@ -39,3 +39,85 @@
 .view-all-link:hover {
     opacity: 0.8; 
 }
+
+
+#toast-container {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 9999; 
+}
+
+
+.toast {
+    background: #1A1A1A;
+    color: #FFF;
+    padding: 16px 24px;
+    border-radius: 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-left: 4px solid; 
+
+    
+    animation: slideIn 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+
+.toast.success {
+    border-left-color: #B6A0FF; 
+}
+
+.toast.error {
+    border-left-color: #FF4A4A; 
+}
+
+
+@keyframes slideIn {
+    from { transform: translateX(120%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+
+.toast.fade-out {
+    animation: fadeOut 0.4s ease forwards;
+}
+
+@keyframes fadeOut {
+    to { transform: translateX(120%); opacity: 0; }
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px; 
+}
+
+.section-header h1 {
+    margin: 0; 
+    color: white;
+    font-size: 24px;
+}
+
+.view-all-link {
+    color: #B6A0FF;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none; 
+    transition: color 0.3s ease;
+}
+
+
+.view-all-link:hover {
+    color: #FFF; 
+    text-decoration: underline; 
+}

@@ -1,4 +1,5 @@
 ﻿const TMDB_API_KEY = "0564bb57f02f1478ec594f8c965796b5";
+const mediaType = localStorage.getItem('mediaType');
 
 document.addEventListener('DOMContentLoaded', () => {
     const itemId = localStorage.getItem('selectedItemId');
@@ -15,13 +16,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+
 async function loadCinemaDetails(id) {
     try {
-        const response = await fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${TMDB_API_KEY}`);
+        let url = '';
+
+        if (mediaType === 'Series') {
+            url = `https://api.themoviedb.org/3/tv/${id}?api_key=${TMDB_API_KEY}`;
+        } else {
+            url = `https://api.themoviedb.org/3/movie/${id}?api_key=${TMDB_API_KEY}`;
+        }
+
+        const response = await fetch(url);
         const data = await response.json();
 
         const nameEl = document.querySelector('.name-item');
-        if (nameEl) nameEl.textContent = data.title;
+        if (nameEl) nameEl.textContent = data.title || data.name;
 
         const aboutEl = document.getElementById('about-text');
         if (aboutEl) aboutEl.textContent = data.overview;
@@ -40,24 +50,8 @@ async function loadCinemaDetails(id) {
             if (trailerCont) trailerCont.style.backgroundImage = `url('${bgUrl}')`;
         }
 
-        const videoOverlay = document.querySelector('.video-overlay');
-        const trailerSection = document.querySelector('.trailer');
-
-        const videoResponse = await fetch(`https://api.themoviedb.org/3/movie/${id}/videos?api_key=${TMDB_API_KEY}`);
-        const videoData = await videoResponse.json();
-
-        const trailer = videoData.results.find(v => v.type === 'Trailer' && v.site === 'YouTube');
-
-        if (trailer && videoOverlay) {
-            videoOverlay.dataset.youtubeId = trailer.key;
-            if (trailerSection) trailerSection.style.display = 'block';
-            
-        } else {
-            if (trailerSection) trailerSection.style.display = 'none';
-        }
-
     } catch (error) {
-        console.error(error);
+        console.error("Ошибка загрузки TMDB:", error);
     }
 }
 
@@ -118,40 +112,8 @@ async function loadAnimeDetails(id) {
                 : `url('${bgUrl}')`;
         }
 
-        const videoOverlay = document.querySelector('.video-overlay');
-        const trailerSection = document.querySelector('.trailer');
-
-        if (anime.trailer && anime.trailer.youtube_id && videoOverlay) {
-            videoOverlay.dataset.youtubeId = anime.trailer.youtube_id;
-        } else if (trailerSection) {
-            trailerSection.style.display = 'none';
-        }
-
     } catch (error) {
         console.error(error);
-    }
-}
-
-function playVideo() {
-    const overlay = document.querySelector('.video-overlay');
-    if (!overlay) return;
-
-    const youtubeId = overlay.dataset.youtubeId;
-    if (!youtubeId) return;
-
-    overlay.style.display = 'none';
-    const playerWrapper = document.getElementById('youtube-player-wrapper');
-    if (playerWrapper) {
-        playerWrapper.style.display = 'block';
-        playerWrapper.innerHTML = `
-            <iframe width="100%" height="100%" 
-                src="https://www.youtube.com/embed/${youtubeId}?autoplay=1" 
-                frameborder="0" 
-                allow="autoplay; encrypted-media" 
-                allowfullscreen 
-                style="position:absolute; top:0; left:0; width:100%; height:100%; border-radius: 16px;">
-            </iframe>
-        `;
     }
 }
 

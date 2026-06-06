@@ -1,4 +1,6 @@
-﻿
+﻿* {
+    box-sizing: border-box;
+}
 
 .card-save {
     display: flex;
@@ -100,17 +102,6 @@
     gap: 10px;
 }
 
-.video-container {
-    position: relative; 
-    width: 100%;
-    height: 700px; 
-
-    background-image: url('');
-    background-size: cover;
-    background-position: center;
-    border-radius: 16px; 
-    overflow: hidden;
-}
 
 
 
@@ -246,16 +237,20 @@
     margin-top: 4px;
 }
 
-.watched_it\?{
+.watched_it {
     border-radius: 17px;
     border: 1px solid #FFF;
+
     width: 100%;
+
     height: 211px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 12px;
+
+    
+    margin: 12px 0 10px 0;
 }
 .question{
     color: #FFF;
@@ -292,3 +287,221 @@
     background: #1a1a1a;
 }
 
+
+.input-review-container {
+    display: flex;
+    gap: 12px;
+    background: #131313;
+    padding: 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    align-items: center;
+
+    width: 100%;
+    margin: 12px 0 10px 0;
+}
+
+.review-input {
+    flex: 1; 
+    background: #1A1A1A;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 12px 16px;
+    color: #FFF;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    outline: none; 
+    transition: border-color 0.3s ease;
+}
+
+
+
+
+
+
+.submit-review-btn {
+    background: #B6A0FF; 
+    color: #340090; 
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.1s ease;
+}
+
+
+.submit-review-btn:hover {
+    background: #9d83f5; 
+}
+
+
+
+
+.reviews-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px; 
+    margin-top: 24px;
+    width: 100%;
+}
+
+
+.review-card {
+    background: #1A1A1A; 
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px; 
+}
+
+
+.review-author {
+    color: #B6A0FF; 
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+}
+
+
+.review-text {
+    color: #FFF;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    line-height: 1.5;
+    margin: 0; 
+}
+
+
+.no-reviews {
+    color: #5F5F5F;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    text-align: center;
+    padding: 20px;
+}
+
+.review-card {
+    background: #0B0B12; 
+    border: 1px solid #2A2A2A; 
+    border-radius: 13px;
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+
+.review-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.review-avatar {
+    width: 40px;
+    height: 40px;
+    background: #B6A0FF; 
+    color: #340090; 
+    border-radius: 50%; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    flex-shrink: 0; 
+}
+
+.review-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.review-author {
+    color: #FFF;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.review-date {
+    color: #5F5F5F; 
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+}
+
+
+.review-text {
+    color: #CCCCCC; 
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    margin: 0;
+}
+
+
+.review-card-users {
+    background: #0B0B12; 
+    border: 1px solid #8f00ff; 
+    border-radius: 13px;
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.review-header-users {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+
+.review-avatar-user{
+    width: 40px;
+    height: 40px;
+    background: #B6A0FF;
+    color: #340090;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.review-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.review-author {
+    color: #FFF;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+}
+.review-author-user{
+    color: #FFF;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+
+.review-text {
+    color: #CCCCCC; 
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    margin: 0;
+}
