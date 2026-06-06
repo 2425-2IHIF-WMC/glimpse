@@ -1,4 +1,5 @@
-﻿body, html {
+﻿body,
+html {
     overflow-x: hidden;
 }
 
@@ -6,99 +7,34 @@
     min-width: 0;
 }
 
+.hero,
+.hero-overlay,
+.hero-content {
+    overflow: visible;
+}
+
+.hero {
+    position: relative;
+    z-index: 20;
+}
+
+.main-layout {
+    position: relative;
+    z-index: 1;
+}
+
+.header {
+    position: relative;
+    z-index: 100000;
+}
 
 .section-header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
 
     margin-bottom: 20px;
     padding-right: 15px;
-}
-
-
-.section-header h1 {
-    margin: 0;
-    color: white;
-}
-
-
-.view-all-link {
-    color: #B6A0FF;
-    font-family: 'Inter', sans-serif;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 20px;
-
-    text-decoration: none;
-    transition: opacity 0.2s ease;
-}
-
-
-.view-all-link:hover {
-    opacity: 0.8;
-}
-
-
-#toast-container {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    z-index: 9999;
-}
-
-
-.toast {
-    background: #1A1A1A;
-    color: #FFF;
-    padding: 16px 24px;
-    border-radius: 12px;
-    font-family: 'Inter', sans-serif;
-    font-size: 15px;
-    font-weight: 500;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    border-left: 4px solid;
-
-
-    animation: slideIn 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-}
-
-
-.toast.success {
-    border-left-color: #B6A0FF;
-}
-
-.toast.error {
-    border-left-color: #FF4A4A;
-}
-
-
-@keyframes slideIn {
-    from { transform: translateX(120%); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
-}
-
-
-.toast.fade-out {
-    animation: fadeOut 0.4s ease forwards;
-}
-
-@keyframes fadeOut {
-    to { transform: translateX(120%); opacity: 0; }
-}
-
-.section-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
 }
 
 .section-header h1 {
@@ -112,12 +48,153 @@
     font-family: 'Inter', sans-serif;
     font-size: 14px;
     font-weight: 600;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
+    line-height: 20px;
 
+    text-decoration: none;
+    transition: color 0.3s ease, opacity 0.2s ease;
+}
 
 .view-all-link:hover {
     color: #FFF;
     text-decoration: underline;
+    opacity: 0.8;
+}
+
+.search-container {
+    position: relative;
+    z-index: 99999;
+}
+
+.live-results {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+
+    z-index: 999999;
+
+    background: #171727;
+    border: 1px solid #33334a;
+    border-radius: 14px;
+
+    max-height: 360px;
+    overflow-y: auto;
+
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55);
+}
+
+.live-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 10px 12px;
+    cursor: pointer;
+
+    color: white;
+    transition: background 0.2s ease;
+}
+
+.live-item:hover {
+    background: #252539;
+}
+
+.live-item img {
+    width: 42px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+.live-item-title {
+    color: #f3f3f7;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.live-item-meta {
+    color: #aaa9bd;
+    font-size: 12px;
+    margin-top: 3px;
+}
+
+.view-all {
+    padding: 12px 14px;
+    cursor: pointer;
+
+    color: #B6A0FF;
+    font-size: 14px;
+    font-weight: 600;
+
+    border-top: 1px solid #33334a;
+}
+
+.view-all:hover {
+    background: #252539;
+}
+
+#toast-container {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    z-index: 999999;
+}
+
+.toast {
+    background: #1A1A1A;
+    color: #FFF;
+
+    padding: 16px 24px;
+    border-radius: 12px;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    border-left: 4px solid;
+
+    animation: slideIn 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.toast.success {
+    border-left-color: #B6A0FF;
+}
+
+.toast.error {
+    border-left-color: #FF4A4A;
+}
+
+.toast.fade-out {
+    animation: fadeOut 0.4s ease forwards;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(120%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    to {
+        transform: translateX(120%);
+        opacity: 0;
+    }
 }

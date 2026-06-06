@@ -111,10 +111,9 @@ async function liveSearchAnime() {
     }, 400);
 }
 
-async function searchAnime() {
+function searchAnime() {
     const query = document.getElementById("searchInput").value.trim();
     const liveResults = document.getElementById("liveResults");
-    const results = document.querySelector(".results-grid-all");
 
     liveResults.style.display = "none";
 
@@ -123,19 +122,8 @@ async function searchAnime() {
         return;
     }
 
-    results.innerHTML = "Loading...";
-
-    const res = await fetch(
-        `https://api.jikan.moe/v4/anime?q=${encodeURIComponent(query)}&limit=12`
-    );
-
-    const data = await res.json();
-
-    results.innerHTML = "";
-
-    data.data.forEach(anime => {
-        results.appendChild(createAnimeCard(anime));
-    });
+    window.location.href =
+        "/main/html/search-results.html?q=" + encodeURIComponent(query);
 }
 
 function showSingleResult(anime) {
