@@ -26,7 +26,19 @@ function save(data) {
 // ===== ROUTES =====
 
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "main/html/index_homePage_SearchBar.html"));
+    res.redirect("/main/html/explore.html");
+});
+
+app.get("/explore", (req, res) => {
+    res.redirect("/main/html/explore.html");
+});
+
+app.get("/cinema", (req, res) => {
+    res.redirect("/main/html/cinema-&-series.html");
+});
+
+app.get("/constructor", (req, res) => {
+    res.redirect("/main/html/constructor.html");
 });
 
 app.get("/profile", (req, res) => {
@@ -58,7 +70,7 @@ app.post("/api/titles", (req, res) => {
     const data = read();
 
     const exists = data.titles.find(t =>
-        Number(t.mal_id) === Number(req.body.mal_id) &&
+        String(t.externalId) === String(req.body.externalId) &&
         String(t.userId) === String(req.body.userId)
     );
 
