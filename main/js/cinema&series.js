@@ -5,33 +5,78 @@ let liveSearchTimer;
 let savedTitles = [];
 const TMDB_API_KEY = "0564bb57f02f1478ec594f8c965796b5";
 
-function toggleSave(btn, event){
+async function toggleSave(btn, event) {
     event.stopPropagation();
 
-    const textElement = btn.querySelector('.save-text');
-    const svgPath = btn.querySelector('svg path');
+    const text = btn.querySelector('.save-text');
+    const path = btn.querySelector('svg path');
 
-    if(textElement.textContent === 'Save'){
-        textElement.textContent = 'Saved';
+    if (text.textContent === 'Save') {
 
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (!currentUser) {
+            alert('Please login to save');
+            window.location.href = '/login';
+            return;
+        }
+
+        const id = btn.dataset.id;
+        const title = btn.dataset.title;
+        const image = btn.dataset.image;
+        const type = btn.dataset.type;
+        const year = btn.dataset.year;
+        const apiSource = btn.dataset.apiSource;
+
+        try {
+            const res = await fetch('/api/titles', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    userId: currentUser.id,
+                    externalId: id,
+                    name: title,
+                    image: image,
+                    type: type,
+                    year: year,
+                    apiSource: apiSource,
+                    status: 'Plan to Watch',
+                    rating: null,
+                    watchedEpisodes: 0,
+                    lastUpdated: Date.now()
+                })
+            });
+
+            if (res.status === 409) {
+                alert('Already in your list!');
+                return;
+            }
+
+            if (!res.ok) {
+                alert('Could not save');
+                return;
+            }
+
+        } catch (err) {
+            console.error(err);
+            return;
+        }
+
+        text.textContent = 'Saved';
         btn.style.background = '#B6A0FF';
         btn.style.borderColor = '#B6A0FF';
         btn.style.color = '#340090';
+        path.setAttribute('fill', '#340090');
+        path.setAttribute('stroke', '#340090');
 
-        svgPath.setAttribute('fill', '#340090');
-        svgPath.setAttribute('stroke', '#340090');
     } else {
-        textElement.textContent = 'Save';
-
+        text.textContent = 'Save';
         btn.style.background = 'rgba(255, 255, 255, 0.1)';
         btn.style.borderColor = 'rgba(255, 255, 255, 0.2)';
         btn.style.color = '#FFFFFF';
-
-        svgPath.setAttribute('fill', 'none');
-        svgPath.setAttribute('stroke', 'currentColor');
+        path.setAttribute('fill', 'none');
+        path.setAttribute('stroke', 'currentColor');
     }
 }
-
 
 document.addEventListener("DOMContentLoaded", () => {
     loadContent();
@@ -45,6 +90,22 @@ document.addEventListener("DOMContentLoaded", () => {
             loadContent();
         });
     });
+    //user
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (currentUser) {
+        const nameEl = document.querySelector('.user-name');
+        if (nameEl) nameEl.textContent = currentUser.username;
+    } else {
+        window.location.href = '/login';
+    }
+    //get to the user profile page
+    const userProfile = document.querySelector('.user-profile');
+    if (userProfile) {
+        userProfile.style.cursor = 'pointer';
+        userProfile.addEventListener('click', () => {
+            window.location.href = '/profile';
+        });
+    }
 });
 
 async function loadContent() {
@@ -317,7 +378,14 @@ function createCard(item) {
                 <span class="author">${item.year}</span>
             </div>
             <div class="card-extra">
-                <button class="save-btn" onclick="toggleSave(this, event)">
+                <button class="save-btn"
+                    data-id="${item.id}"
+                    data-title="${item.title}"
+                    data-image="${item.image}"
+                    data-type="${item.type}"
+                    data-year="${item.year}"
+                    data-api-source="${item.apiSource}"
+                    onclick="toggleSave(this, event)">
                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="14" viewBox="0 0 9 11" fill="none">
                         <path d="M7.35714 0.5C7.66025 0.5 7.95094 0.617065 8.16527 0.825443C8.37959 1.03382 8.5 1.31644 8.5 1.61113V9.94461C8.49997 10.0419 8.47366 10.1375 8.4237 10.2218C8.37375 10.3061 8.3019 10.3761 8.21535 10.425C8.12879 10.4738 8.03057 10.4997 7.9305 10.5C7.83044 10.5003 7.73203 10.4751 7.64514 10.4268L5.06686 8.9946C4.89421 8.89872 4.69883 8.84829 4.5 8.84829C4.30117 8.84829 4.10579 8.89872 3.93314 8.9946L1.35486 10.4268C1.26797 10.4751 1.16956 10.5003 1.0695 10.5C0.969431 10.4997 0.871207 10.4738 0.784653 10.425C0.6981 10.3761 0.626251 10.3061 0.576297 10.2218C0.526342 10.1375 0.500032 10.0419 0.5 9.94461V1.61113C0.5 1.31644 0.620408 1.03382 0.834735 0.825443C1.04906 0.617065 1.33975 0.5 1.64286 0.5H7.35714Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
@@ -329,12 +397,9 @@ function createCard(item) {
 
     card.onclick = () => {
         localStorage.setItem('selectedItemId', item.id);
-
         localStorage.setItem('apiSource', item.apiSource);
-
         localStorage.setItem('mediaType', item.type);
-
-        window.location.href = 'content_card.html';
+        window.location.href = '/main/html/content_card.html';
     };
 
     return card;
