@@ -35,5 +35,5 @@ registerForm.addEventListener("submit", async function (event) {
     localStorage.setItem("currentUser", JSON.stringify(user));
 
     alert("Successfully registered");
-    window.location.href = "/profile";
+    window.location.href = "../login.html";
 });
