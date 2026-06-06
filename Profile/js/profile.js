@@ -599,88 +599,78 @@ function openFolderModal(folderId) {
 
     const overlay = document.createElement("div");
     overlay.id = "folderModal";
-    overlay.style.cssText = `
-        position:fixed;
-        inset:0;
-        background:rgba(0,0,0,0.7);
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        z-index:1000;
-    `;
+    overlay.className = "folder-modal-overlay";
 
     const modal = document.createElement("div");
-    modal.style.cssText = `
-        background:#12121e;
-        border:1px solid rgba(255,255,255,0.1);
-        border-radius:20px;
-        padding:28px;
-        width:480px;
-        max-width:95vw;
-        max-height:80vh;
-        display:flex;
-        flex-direction:column;
-        gap:16px;
-        box-shadow:0 24px 60px rgba(0,0,0,0.5);
+    modal.className = "folder-modal";
+
+    modal.innerHTML = `
+        <div class="folder-modal-header">
+            <div>
+                <p class="folder-modal-label">Folder</p>
+                <h2 id="folderModalTitle">${folder.name}</h2>
+            </div>
+
+            <button id="closeFolderModalBtn" class="folder-icon-btn">✕</button>
+        </div>
+
+        <div class="folder-modal-actions">
+            <input id="folderRenameInput" value="${folder.name}">
+            <button id="renameFolderModalBtn">Rename</button>
+            <button id="deleteFolderModalBtn" class="danger-btn">Delete</button>
+        </div>
+
+        <div class="folder-add-box">
+            <h3>Add Titles</h3>
+            <input id="folderTitleSearchInput" placeholder="Search your list...">
+            <div id="folderSearchDropdown"></div>
+        </div>
+
+        <div class="folder-content-top">
+            <h3>Titles in this folder</h3>
+            <span id="folderTitleCount">0 titles</span>
+        </div>
+
+        <div id="folderTitlesGrid" class="folder-titles-grid"></div>
     `;
 
-    const header = document.createElement("div");
-    header.style.cssText = "display:flex;align-items:center;gap:10px;";
+    overlay.appendChild(modal);
+    document.body.appendChild(overlay);
 
-    const titleEl = document.createElement("h2");
-    titleEl.textContent = folder.name;
-    titleEl.style.cssText = "margin:0;flex:1;font-size:20px;";
+    document.getElementById("closeFolderModalBtn").addEventListener("click", () => {
+        overlay.remove();
+    });
 
-    const renameInput = document.createElement("input");
-    renameInput.value = folder.name;
-    renameInput.style.cssText = "flex:1;padding:7px 10px;border-radius:10px;border:1px solid #33334a;background:#10101a;color:white;display:none;";
-
-    const renameBtn = document.createElement("button");
-    renameBtn.textContent = "Rename";
-    renameBtn.style.cssText = "padding:7px 12px;border-radius:10px;background:#2a2a3a;color:white;border:none;cursor:pointer;font-size:12px;";
-
-    const deleteBtn = document.createElement("button");
-    deleteBtn.textContent = "Delete";
-    deleteBtn.style.cssText = "padding:7px 12px;border-radius:10px;background:#8b2f42;color:white;border:none;cursor:pointer;font-size:12px;";
-
-    const closeBtn = document.createElement("button");
-    closeBtn.textContent = "✕";
-    closeBtn.style.cssText = "padding:7px 11px;border-radius:10px;background:#1a1a28;color:white;border:none;cursor:pointer;";
-
-    let renaming = false;
-
-    renameBtn.addEventListener("click", async () => {
-        if (!renaming) {
-            renaming = true;
-
-            titleEl.style.display = "none";
-            renameInput.style.display = "block";
-            renameInput.focus();
-
-            renameBtn.textContent = "Save";
-        } else {
-            const newName = renameInput.value.trim();
-
-            if (!newName) {
-                return;
-            }
-
-            folder.name = newName;
-
-            await saveFolderToServer(folder);
-            await loadFolders();
-
-            titleEl.textContent = newName;
-            titleEl.style.display = "block";
-            renameInput.style.display = "none";
-
-            renameBtn.textContent = "Rename";
-            renaming = false;
+    overlay.addEventListener("click", event => {
+        if (event.target === overlay) {
+            overlay.remove();
         }
     });
 
-    deleteBtn.addEventListener("click", async () => {
-        await fetch("/api/folders/" + folderId, {
+    document.getElementById("renameFolderModalBtn").addEventListener("click", async () => {
+        const newName = document.getElementById("folderRenameInput").value.trim();
+
+        if (newName === "") {
+            alert("Folder name cannot be empty");
+            return;
+        }
+
+        folder.name = newName;
+
+        await saveFolderToServer(folder);
+        await loadFolders();
+
+        document.getElementById("folderModalTitle").textContent = newName;
+    });
+
+    document.getElementById("deleteFolderModalBtn").addEventListener("click", async () => {
+        const sure = confirm("Delete this folder?");
+
+        if (!sure) {
+            return;
+        }
+
+        await fetch("/api/folders/" + folder.id, {
             method: "DELETE"
         });
 
@@ -688,52 +678,16 @@ function openFolderModal(folderId) {
         overlay.remove();
     });
 
-    closeBtn.addEventListener("click", () => overlay.remove());
-
-    overlay.addEventListener("click", e => {
-        if (e.target === overlay) {
-            overlay.remove();
-        }
-    });
-
-    header.appendChild(titleEl);
-    header.appendChild(renameInput);
-    header.appendChild(renameBtn);
-    header.appendChild(deleteBtn);
-    header.appendChild(closeBtn);
-
-    const searchWrap = document.createElement("div");
-    searchWrap.style.cssText = "position:relative;";
-
-    const searchInput = document.createElement("input");
-    searchInput.placeholder = "Search your titles to add...";
-    searchInput.style.cssText = "width:100%;padding:10px 14px;border-radius:12px;border:1px solid #33334a;background:#10101a;color:white;font-size:14px;box-sizing:border-box;";
-
-    const searchDropdown = document.createElement("div");
-    searchDropdown.style.cssText = `
-        position:absolute;
-        top:calc(100% + 6px);
-        left:0;
-        right:0;
-        background:#191927;
-        border:1px solid #33334a;
-        border-radius:12px;
-        max-height:220px;
-        overflow-y:auto;
-        z-index:10;
-        display:none;
-    `;
-
-    searchWrap.appendChild(searchInput);
-    searchWrap.appendChild(searchDropdown);
+    const searchInput = document.getElementById("folderTitleSearchInput");
+    const dropdown = document.getElementById("folderSearchDropdown");
 
     searchInput.addEventListener("input", () => {
         const query = searchInput.value.trim().toLowerCase();
 
-        searchDropdown.innerHTML = "";
+        dropdown.innerHTML = "";
 
         if (query.length < 1) {
-            searchDropdown.style.display = "none";
+            dropdown.style.display = "none";
             return;
         }
 
@@ -741,104 +695,97 @@ function openFolderModal(folderId) {
             folder.titleIds = [];
         }
 
-        const matches = titles.filter(t =>
-            t.name.toLowerCase().includes(query) &&
-            !folder.titleIds.includes(String(t.id))
+        const matches = titles.filter(title =>
+            title.name.toLowerCase().includes(query) &&
+            !folder.titleIds.includes(String(title.id))
         );
 
         if (matches.length === 0) {
-            searchDropdown.style.display = "none";
+            dropdown.innerHTML = `<p class="folder-empty-search">No titles found</p>`;
+            dropdown.style.display = "block";
             return;
         }
 
-        for (const t of matches) {
+        for (const title of matches) {
             const row = document.createElement("div");
-
-            row.style.cssText = "display:flex;align-items:center;gap:12px;padding:8px 12px;cursor:pointer;border-radius:8px;";
+            row.className = "folder-search-row";
 
             row.innerHTML = `
-                <img src="${t.image}" style="width:36px;height:52px;object-fit:cover;border-radius:6px;flex-shrink:0;">
+                <img src="${title.image}" alt="${title.name}">
 
                 <div>
-                    <div style="font-size:14px;color:#f3f3f7;">${t.name}</div>
-                    <div style="font-size:12px;color:#aaa9bd;">
-                        ${t.status} · ${t.watchedEpisodes || 0}/${t.episodes || "?"} eps
-                    </div>
+                    <h4>${title.name}</h4>
+                    <p>${title.status} · ${title.watchedEpisodes || 0}/${title.episodes || "?"}</p>
                 </div>
+
+                <button>Add</button>
             `;
 
-            row.addEventListener("mouseenter", () => {
-                row.style.background = "#252539";
-            });
-
-            row.addEventListener("mouseleave", () => {
-                row.style.background = "";
-            });
-
-            row.addEventListener("click", async () => {
-                folder.titleIds.push(String(t.id));
+            row.querySelector("button").addEventListener("click", async () => {
+                folder.titleIds.push(String(title.id));
 
                 await saveFolderToServer(folder);
                 await loadFolders();
 
                 searchInput.value = "";
-                searchDropdown.style.display = "none";
+                dropdown.style.display = "none";
 
                 renderFolderTitles();
             });
 
-            searchDropdown.appendChild(row);
+            dropdown.appendChild(row);
         }
 
-        searchDropdown.style.display = "block";
+        dropdown.style.display = "block";
     });
 
-    const titlesContainer = document.createElement("div");
-    titlesContainer.style.cssText = "overflow-y:auto;flex:1;display:flex;flex-direction:column;gap:10px;";
-
     function renderFolderTitles() {
-        titlesContainer.innerHTML = "";
+        const grid = document.getElementById("folderTitlesGrid");
+        const count = document.getElementById("folderTitleCount");
+
+        grid.innerHTML = "";
 
         if (!folder.titleIds) {
             folder.titleIds = [];
         }
 
         const folderTitles = folder.titleIds
-            .map(id => titles.find(t => String(t.id) === String(id)))
-            .filter(t => t);
+            .map(id => titles.find(title => String(title.id) === String(id)))
+            .filter(title => title);
+
+        count.textContent = folderTitles.length + " titles";
 
         if (folderTitles.length === 0) {
-            titlesContainer.innerHTML = `
-                <p style="color:#aaa9bd;margin:0;">
-                    No titles yet. Search above to add some.
-                </p>
+            grid.innerHTML = `
+                <div class="folder-empty-state">
+                    <h3>No titles yet</h3>
+                    <p>Search above and add titles from your list.</p>
+                </div>
             `;
             return;
         }
 
-        for (const t of folderTitles) {
+        for (const title of folderTitles) {
             const card = document.createElement("div");
-
-            card.style.cssText = "display:flex;align-items:center;gap:14px;background:#171727;border-radius:12px;padding:10px 14px;";
+            card.className = "folder-title-card";
 
             card.innerHTML = `
-                <img src="${t.image}" style="width:44px;height:63px;object-fit:cover;border-radius:8px;flex-shrink:0;">
+                <img src="${title.image}" alt="${title.name}">
 
-                <div style="flex:1;">
-                    <div style="font-size:14px;font-weight:bold;">${t.name}</div>
-
-                    <div style="font-size:12px;color:#aaa9bd;margin-top:3px;">
-                        ${t.status} · ${t.watchedEpisodes || 0}/${t.episodes || "?"} eps · Rating: ${t.rating || "—"}
-                    </div>
+                <div class="folder-title-info">
+                    <h3>${title.name}</h3>
+                    <p>${title.status}</p>
+                    <p>${title.watchedEpisodes || 0}/${title.episodes || "?"} episodes</p>
+                    <p>Rating: ${title.rating || "—"}</p>
                 </div>
 
-                <button data-remove="${t.id}" style="padding:6px 10px;border-radius:8px;background:#8b2f42;color:white;border:none;cursor:pointer;font-size:12px;flex-shrink:0;">
-                    Remove
-                </button>
+                <button class="remove-folder-title-btn">Remove</button>
             `;
 
-            card.querySelector("[data-remove]").addEventListener("click", async () => {
-                folder.titleIds = folder.titleIds.filter(id => String(id) !== String(t.id));
+            card.querySelector(".remove-folder-title-btn").addEventListener("click", async () => {
+                folder.titleIds = folder.titleIds.filter(id =>
+                    String(id) !== String(title.id)
+                );
 
                 await saveFolderToServer(folder);
                 await loadFolders();
@@ -846,18 +793,11 @@ function openFolderModal(folderId) {
                 renderFolderTitles();
             });
 
-            titlesContainer.appendChild(card);
+            grid.appendChild(card);
         }
     }
 
     renderFolderTitles();
-
-    modal.appendChild(header);
-    modal.appendChild(searchWrap);
-    modal.appendChild(titlesContainer);
-
-    overlay.appendChild(modal);
-    document.body.appendChild(overlay);
 }
 
 // ===== SEARCH + SORT EVENTS =====
