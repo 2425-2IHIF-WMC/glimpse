@@ -117,7 +117,9 @@ function searchAnime() {
     const query = document.getElementById("searchInput").value.trim();
     const liveResults = document.getElementById("liveResults");
 
-    liveResults.style.display = "none";
+    if (liveResults) {
+        liveResults.style.display = "none";
+    }
 
     if (query === "") {
         alert("Search something first.");
@@ -125,7 +127,7 @@ function searchAnime() {
     }
 
     window.location.href =
-        "/main/html/search-results.html?q=" + encodeURIComponent(query);
+        "/main/html/viewAll.html?q=" + encodeURIComponent(query);
 }
 
 function showSingleResult(anime) {

@@ -348,6 +348,48 @@
         "Action",
         "Mystery"
       ]
+    },
+    {
+      "id": "1780775035775",
+      "rating": 10,
+      "watchedEpisodes": 1,
+      "status": "Completed",
+      "type": "anime",
+      "lastUpdated": 1780775049108,
+      "userId": "1780676478249",
+      "externalId": "anime-9999",
+      "mal_id": 9999,
+      "name": "One Piece 3D: Mugiwara Chase",
+      "image": "https://cdn.myanimelist.net/images/anime/4/32455.jpg",
+      "description": "According to Weekly Shonen Jump, 3D movies of One Piece and Toriko were announced to premiere on March 19th, 2011. One Piece 3D is an original story about the missing straw hat of Luffy.",
+      "score": 6.88,
+      "episodes": 1,
+      "apiSource": "Jikan",
+      "genres": [
+        "Action",
+        "Adventure",
+        "Fantasy"
+      ]
+    },
+    {
+      "id": "1780775380601",
+      "rating": null,
+      "watchedEpisodes": 0,
+      "status": "Plan to Watch",
+      "type": "anime",
+      "lastUpdated": 1780775380602,
+      "userId": "1780676478249",
+      "externalId": "anime-32561",
+      "mal_id": 32561,
+      "name": "Hai to Gensou no Grimgar: Furoagari no Kabe ni Kaketa Seishun - One More Centimeter",
+      "image": "https://cdn.myanimelist.net/images/anime/11/78160.jpg",
+      "description": "Special episode that will expand on the ending of episode 2 where the boys try to spy on the girls bathing.",
+      "score": 6.58,
+      "episodes": 1,
+      "apiSource": "Jikan",
+      "genres": [
+        "Comedy"
+      ]
     }
   ],
   "folders": [
