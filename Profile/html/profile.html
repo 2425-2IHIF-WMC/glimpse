@@ -33,7 +33,9 @@
 <main class="profile-shell">
 
     <aside class="user-card">
-        <div class="avatar">G</div>
+        <div id="profileBanner" class="profile-banner"></div>
+
+        <div id="profileAvatar" class="avatar">G</div>
         <h2 id="profileName">Glimpse User</h2>
         <p id="profileBioText">Track your anime journey.</p>
 
@@ -283,19 +285,25 @@
                         <div class="design-page" id="design-picture">
                             <div class="settings-card">
                                 <h2>Picture</h2>
-                                <p>Change your avatar or banner.</p>
+                                <p>Upload your avatar and banner image.</p>
 
-                                <div class="settings-form-row">
-                                    <label>Avatar Image URL</label>
-                                    <input id="avatarUrlInput" type="text" placeholder="Paste image URL...">
+                                <div class="picture-upload-grid">
+                                    <div>
+                                        <h3>Avatar</h3>
+                                        <input id="avatarFileInput" type="file" accept="image/*">
+                                        <img id="avatarPreview" class="settings-image-preview">
+                                    </div>
+
+                                    <div>
+                                        <h3>Banner</h3>
+                                        <input id="bannerFileInput" type="file" accept="image/*">
+                                        <img id="bannerPreview" class="settings-banner-preview">
+                                    </div>
                                 </div>
 
-                                <div class="settings-form-row">
-                                    <label>Banner Image URL</label>
-                                    <input id="bannerUrlInput" type="text" placeholder="Paste banner URL...">
-                                </div>
-
-                                <button class="settings-primary-btn">Save Pictures</button>
+                                <button id="savePicturesBtn" class="settings-primary-btn">
+                                    Save Pictures
+                                </button>
                             </div>
                         </div>
 

@@ -1242,6 +1242,107 @@ if (clearFavoritesBtn) {
     });
 }
 
+let selectedAvatarImage = currentUser.avatarImage || "";
+let selectedBannerImage = currentUser.bannerImage || "";
+
+function applyProfilePictures() {
+    const avatar = document.getElementById("profileAvatar");
+    const banner = document.getElementById("profileBanner");
+
+    if (currentUser.avatarImage) {
+        avatar.textContent = "";
+        avatar.style.backgroundImage = `url(${currentUser.avatarImage})`;
+        avatar.style.backgroundSize = "cover";
+        avatar.style.backgroundPosition = "center";
+    }
+
+    if (currentUser.bannerImage) {
+        banner.style.backgroundImage = `url(${currentUser.bannerImage})`;
+        banner.style.backgroundSize = "cover";
+        banner.style.backgroundPosition = "center";
+    }
+
+    const avatarPreview = document.getElementById("avatarPreview");
+    const bannerPreview = document.getElementById("bannerPreview");
+
+    if (avatarPreview && currentUser.avatarImage) {
+        avatarPreview.src = currentUser.avatarImage;
+    }
+
+    if (bannerPreview && currentUser.bannerImage) {
+        bannerPreview.src = currentUser.bannerImage;
+    }
+}
+
+function readImageFile(file, callback) {
+    if (!file) {
+        return;
+    }
+
+    if (!file.type.startsWith("image/")) {
+        alert("Only image files are allowed");
+        return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = () => {
+        callback(reader.result);
+    };
+
+    reader.readAsDataURL(file);
+}
+
+const avatarFileInput = document.getElementById("avatarFileInput");
+
+if (avatarFileInput) {
+    avatarFileInput.addEventListener("change", event => {
+        const file = event.target.files[0];
+
+        readImageFile(file, image => {
+            selectedAvatarImage = image;
+            document.getElementById("avatarPreview").src = image;
+        });
+    });
+}
+
+const bannerFileInput = document.getElementById("bannerFileInput");
+
+if (bannerFileInput) {
+    bannerFileInput.addEventListener("change", event => {
+        const file = event.target.files[0];
+
+        readImageFile(file, image => {
+            selectedBannerImage = image;
+            document.getElementById("bannerPreview").src = image;
+        });
+    });
+}
+
+const savePicturesBtn = document.getElementById("savePicturesBtn");
+
+if (savePicturesBtn) {
+    savePicturesBtn.addEventListener("click", async () => {
+        const response = await saveCurrentUserChanges({
+            avatarImage: selectedAvatarImage,
+            bannerImage: selectedBannerImage
+        });
+
+        if (!response.ok) {
+            alert("Could not save pictures");
+            return;
+        }
+
+        const updatedUser = await response.json();
+
+        currentUser = updatedUser;
+        updateLocalUser(updatedUser);
+        applyProfilePictures();
+
+        alert("Pictures saved");
+    });
+}
+
 // ===== INIT =====
 
 loadData();
@@ -1251,3 +1352,4 @@ updateTypeButtons();
 updateStatusButtons();
 updateStatusFilterLabels();
 renderFavoritesSettings();
+applyProfilePictures();
