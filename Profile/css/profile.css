@@ -1015,3 +1015,59 @@ body.theme-blackout {
     outline: none;
     font-family: Arial, sans-serif;
 }
+
+.favorites-settings-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+}
+
+#favoriteSearchResults,
+#favoriteTitlesList {
+    margin-top: 12px;
+}
+
+.favorite-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    background: #171727;
+    border: 1px solid #33334a;
+    border-radius: 12px;
+    padding: 10px;
+    margin-bottom: 8px;
+}
+
+.favorite-row-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.favorite-row img {
+    width: 42px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.favorite-row h4 {
+    margin: 0;
+    font-size: 14px;
+}
+
+.favorite-row p {
+    margin: 4px 0 0;
+    color: #aaa9bd;
+    font-size: 12px;
+}
+
+.favorite-row button {
+    background: #8e75ff;
+    border: none;
+}
+
+#clearFavoritesBtn {
+    margin-top: 20px;
+}

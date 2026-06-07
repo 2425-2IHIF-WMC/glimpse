@@ -258,12 +258,25 @@
 
                         <div class="design-page" id="design-favorites">
                             <div class="settings-card">
-                                <h2>Favorites</h2>
-                                <p>Choose which titles should appear on your profile.</p>
+                                <h2>My Favorites</h2>
+                                <p>Choose titles from your list as favorites.</p>
 
-                                <div id="favoriteSettingsBox">
-                                    <p>No favorite settings yet.</p>
+                                <div class="favorites-settings-grid">
+                                    <div>
+                                        <h3>Search Titles</h3>
+                                        <input id="favoriteSearchInput" type="text" placeholder="Search your titles...">
+                                        <div id="favoriteSearchResults"></div>
+                                    </div>
+
+                                    <div>
+                                        <h3>My Favorite Titles</h3>
+                                        <div id="favoriteTitlesList"></div>
+                                    </div>
                                 </div>
+
+                                <button id="clearFavoritesBtn" class="settings-danger-btn">
+                                    Clear All Favorites
+                                </button>
                             </div>
                         </div>
 

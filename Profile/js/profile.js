@@ -1072,6 +1072,176 @@ document.getElementById("saveBioBtn").addEventListener("click", async () => {
     alert("Bio saved");
 });
 
+function getUserFavorites() {
+    if (!currentUser.favorites) {
+        currentUser.favorites = [];
+    }
+
+    return currentUser.favorites;
+}
+
+function renderFavoriteSearch() {
+    const input = document.getElementById("favoriteSearchInput");
+    const results = document.getElementById("favoriteSearchResults");
+
+    if (!input || !results) {
+        return;
+    }
+
+    const query = input.value.trim().toLowerCase();
+    results.innerHTML = "";
+
+    if (query === "") {
+        return;
+    }
+
+    const favorites = getUserFavorites();
+
+    const matches = titles.filter(title =>
+        title.name.toLowerCase().includes(query) &&
+        !favorites.includes(String(title.id))
+    );
+
+    if (matches.length === 0) {
+        results.innerHTML = "<p>No titles found.</p>";
+        return;
+    }
+
+    for (const title of matches) {
+        const row = document.createElement("div");
+        row.className = "favorite-row";
+
+        row.innerHTML = `
+            <div class="favorite-row-info">
+                <img src="${title.image}" alt="${title.name}">
+                <div>
+                    <h4>${title.name}</h4>
+                    <p>${title.status || "No status"}</p>
+                </div>
+            </div>
+
+            <button>Add</button>
+        `;
+
+        row.querySelector("button").addEventListener("click", async () => {
+            favorites.push(String(title.id));
+
+            const response = await saveCurrentUserChanges({
+                favorites: favorites
+            });
+
+            if (!response.ok) {
+                alert("Could not add favorite");
+                return;
+            }
+
+            const updatedUser = await response.json();
+            currentUser = updatedUser;
+            updateLocalUser(updatedUser);
+
+            input.value = "";
+            renderFavoriteSearch();
+            renderFavoritesSettings();
+        });
+
+        results.appendChild(row);
+    }
+}
+
+function renderFavoritesSettings() {
+    const box = document.getElementById("favoriteTitlesList");
+
+    if (!box) {
+        return;
+    }
+
+    box.innerHTML = "";
+
+    const favorites = getUserFavorites();
+
+    if (favorites.length === 0) {
+        box.innerHTML = "<p>No favorites yet.</p>";
+        return;
+    }
+
+    for (const id of favorites) {
+        const title = titles.find(title =>
+            String(title.id) === String(id)
+        );
+
+        if (!title) {
+            continue;
+        }
+
+        const row = document.createElement("div");
+        row.className = "favorite-row";
+
+        row.innerHTML = `
+            <div class="favorite-row-info">
+                <img src="${title.image}" alt="${title.name}">
+                <div>
+                    <h4>${title.name}</h4>
+                    <p>${title.status || "No status"}</p>
+                </div>
+            </div>
+
+            <button>Remove</button>
+        `;
+
+        row.querySelector("button").addEventListener("click", async () => {
+            const updatedFavorites = favorites.filter(favId =>
+                String(favId) !== String(id)
+            );
+
+            const response = await saveCurrentUserChanges({
+                favorites: updatedFavorites
+            });
+
+            if (!response.ok) {
+                alert("Could not remove favorite");
+                return;
+            }
+
+            const updatedUser = await response.json();
+            currentUser = updatedUser;
+            updateLocalUser(updatedUser);
+
+            renderFavoriteSearch();
+            renderFavoritesSettings();
+        });
+
+        box.appendChild(row);
+    }
+}
+
+const favoriteSearchInput = document.getElementById("favoriteSearchInput");
+
+if (favoriteSearchInput) {
+    favoriteSearchInput.addEventListener("input", renderFavoriteSearch);
+}
+
+const clearFavoritesBtn = document.getElementById("clearFavoritesBtn");
+
+if (clearFavoritesBtn) {
+    clearFavoritesBtn.addEventListener("click", async () => {
+        const response = await saveCurrentUserChanges({
+            favorites: []
+        });
+
+        if (!response.ok) {
+            alert("Could not clear favorites");
+            return;
+        }
+
+        const updatedUser = await response.json();
+        currentUser = updatedUser;
+        updateLocalUser(updatedUser);
+
+        renderFavoritesSettings();
+        renderFavoriteSearch();
+    });
+}
+
 // ===== INIT =====
 
 loadData();
@@ -1080,3 +1250,4 @@ loadUserSettings();
 updateTypeButtons();
 updateStatusButtons();
 updateStatusFilterLabels();
+renderFavoritesSettings();

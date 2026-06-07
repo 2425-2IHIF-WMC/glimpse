@@ -23,7 +23,10 @@
       "id": "1780845644964",
       "email": "a.protsentyy@students.htl-leonding.ac.at",
       "username": "angel",
-      "password": "12345"
+      "password": "12345",
+      "favorites": [
+        "1780845870238"
+      ]
     }
   ],
   "titles": [
@@ -190,6 +193,20 @@
       "image": "https://image.tmdb.org/t/p/w500/in1R2dDc421JxsoRWaIIAqVI2KE.jpg",
       "year": "2019",
       "apiSource": "TMDB"
+    },
+    {
+      "id": "1780845870238",
+      "rating": null,
+      "watchedEpisodes": 0,
+      "status": "Plan to Watch",
+      "type": "TV",
+      "lastUpdated": 1780845870196,
+      "userId": "1780845644964",
+      "externalId": "52991",
+      "name": "Frieren: Beyond Journey's End",
+      "image": "https://cdn.myanimelist.net/images/anime/1015/138006l.jpg",
+      "year": "2023",
+      "apiSource": "Jikan"
     }
   ],
   "folders": [
