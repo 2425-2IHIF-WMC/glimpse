@@ -681,3 +681,196 @@ button {
     margin: 0 0 8px;
     color: white;
 }
+
+.settings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 28px;
+}
+
+.settings-kicker {
+    margin: 0 0 6px;
+    color: #8e75ff;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.settings-header h1 {
+    margin: 0;
+    font-size: 34px;
+    color: white;
+}
+
+.settings-subtitle {
+    margin: 8px 0 0;
+    color: #aaa9bd;
+}
+
+.settings-user-mini {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: #171727;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+    padding: 14px 18px;
+}
+
+.settings-avatar {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #8e75ff, #00ccd8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    color: white;
+}
+
+.settings-user-mini h3 {
+    margin: 0;
+    color: white;
+    font-size: 15px;
+}
+
+.settings-user-mini p {
+    margin: 4px 0 0;
+    color: #aaa9bd;
+    font-size: 13px;
+}
+
+.settings-layout {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 24px;
+}
+
+.settings-sidebar {
+    background: #12121e;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 12px;
+    height: fit-content;
+}
+
+.settings-tab {
+    width: 100%;
+    text-align: left;
+    padding: 13px 14px;
+    border: none;
+    border-radius: 14px;
+    background: transparent;
+    color: #aaa9bd;
+    cursor: pointer;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.settings-tab:hover {
+    background: #1b1b2b;
+    color: white;
+}
+
+.settings-tab.active {
+    background: #8e75ff;
+    color: white;
+}
+
+.settings-content {
+    min-width: 0;
+}
+
+.settings-page {
+    display: none;
+}
+
+.settings-page.active {
+    display: block;
+}
+
+.settings-card {
+    background: #12121e;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    padding: 26px;
+    color: white;
+}
+
+.settings-card-top {
+    margin-bottom: 24px;
+}
+
+.settings-card h2 {
+    margin: 0;
+    font-size: 22px;
+}
+
+.settings-card p {
+    margin: 8px 0 0;
+    color: #aaa9bd;
+}
+
+.settings-form-row {
+    margin-bottom: 18px;
+}
+
+.settings-form-row label {
+    display: block;
+    color: #aaa9bd;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.settings-form-row input {
+    width: 100%;
+    max-width: 520px;
+    padding: 13px 15px;
+    border-radius: 12px;
+    border: 1px solid #33334a;
+    background: #10101a;
+    color: white;
+    outline: none;
+}
+
+.settings-form-row input:focus {
+    border-color: #8e75ff;
+}
+
+.settings-primary-btn,
+.settings-danger-btn {
+    padding: 12px 18px;
+    border: none;
+    border-radius: 12px;
+    color: white;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.settings-primary-btn {
+    background: #8e75ff;
+}
+
+.settings-primary-btn:hover {
+    background: #735cff;
+}
+
+.danger-settings-card {
+    border-color: rgba(255, 90, 120, 0.35);
+}
+
+.danger-settings-card h2 {
+    color: #ff7b8f;
+}
+
+.settings-danger-btn {
+    background: #8b2f42;
+}
+
+.settings-danger-btn:hover {
+    background: #aa3a51;
+}

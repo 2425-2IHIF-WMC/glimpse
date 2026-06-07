@@ -48,7 +48,6 @@
         </div>
 
         <button onclick="showSection('list')" class="main-btn">Open My List</button>
-        <button onclick="showSection('settings')" class="main-btn">Settings</button>
 
         <div class="folder-section">
             <div class="folder-header">
@@ -120,8 +119,8 @@
                 <button data-type="anime" onclick="setTypeFilter('anime')">Anime</button>
                 <button data-type="manga" onclick="setTypeFilter('manga')">Manga</button>
                 <button data-type="game" onclick="setTypeFilter('game')">Games</button>
-                <button onclick="setTypeFilter('movie')">Movies</button>
-                <button onclick="setTypeFilter('series')">Series</button>
+                <button data-type="movie" onclick="setTypeFilter('movie')">Movies</button>
+                <button data-type="series" onclick="setTypeFilter('series')">Series</button>
                 <button data-type="book" onclick="setTypeFilter('book')">Books</button>
             </div>
 
@@ -156,22 +155,98 @@
         </section>
 
         <section id="settingsSection" class="hidden">
-            <h1>Account Settings</h1>
+            <div class="settings-header">
+                <div>
+                    <p class="settings-kicker">Account Center</p>
+                    <h1>Settings</h1>
+                    <p class="settings-subtitle">
+                        Manage your login information and account preferences.
+                    </p>
+                </div>
 
-            <div class="panel settings-panel">
-                <label>Email</label>
-                <input id="settingsEmail" type="email">
+                <div class="settings-user-mini">
+                    <div class="settings-avatar">G</div>
+                    <div>
+                        <h3 id="settingsDisplayName">Glimpse User</h3>
+                        <p id="settingsDisplayEmail">user@email.com</p>
+                    </div>
+                </div>
+            </div>
 
-                <label>Username</label>
-                <input id="settingsUsername" type="text">
+            <div class="settings-layout">
 
-                <label>Password</label>
-                <input id="settingsPassword" type="text">
+                <div class="settings-sidebar">
+                    <button class="settings-tab active" data-settings-tab="account">Account</button>
+                    <button class="settings-tab" data-settings-tab="security">Security</button>
+                    <button class="settings-tab" data-settings-tab="danger">Danger Zone</button>
+                </div>
 
-                <button id="saveSettingsBtn">Save Changes</button>
-                <button id="deleteAccountBtn" class="delete-account-btn">
-                    Delete Account
-                </button>
+                <div class="settings-content">
+
+                    <div class="settings-page active" id="settings-account">
+                        <div class="settings-card">
+                            <div class="settings-card-top">
+                                <div>
+                                    <h2>Profile Information</h2>
+                                    <p>Change the public name and email used for your account.</p>
+                                </div>
+                            </div>
+
+                            <div class="settings-form-row">
+                                <label>Email</label>
+                                <input id="settingsEmail" type="email">
+                            </div>
+
+                            <div class="settings-form-row">
+                                <label>Username</label>
+                                <input id="settingsUsername" type="text">
+                            </div>
+
+                            <button id="saveAccountInfoBtn" class="settings-primary-btn">
+                                Save Account Info
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="settings-page" id="settings-security">
+                        <div class="settings-card">
+                            <div class="settings-card-top">
+                                <div>
+                                    <h2>Password</h2>
+                                    <p>Update your password. You will stay logged in after saving.</p>
+                                </div>
+                            </div>
+
+                            <div class="settings-form-row">
+                                <label>New Password</label>
+                                <input id="settingsPassword" type="password">
+                            </div>
+
+                            <button id="savePasswordBtn" class="settings-primary-btn">
+                                Save Password
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="settings-page" id="settings-danger">
+                        <div class="settings-card danger-settings-card">
+                            <div class="settings-card-top">
+                                <div>
+                                    <h2>Delete Account</h2>
+                                    <p>
+                                        This deletes your account, your titles, and your folders.
+                                        This action cannot be undone.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <button id="deleteAccountBtn" class="settings-danger-btn">
+                                Delete Account
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </section>
 

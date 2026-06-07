@@ -817,21 +817,15 @@ document.getElementById("sortSelect").addEventListener("change", e => {
 function loadUserSettings() {
     document.getElementById("profileName").textContent = currentUser.username;
 
+    document.getElementById("settingsDisplayName").textContent = currentUser.username;
+    document.getElementById("settingsDisplayEmail").textContent = currentUser.email;
+
     document.getElementById("settingsEmail").value = currentUser.email;
     document.getElementById("settingsUsername").value = currentUser.username;
-    document.getElementById("settingsPassword").value = currentUser.password;
+    document.getElementById("settingsPassword").value = "";
 }
 
-document.getElementById("saveSettingsBtn").addEventListener("click", async () => {
-    const email = document.getElementById("settingsEmail").value.trim();
-    const username = document.getElementById("settingsUsername").value.trim();
-    const password = document.getElementById("settingsPassword").value.trim();
-
-    if (email === "" || username === "" || password === "") {
-        alert("Fill in all fields");
-        return;
-    }
-
+async function updateCurrentUser(email, username, password) {
     const response = await fetch("/api/users/" + currentUser.id, {
         method: "PATCH",
         headers: {
@@ -853,18 +847,62 @@ document.getElementById("saveSettingsBtn").addEventListener("click", async () =>
 
     localStorage.setItem("currentUser", JSON.stringify(updatedUser));
 
-    document.getElementById("profileName").textContent = updatedUser.username;
-
     alert("Account updated");
+    window.location.reload();
+}
+
+const settingsTabs = document.querySelectorAll(".settings-tab");
+
+settingsTabs.forEach(button => {
+    button.addEventListener("click", () => {
+        document.querySelectorAll(".settings-tab").forEach(tab => {
+            tab.classList.remove("active");
+        });
+
+        document.querySelectorAll(".settings-page").forEach(page => {
+            page.classList.remove("active");
+        });
+
+        button.classList.add("active");
+
+        const tabName = button.dataset.settingsTab;
+        document.getElementById("settings-" + tabName).classList.add("active");
+    });
 });
 
-document.getElementById("logoutBtn").addEventListener("click", () => {
-    localStorage.removeItem("currentUser");
-    window.location.href = "/login";
+document.getElementById("saveAccountInfoBtn").addEventListener("click", async () => {
+    const email = document.getElementById("settingsEmail").value.trim();
+    const username = document.getElementById("settingsUsername").value.trim();
+
+    if (email === "" || username === "") {
+        alert("Fill in all fields");
+        return;
+    }
+
+    await updateCurrentUser(
+        email,
+        username,
+        currentUser.password
+    );
+});
+
+document.getElementById("savePasswordBtn").addEventListener("click", async () => {
+    const password = document.getElementById("settingsPassword").value.trim();
+
+    if (password === "") {
+        alert("Password cannot be empty");
+        return;
+    }
+
+    await updateCurrentUser(
+        currentUser.email,
+        currentUser.username,
+        password
+    );
 });
 
 document.getElementById("deleteAccountBtn").addEventListener("click", async () => {
-    const sure = confirm("Are you sure you want to delete your account? This will delete all your titles and folders.");
+    const sure = confirm("Delete your account forever?");
 
     if (!sure) {
         return;
@@ -882,7 +920,7 @@ document.getElementById("deleteAccountBtn").addEventListener("click", async () =
     localStorage.removeItem("currentUser");
 
     alert("Account deleted");
-    window.location.href = "/login";
+    window.location.href = "/";
 });
 
 function getActiveStatusName() {
