@@ -9,6 +9,14 @@ let currentSort = "recent";
 
 let currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
+const avatarEl = document.querySelector(".avatar");
+
+if (currentUser && currentUser.avatarImage && avatarEl) {
+    avatarEl.style.backgroundImage = `url(${currentUser.avatarImage})`;
+    avatarEl.style.backgroundSize = "cover";
+    avatarEl.style.backgroundPosition = "center";
+}
+
 if (!currentUser || !currentUser.id) {
     window.location.href = "/";
 }
@@ -1455,3 +1463,7 @@ updateStatusButtons();
 updateStatusFilterLabels();
 renderFavoritesSettings();
 applyProfilePictures();
+
+if (window.location.hash === "#list") {
+    showSection("list");
+}

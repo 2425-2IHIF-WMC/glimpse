@@ -7,6 +7,15 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
+    const avatarEl = document.querySelector(".user-profile .avatar");
+
+    if (currentUser && currentUser.avatarImage && avatarEl) {
+        avatarEl.style.backgroundImage = `url(${currentUser.avatarImage})`;
+        avatarEl.style.backgroundSize = "cover";
+        avatarEl.style.backgroundPosition = "center";
+        avatarEl.style.backgroundColor = "transparent";
+    }
+
     const nameEl = document.querySelector(".user-name");
     const userProfile = document.querySelector(".user-profile");
 
@@ -238,6 +247,77 @@ async function addToList(malId, button) {
     alert("Added to your list.");
 }
 
+function goToMyList(event) {
+    event.preventDefault();
+
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+    if (!currentUser || !currentUser.id) {
+        window.location.href = "/login";
+        return;
+    }
+
+    window.location.href = "/profile#list";
+}
+
 function loadAllFilter() {
 
 }
+
+window.toggleSave = async function (button, event) {
+    event.preventDefault();
+
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+    if (!currentUser || !currentUser.id) {
+        alert("Please login first.");
+        window.location.href = "/login";
+        return;
+    }
+
+    const card = button.closest(".anime-card");
+
+    const name = card.querySelector(".card-title").textContent.trim();
+    const image = card.querySelector(".card-poster img").src;
+    const type = card.querySelector(".type").textContent.trim();
+
+    const response = await fetch("/api/titles", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            userId: currentUser.id,
+            externalId: name,
+            name: name,
+            image: image,
+            episodes: 1,
+            watchedEpisodes: 0,
+            rating: null,
+            status: "Plan to Watch",
+            type: type,
+            apiSource: "Manual"
+        })
+    });
+
+    if (response.status === 409) {
+        alert("Already added to your list");
+        return;
+    }
+
+    if (!response.ok) {
+        alert("Could not add title");
+        return;
+    }
+
+    button.classList.add("added");
+    button.disabled = true;
+
+    const text = button.querySelector(".save-text");
+
+    if (text) {
+        text.textContent = "Saved";
+    }
+
+    alert("Added to My List");
+};
