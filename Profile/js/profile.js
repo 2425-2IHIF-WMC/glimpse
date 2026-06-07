@@ -956,6 +956,51 @@ function updateStatusFilterLabels() {
     document.getElementById("planStatusBtn").textContent = getPlanStatusName();
 }
 
+function applyTheme(theme) {
+
+    document.body.classList.remove(
+        "theme-night",
+        "theme-blossom",
+        "theme-japan",
+        "theme-blackout"
+    );
+
+    document.body.classList.add("theme-" + theme);
+}
+
+document.querySelectorAll(".design-card").forEach(card => {
+
+    card.addEventListener("click", async () => {
+
+        const theme = card.dataset.design;
+
+        applyTheme(theme);
+
+        const response = await fetch(
+            "/api/users/" + currentUser.id,
+            {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    profileTheme: theme
+                })
+            }
+        );
+
+        if(response.ok) {
+
+            currentUser.profileTheme = theme;
+
+            localStorage.setItem(
+                "currentUser",
+                JSON.stringify(currentUser)
+            );
+        }
+    });
+});
+
 // ===== INIT =====
 
 loadData();

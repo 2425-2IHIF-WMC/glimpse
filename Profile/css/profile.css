@@ -874,3 +874,122 @@ button {
 .settings-danger-btn:hover {
     background: #aa3a51;
 }
+
+.design-navbar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    overflow-x: auto;
+}
+
+.design-nav {
+    background: transparent;
+    border: none;
+    color: #aaa9bd;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.design-nav.active {
+    color: white;
+    border-bottom: 2px solid #8e75ff;
+}
+
+.design-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(220px,1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.design-card {
+    background: #171727;
+    border: 1px solid #33334a;
+    border-radius: 16px;
+    padding: 12px;
+    transition: 0.2s;
+}
+
+.design-card:hover {
+    transform: translateY(-3px);
+    border-color: #8e75ff;
+}
+
+.design-preview {
+    height: 120px;
+    border-radius: 12px;
+    margin-bottom: 12px;
+}
+
+.design-night {
+    background:
+            linear-gradient(
+                    135deg,
+                    #111122,
+                    #29294d
+            );
+}
+
+.design-blossom {
+    background:
+            linear-gradient(
+                    135deg,
+                    #ffdce9,
+                    #ff8bb4
+            );
+}
+
+.design-japan {
+    background:
+            linear-gradient(
+                    135deg,
+                    #4f8f83,
+                    #dcefd8
+            );
+}
+
+.design-blackout {
+    background:
+            linear-gradient(
+                    135deg,
+                    #000,
+                    #2f2f2f
+            );
+}
+
+body.theme-night {
+    background:
+            radial-gradient(
+                    circle at top,
+                    rgba(142,117,255,0.25),
+                    transparent 35%
+            ),
+            #0b0b12;
+}
+
+body.theme-blossom {
+    background:
+            radial-gradient(
+                    circle at top,
+                    rgba(255,120,180,0.3),
+                    transparent 35%
+            ),
+            #130b12;
+}
+
+body.theme-japan {
+    background:
+            radial-gradient(
+                    circle at top,
+                    rgba(100,255,180,0.2),
+                    transparent 35%
+            ),
+            #0b1410;
+}
+
+body.theme-blackout {
+    background:
+            #000;
+}

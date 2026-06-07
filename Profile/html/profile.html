@@ -178,12 +178,23 @@
                 <div class="settings-sidebar">
                     <button class="settings-tab active" data-settings-tab="account">Account</button>
                     <button class="settings-tab" data-settings-tab="security">Security</button>
+                    <button class="settings-tab" data-settings-tab="liststyle">List Style Design</button>
                     <button class="settings-tab" data-settings-tab="danger">Danger Zone</button>
                 </div>
 
                 <div class="settings-content">
 
                     <div class="settings-page active" id="settings-account">
+                        <div class="design-navbar">
+                            <button class="design-nav active">Profile</button>
+                            <button class="design-nav">Favorites</button>
+                            <button class="design-nav">Picture</button>
+                            <button class="design-nav">Account</button>
+                            <button class="design-nav">List</button>
+                            <button class="design-nav">List Style Design</button>
+                            <button class="design-nav">Privacy</button>
+                        </div>
+
                         <div class="settings-card">
                             <div class="settings-card-top">
                                 <div>
@@ -226,6 +237,48 @@
                                 Save Password
                             </button>
                         </div>
+                    </div>
+
+                    <div class="settings-page" id="settings-liststyle">
+
+                        <div class="design-navbar">
+                            <button class="design-nav active">List Style Design</button>
+                        </div>
+
+                        <div class="settings-card">
+
+                            <h2>Community Designs</h2>
+
+                            <div class="design-grid">
+
+                                <div class="design-card" data-design="night">
+                                    <div class="design-preview design-night"></div>
+                                    <h4>Night Shift</h4>
+                                    <button>Use Design</button>
+                                </div>
+
+                                <div class="design-card" data-design="blossom">
+                                    <div class="design-preview design-blossom"></div>
+                                    <h4>Cherry Blossom</h4>
+                                    <button>Use Design</button>
+                                </div>
+
+                                <div class="design-card" data-design="japan">
+                                    <div class="design-preview design-japan"></div>
+                                    <h4>Minimal Japan</h4>
+                                    <button>Use Design</button>
+                                </div>
+
+                                <div class="design-card" data-design="blackout">
+                                    <div class="design-preview design-blackout"></div>
+                                    <h4>Blackout</h4>
+                                    <button>Use Design</button>
+                                </div>
+
+                            </div>
+
+                        </div>
+
                     </div>
 
                     <div class="settings-page" id="settings-danger">
