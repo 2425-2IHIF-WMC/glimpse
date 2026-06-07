@@ -965,7 +965,6 @@ function updateStatusFilterLabels() {
 }
 
 function applyTheme(theme) {
-
     document.body.classList.remove(
         "theme-night",
         "theme-blossom",
@@ -973,7 +972,9 @@ function applyTheme(theme) {
         "theme-blackout"
     );
 
-    document.body.classList.add("theme-" + theme);
+    if (theme) {
+        document.body.classList.add("theme-" + theme);
+    }
 }
 
 document.querySelectorAll(".design-card").forEach(card => {
@@ -997,14 +998,11 @@ document.querySelectorAll(".design-card").forEach(card => {
             }
         );
 
-        if(response.ok) {
+        if (response.ok) {
+            const updatedUser = await response.json();
 
-            currentUser.profileTheme = theme;
-
-            localStorage.setItem(
-                "currentUser",
-                JSON.stringify(currentUser)
-            );
+            currentUser = updatedUser;
+            updateLocalUser(updatedUser);
         }
     });
 });
@@ -1343,11 +1341,115 @@ if (savePicturesBtn) {
     });
 }
 
+const topbarEmailInput = document.getElementById("topbarEmailInput");
+const topbarUsernameInput = document.getElementById("topbarUsernameInput");
+const topbarPasswordInput = document.getElementById("topbarPasswordInput");
+
+if (topbarEmailInput) {
+    topbarEmailInput.value = currentUser.email || "";
+}
+
+if (topbarUsernameInput) {
+    topbarUsernameInput.value = currentUser.username || "";
+}
+
+const topbarEmailBtn = document.getElementById("topbarEmailBtn");
+
+if (topbarEmailBtn) {
+    topbarEmailBtn.addEventListener("click", async () => {
+        const email = document.getElementById("topbarEmailInput").value.trim();
+
+        if (email === "") {
+            alert("Email cannot be empty");
+            return;
+        }
+
+        const response = await saveCurrentUserChanges({
+            email: email
+        });
+
+        if (!response.ok) {
+            alert("Could not update email");
+            return;
+        }
+
+        const updatedUser = await response.json();
+
+        currentUser = updatedUser;
+        updateLocalUser(updatedUser);
+        loadUserSettings();
+
+        alert("Email updated");
+    });
+}
+
+const topbarUsernameBtn = document.getElementById("topbarUsernameBtn");
+
+if (topbarUsernameBtn) {
+    topbarUsernameBtn.addEventListener("click", async () => {
+        const username = document.getElementById("topbarUsernameInput").value.trim();
+
+        if (username === "") {
+            alert("Username cannot be empty");
+            return;
+        }
+
+        const response = await saveCurrentUserChanges({
+            username: username
+        });
+
+        if (!response.ok) {
+            alert("Could not update username");
+            return;
+        }
+
+        const updatedUser = await response.json();
+
+        currentUser = updatedUser;
+        updateLocalUser(updatedUser);
+        loadUserSettings();
+
+        alert("Username updated");
+    });
+}
+
+const topbarPasswordBtn = document.getElementById("topbarPasswordBtn");
+
+if (topbarPasswordBtn) {
+    topbarPasswordBtn.addEventListener("click", async () => {
+        const password = document.getElementById("topbarPasswordInput").value.trim();
+
+        if (password === "") {
+            alert("Password cannot be empty");
+            return;
+        }
+
+        const response = await saveCurrentUserChanges({
+            password: password
+        });
+
+        if (!response.ok) {
+            alert("Could not update password");
+            return;
+        }
+
+        const updatedUser = await response.json();
+
+        currentUser = updatedUser;
+        updateLocalUser(updatedUser);
+
+        document.getElementById("topbarPasswordInput").value = "";
+
+        alert("Password updated");
+    });
+}
+
 // ===== INIT =====
 
 loadData();
 loadFolders();
 loadUserSettings();
+applyTheme(currentUser.profileTheme || "night");
 updateTypeButtons();
 updateStatusButtons();
 updateStatusFilterLabels();
