@@ -280,9 +280,45 @@ app.patch("/api/users/:id", (req, res) => {
         });
     }
 
-    user.email = req.body.email;
-    user.username = req.body.username;
-    user.password = req.body.password;
+    if (req.body.email !== undefined) {
+        user.email = req.body.email;
+    }
+
+    if (req.body.username !== undefined) {
+        user.username = req.body.username;
+    }
+
+    if (req.body.password !== undefined) {
+        user.password = req.body.password;
+    }
+
+    if (req.body.bio !== undefined) {
+        user.bio = req.body.bio;
+    }
+
+    if (req.body.avatarImage !== undefined) {
+        user.avatarImage = req.body.avatarImage;
+    }
+
+    if (req.body.bannerImage !== undefined) {
+        user.bannerImage = req.body.bannerImage;
+    }
+
+    if (req.body.favorites !== undefined) {
+        user.favorites = req.body.favorites;
+    }
+
+    if (req.body.defaultSort !== undefined) {
+        user.defaultSort = req.body.defaultSort;
+    }
+
+    if (req.body.privacy !== undefined) {
+        user.privacy = req.body.privacy;
+    }
+
+    if (req.body.profileTheme !== undefined) {
+        user.profileTheme = req.body.profileTheme;
+    }
 
     save(data);
 

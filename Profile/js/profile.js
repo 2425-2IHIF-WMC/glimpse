@@ -7,13 +7,17 @@ let currentStatusFilter = "all";
 let currentSearchText = "";
 let currentSort = "recent";
 
-const currentUser = JSON.parse(
-    localStorage.getItem("currentUser")
-);
+let currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
-if (!currentUser) {
-    window.location.href = "/login";
+if (!currentUser || !currentUser.id) {
+    window.location.href = "/";
 }
+
+document.getElementById("logoutBtn").addEventListener("click", () => {
+    localStorage.removeItem("currentUser");
+    window.location.href = "/";
+});
+
 
 // ===== LOAD DATA =====
 async function loadData() {
@@ -817,12 +821,16 @@ document.getElementById("sortSelect").addEventListener("change", e => {
 function loadUserSettings() {
     document.getElementById("profileName").textContent = currentUser.username;
 
+    document.getElementById("profileBioText").textContent =
+        currentUser.bio || "Track your anime journey.";
+
     document.getElementById("settingsDisplayName").textContent = currentUser.username;
     document.getElementById("settingsDisplayEmail").textContent = currentUser.email;
 
     document.getElementById("settingsEmail").value = currentUser.email;
     document.getElementById("settingsUsername").value = currentUser.username;
     document.getElementById("settingsPassword").value = "";
+
 }
 
 async function updateCurrentUser(email, username, password) {
@@ -999,6 +1007,69 @@ document.querySelectorAll(".design-card").forEach(card => {
             );
         }
     });
+});
+
+document.querySelectorAll(".design-nav").forEach(button => {
+    button.addEventListener("click", () => {
+        const pageName = button.dataset.designPage;
+        const page = document.getElementById("design-" + pageName);
+
+        if (!page) {
+            console.log("Missing page:", "design-" + pageName);
+            return;
+        }
+
+        document.querySelectorAll(".design-nav").forEach(nav => {
+            nav.classList.remove("active");
+        });
+
+        document.querySelectorAll(".design-page").forEach(page => {
+            page.classList.remove("active");
+        });
+
+        button.classList.add("active");
+        page.classList.add("active");
+    });
+});
+
+document.getElementById("profileBio").value = currentUser.bio || "";
+
+function saveCurrentUserChanges(changes) {
+    return fetch("/api/users/" + currentUser.id, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(changes)
+    });
+}
+
+function updateLocalUser(updatedUser) {
+    localStorage.setItem(
+        "currentUser",
+        JSON.stringify(updatedUser)
+    );
+}
+
+document.getElementById("saveBioBtn").addEventListener("click", async () => {
+    const bio = document.getElementById("profileBio").value.trim();
+
+    const response = await saveCurrentUserChanges({
+        bio: bio
+    });
+
+    if (!response.ok) {
+        alert("Could not save bio");
+        return;
+    }
+
+    const updatedUser = await response.json();
+    updateLocalUser(updatedUser);
+
+    document.getElementById("profileBioText").textContent =
+        updatedUser.bio || "Track your anime journey.";
+
+    alert("Bio saved");
 });
 
 // ===== INIT =====

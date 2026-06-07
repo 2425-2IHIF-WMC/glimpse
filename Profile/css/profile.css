@@ -993,3 +993,25 @@ body.theme-blackout {
     background:
             #000;
 }
+
+.design-page {
+    display: none;
+}
+
+.design-page.active {
+    display: block;
+}
+
+.settings-form-row textarea {
+    width: 100%;
+    max-width: 520px;
+    min-height: 120px;
+    resize: vertical;
+    padding: 13px 15px;
+    border-radius: 12px;
+    border: 1px solid #33334a;
+    background: #10101a;
+    color: white;
+    outline: none;
+    font-family: Arial, sans-serif;
+}

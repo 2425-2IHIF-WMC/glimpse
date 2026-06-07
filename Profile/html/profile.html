@@ -35,7 +35,7 @@
     <aside class="user-card">
         <div class="avatar">G</div>
         <h2 id="profileName">Glimpse User</h2>
-        <p>Track your anime journey.</p>
+        <p id="profileBioText">Track your anime journey.</p>
 
         <div class="user-info">
             <span>Joined</span>
@@ -185,15 +185,6 @@
                 <div class="settings-content">
 
                     <div class="settings-page active" id="settings-account">
-                        <div class="design-navbar">
-                            <button class="design-nav active">Profile</button>
-                            <button class="design-nav">Favorites</button>
-                            <button class="design-nav">Picture</button>
-                            <button class="design-nav">Account</button>
-                            <button class="design-nav">List</button>
-                            <button class="design-nav">List Style Design</button>
-                            <button class="design-nav">Privacy</button>
-                        </div>
 
                         <div class="settings-card">
                             <div class="settings-card-top">
@@ -242,41 +233,133 @@
                     <div class="settings-page" id="settings-liststyle">
 
                         <div class="design-navbar">
-                            <button class="design-nav active">List Style Design</button>
+                            <button class="design-nav active" data-design-page="profile">Profile</button>
+                            <button class="design-nav" data-design-page="favorites">Favorites</button>
+                            <button class="design-nav" data-design-page="picture">Picture</button>
+                            <button class="design-nav" data-design-page="account">Account</button>
+                            <button class="design-nav" data-design-page="list">List</button>
+                            <button class="design-nav" data-design-page="style">List Style Design</button>
+                            <button class="design-nav" data-design-page="privacy">Privacy</button>
                         </div>
 
-                        <div class="settings-card">
+                        <div class="design-page active" id="design-profile">
+                            <div class="settings-card">
+                                <h2>Profile</h2>
+                                <p>Customize your public profile.</p>
 
-                            <h2>Community Designs</h2>
-
-                            <div class="design-grid">
-
-                                <div class="design-card" data-design="night">
-                                    <div class="design-preview design-night"></div>
-                                    <h4>Night Shift</h4>
-                                    <button>Use Design</button>
+                                <div class="settings-form-row">
+                                    <label>Profile Bio</label>
+                                    <textarea id="profileBio" placeholder="Write something about yourself..."></textarea>
                                 </div>
 
-                                <div class="design-card" data-design="blossom">
-                                    <div class="design-preview design-blossom"></div>
-                                    <h4>Cherry Blossom</h4>
-                                    <button>Use Design</button>
-                                </div>
-
-                                <div class="design-card" data-design="japan">
-                                    <div class="design-preview design-japan"></div>
-                                    <h4>Minimal Japan</h4>
-                                    <button>Use Design</button>
-                                </div>
-
-                                <div class="design-card" data-design="blackout">
-                                    <div class="design-preview design-blackout"></div>
-                                    <h4>Blackout</h4>
-                                    <button>Use Design</button>
-                                </div>
-
+                                <button id="saveBioBtn" class="settings-primary-btn">Save Profile</button>
                             </div>
+                        </div>
 
+                        <div class="design-page" id="design-favorites">
+                            <div class="settings-card">
+                                <h2>Favorites</h2>
+                                <p>Choose which titles should appear on your profile.</p>
+
+                                <div id="favoriteSettingsBox">
+                                    <p>No favorite settings yet.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="design-page" id="design-picture">
+                            <div class="settings-card">
+                                <h2>Picture</h2>
+                                <p>Change your avatar or banner.</p>
+
+                                <div class="settings-form-row">
+                                    <label>Avatar Image URL</label>
+                                    <input id="avatarUrlInput" type="text" placeholder="Paste image URL...">
+                                </div>
+
+                                <div class="settings-form-row">
+                                    <label>Banner Image URL</label>
+                                    <input id="bannerUrlInput" type="text" placeholder="Paste banner URL...">
+                                </div>
+
+                                <button class="settings-primary-btn">Save Pictures</button>
+                            </div>
+                        </div>
+
+                        <div class="design-page" id="design-account">
+                            <div class="settings-card">
+                                <h2>Account</h2>
+                                <p>Your main account settings are in the Account tab.</p>
+                            </div>
+                        </div>
+
+                        <div class="design-page" id="design-list">
+                            <div class="settings-card">
+                                <h2>List</h2>
+                                <p>Control how your list is displayed.</p>
+
+                                <div class="settings-form-row">
+                                    <label>Default Sort</label>
+                                    <select id="defaultSortSetting">
+                                        <option value="recent">Last Updated</option>
+                                        <option value="nameAZ">Name A-Z</option>
+                                        <option value="ratingHigh">Rating High-Low</option>
+                                    </select>
+                                </div>
+
+                                <button class="settings-primary-btn">Save List Settings</button>
+                            </div>
+                        </div>
+
+                        <div class="design-page" id="design-style">
+                            <div class="settings-card">
+                                <h2>List Style Design</h2>
+                                <p>Choose a visual design for your profile.</p>
+
+                                <div class="design-grid">
+                                    <div class="design-card" data-design="night">
+                                        <div class="design-preview design-night"></div>
+                                        <h4>Night Shift</h4>
+                                        <button>Use Design</button>
+                                    </div>
+
+                                    <div class="design-card" data-design="blossom">
+                                        <div class="design-preview design-blossom"></div>
+                                        <h4>Cherry Blossom</h4>
+                                        <button>Use Design</button>
+                                    </div>
+
+                                    <div class="design-card" data-design="japan">
+                                        <div class="design-preview design-japan"></div>
+                                        <h4>Minimal Japan</h4>
+                                        <button>Use Design</button>
+                                    </div>
+
+                                    <div class="design-card" data-design="blackout">
+                                        <div class="design-preview design-blackout"></div>
+                                        <h4>Blackout</h4>
+                                        <button>Use Design</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="design-page" id="design-privacy">
+                            <div class="settings-card">
+                                <h2>Privacy</h2>
+                                <p>Control who can see your profile.</p>
+
+                                <div class="settings-form-row">
+                                    <label>Profile Visibility</label>
+                                    <select id="privacySetting">
+                                        <option value="public">Public</option>
+                                        <option value="private">Private</option>
+                                        <option value="friends">Friends Only</option>
+                                    </select>
+                                </div>
+
+                                <button class="settings-primary-btn">Save Privacy</button>
+                            </div>
                         </div>
 
                     </div>

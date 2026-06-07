@@ -10,10 +10,20 @@
       "email": "has@htl.leon",
       "username": "hasl",
       "password": "45",
-      "id": "HQM1bl8hybk"
+      "id": "HQM1bl8hybk",
+      "bio": "pedo"
     },
     {
-      "id": "1780676478249"
+      "id": "1780845435710",
+      "email": "aprozentuy@gmail.com",
+      "username": "geku",
+      "password": "1234"
+    },
+    {
+      "id": "1780845644964",
+      "email": "a.protsentyy@students.htl-leonding.ac.at",
+      "username": "angel",
+      "password": "12345"
     }
   ],
   "titles": [
@@ -180,213 +190,6 @@
       "image": "https://image.tmdb.org/t/p/w500/in1R2dDc421JxsoRWaIIAqVI2KE.jpg",
       "year": "2019",
       "apiSource": "TMDB"
-    },
-    {
-      "id": "1780765271872",
-      "rating": null,
-      "watchedEpisodes": 0,
-      "status": "Plan to Watch",
-      "type": "TV",
-      "lastUpdated": 1780765271826,
-      "userId": "1780676478249",
-      "externalId": "5114",
-      "name": "Fullmetal Alchemist: Brotherhood",
-      "image": "https://cdn.myanimelist.net/images/anime/1208/94745l.jpg",
-      "year": "2009",
-      "apiSource": "Jikan"
-    },
-    {
-      "id": "1780769292863",
-      "rating": null,
-      "watchedEpisodes": 0,
-      "status": "Plan to Watch",
-      "type": "Documentary",
-      "lastUpdated": 1780769292829,
-      "userId": "1780676478249",
-      "externalId": "1688575",
-      "name": "Kyle Larson vs. The Double",
-      "image": "https://image.tmdb.org/t/p/w500/2ovfdMuA9Dwz3K8NOTcbrdOWMO2.jpg",
-      "year": "2026",
-      "apiSource": "TMDB"
-    },
-    {
-      "id": "1780769294415",
-      "rating": null,
-      "watchedEpisodes": 0,
-      "status": "Plan to Watch",
-      "type": "Series",
-      "lastUpdated": 1780769294415,
-      "userId": "1780676478249",
-      "externalId": "124364",
-      "name": "FROM",
-      "image": "https://image.tmdb.org/t/p/w500/pRtJagIxpfODzzb0T0NAvZSzErC.jpg",
-      "year": "2022",
-      "apiSource": "TMDB"
-    },
-    {
-      "id": "1780769295464",
-      "rating": null,
-      "watchedEpisodes": 0,
-      "status": "Plan to Watch",
-      "type": "Cinema",
-      "lastUpdated": 1780769295465,
-      "userId": "1780676478249",
-      "externalId": "1339713",
-      "name": "Obsession",
-      "image": "https://image.tmdb.org/t/p/w500/6X4qFYBsG3bpWDG2XIKqr04kFJa.jpg",
-      "year": "2026",
-      "apiSource": "TMDB"
-    },
-    {
-      "id": "1780769296470",
-      "rating": null,
-      "watchedEpisodes": 0,
-      "status": "Plan to Watch",
-      "type": "Documentary",
-      "lastUpdated": 1780769296470,
-      "userId": "1780676478249",
-      "externalId": "1522126",
-      "name": "1000 Men and Me: The Bonnie Blue Story",
-      "image": "https://image.tmdb.org/t/p/w500/5dcgoyf8nt6Xt4VSR6Nrn6nwhuz.jpg",
-      "year": "2025",
-      "apiSource": "TMDB"
-    },
-    {
-      "id": "1780770416055",
-      "rating": null,
-      "watchedEpisodes": 0,
-      "status": "Plan to Watch",
-      "type": "TV",
-      "lastUpdated": 1780770416022,
-      "userId": "1780676478249",
-      "externalId": "52991",
-      "name": "Frieren: Beyond Journey's End",
-      "image": "https://cdn.myanimelist.net/images/anime/1015/138006l.jpg",
-      "year": "2023",
-      "apiSource": "Jikan"
-    },
-    {
-      "id": "1780770416506",
-      "rating": null,
-      "watchedEpisodes": 0,
-      "status": "Plan to Watch",
-      "type": "ONA",
-      "lastUpdated": 1780770416513,
-      "userId": "1780676478249",
-      "externalId": "61469",
-      "name": "Steel Ball Run: JoJo's Bizarre Adventure",
-      "image": "https://cdn.myanimelist.net/images/anime/1448/154111l.jpg",
-      "year": "N/A",
-      "apiSource": "Jikan"
-    },
-    {
-      "id": "1780770419051",
-      "rating": null,
-      "watchedEpisodes": 0,
-      "status": "Plan to Watch",
-      "type": "Movie",
-      "lastUpdated": 1780770419056,
-      "userId": "1780676478249",
-      "externalId": "57555",
-      "name": "Chainsaw Man – The Movie: Reze Arc",
-      "image": "https://cdn.myanimelist.net/images/anime/1763/150638l.jpg",
-      "year": "N/A",
-      "apiSource": "Jikan"
-    },
-    {
-      "id": "1780770441557",
-      "rating": null,
-      "watchedEpisodes": 0,
-      "status": "Plan to Watch",
-      "type": "anime",
-      "lastUpdated": 1780770441557,
-      "userId": "1780676478249",
-      "externalId": "anime-50425",
-      "mal_id": 50425,
-      "name": "More than a Married Couple, but Not Lovers.",
-      "image": "https://cdn.myanimelist.net/images/anime/1713/126442.jpg",
-      "description": "Third-year high school student Jirou Yakuin is in love with his childhood friend and classmate, Shiori Sakurazaka. Thus, he hopes to be paired with her for the marriage practical: their school's practice of randomly selecting boy-girl pairs to live as pretend married couples while monitoring and rating them on how close they have gotten. Meanwhile, the lively Akari Watanabe wants to be assigned to her crush, the popular and good-looking Minami Tenjin.\n\nMuch to their dismay, Jirou and Akari find out that not only have they been paired together, but so have Shiori and Minami! Determined to be with their crushes, Jirou and Akari strive to earn as many points as possible, as the top 10 pairs earn the right to switch their partners—so long as both couples agree.\n\n[Written by MAL Rewrite]",
-      "score": 7.6,
-      "episodes": 12,
-      "genres": [
-        "Romance"
-      ]
-    },
-    {
-      "id": "1780770790330",
-      "rating": null,
-      "watchedEpisodes": 0,
-      "status": "Plan to Watch",
-      "type": "Series",
-      "lastUpdated": 1780770790326,
-      "userId": "1780676478249",
-      "externalId": "220102",
-      "name": "Spider-Noir",
-      "image": "https://image.tmdb.org/t/p/w500/oD8WSVqz84ZRfelkr7JPeJwR9Iv.jpg",
-      "year": "2026",
-      "apiSource": "TMDB"
-    },
-    {
-      "id": "1780771157971",
-      "rating": null,
-      "watchedEpisodes": 0,
-      "status": "Plan to Watch",
-      "type": "anime",
-      "lastUpdated": 1780771157971,
-      "userId": "1780676478249",
-      "externalId": "anime-2025",
-      "mal_id": 2025,
-      "name": "Darker than Black",
-      "image": "https://cdn.myanimelist.net/images/anime/5/19570.jpg",
-      "description": "It has been 10 years since Heaven's Gate appeared in South America and Hell's Gate appeared in Japan, veiling the once familiar night sky with an oppressive skyscape. Their purposes unknown, these Gates are spaces in which the very laws of physics are ignored. With the appearance of the Gates emerged Contractors, who, in exchange for their humanity, are granted supernatural abilities.\n\nIn the Japanese city surrounding Hell's Gate, Section 4 Chief Misaki Kirihara finds herself at odds with an infamous Contractor codenamed Hei. Called \"Black Reaper\" in the underground world, Hei, like his associates, undertakes missions for the mysterious and ruthless Syndicate while slowly peeling back the dark layers covering a nefarious plot that threatens the very existence of Contractors.\n\nFrom the mind of Tensai Okamura comes a sci-fi thriller taking the form of a subtle exposé on a war in which political positions and justice have no sway—a war waged exclusively in the shadows.\n\n[Written by MAL Rewrite]",
-      "score": 8.04,
-      "episodes": 25,
-      "genres": [
-        "Action",
-        "Mystery"
-      ]
-    },
-    {
-      "id": "1780775035775",
-      "rating": 10,
-      "watchedEpisodes": 1,
-      "status": "Completed",
-      "type": "anime",
-      "lastUpdated": 1780775049108,
-      "userId": "1780676478249",
-      "externalId": "anime-9999",
-      "mal_id": 9999,
-      "name": "One Piece 3D: Mugiwara Chase",
-      "image": "https://cdn.myanimelist.net/images/anime/4/32455.jpg",
-      "description": "According to Weekly Shonen Jump, 3D movies of One Piece and Toriko were announced to premiere on March 19th, 2011. One Piece 3D is an original story about the missing straw hat of Luffy.",
-      "score": 6.88,
-      "episodes": 1,
-      "apiSource": "Jikan",
-      "genres": [
-        "Action",
-        "Adventure",
-        "Fantasy"
-      ]
-    },
-    {
-      "id": "1780775380601",
-      "rating": null,
-      "watchedEpisodes": 0,
-      "status": "Plan to Watch",
-      "type": "anime",
-      "lastUpdated": 1780775380602,
-      "userId": "1780676478249",
-      "externalId": "anime-32561",
-      "mal_id": 32561,
-      "name": "Hai to Gensou no Grimgar: Furoagari no Kabe ni Kaketa Seishun - One More Centimeter",
-      "image": "https://cdn.myanimelist.net/images/anime/11/78160.jpg",
-      "description": "Special episode that will expand on the ending of episode 2 where the boys try to spy on the girls bathing.",
-      "score": 6.58,
-      "episodes": 1,
-      "apiSource": "Jikan",
-      "genres": [
-        "Comedy"
-      ]
     }
   ],
   "folders": [
@@ -418,15 +221,6 @@
         "1780762578265"
       ],
       "order": 2
-    },
-    {
-      "id": "1780781655295",
-      "userId": "1780676478249",
-      "name": "test",
-      "titleIds": [
-        "1780775035775"
-      ],
-      "order": 3
     }
   ]
 }
