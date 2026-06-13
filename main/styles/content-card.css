@@ -505,3 +505,17 @@
     line-height: 1.5;
     margin: 0;
 }
+
+.delete-review-btn {
+    background: transparent;
+    border: 1px solid #FF4A4A; 
+    color: #FF4A4A;            
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-left: auto;
+}
+
