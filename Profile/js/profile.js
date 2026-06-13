@@ -9,6 +9,50 @@ let currentSort = "recent";
 
 let currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
+const urlParts = window.location.pathname.split('/');
+const lastPart = urlParts[urlParts.length - 1];
+const viewingUserId = /^\d+$/.test(lastPart) ? lastPart : null;
+const isOwnProfile = !viewingUserId || (currentUser && String(currentUser.id) === String(viewingUserId));
+
+if (viewingUserId && !isOwnProfile) {
+    fetch('/api/users').then(res => res.json()).then(users => {
+        const other = users.find(u => String(u.id) === String(viewingUserId));
+        if (!other) {
+            window.location.href = '/error_pages/404.html';
+            return;
+        }
+
+        const nameEl = document.getElementById('profileName');
+        const bioEl = document.getElementById('profileBioText');
+        const avatarEl = document.querySelector('.avatar');
+
+        if (nameEl) nameEl.textContent = other.username;
+        if (bioEl) bioEl.textContent = other.bio || 'No bio yet.';
+        if (avatarEl && other.avatarImage) {
+            avatarEl.style.backgroundImage = `url(${other.avatarImage})`;
+            avatarEl.style.backgroundSize = 'cover';
+            avatarEl.style.backgroundPosition = 'center';
+        }
+
+        const settingsBtn = document.querySelector('[onclick="showSection(\'settings\')"]');
+        if (settingsBtn) settingsBtn.style.display = 'none';
+
+        const mainBtn = document.querySelector('.main-btn');
+        if (mainBtn) mainBtn.style.display = 'none';
+
+        fetch('/api/titles?userId=' + other.id).then(r => r.json()).then(t => {
+            titles = t;
+            renderList();
+        });
+
+        showSection('list');
+    });
+} else {
+    if (!currentUser || !currentUser.id) {
+        window.location.href = '/';
+    }
+}
+
 const avatarEl = document.querySelector(".avatar");
 
 if (currentUser && currentUser.avatarImage && avatarEl) {
@@ -17,7 +61,8 @@ if (currentUser && currentUser.avatarImage && avatarEl) {
     avatarEl.style.backgroundPosition = "center";
 }
 
-if (!currentUser || !currentUser.id) {
+if (!isOwnProfile) {
+} else if (!currentUser || !currentUser.id) {
     window.location.href = "/";
 }
 
@@ -1466,4 +1511,9 @@ applyProfilePictures();
 
 if (window.location.hash === "#list") {
     showSection("list");
+}
+
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.get('section') === 'list') {
+    showSection('list');
 }
