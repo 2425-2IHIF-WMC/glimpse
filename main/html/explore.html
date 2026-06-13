@@ -153,7 +153,7 @@
                     <span class="text">Discover</span>
                 </a>
 
-                <a href="#" class="nav-item" onclick="goToMyList(event)">
+                <a href="/profile?section=list" class="nav-item">
                     <span class="icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                           <path d="M15 2H9C8.44772 2 8 2.44772 8 3V5C8 5.55228 8.44772 6 9 6H15C15.5523 6 16 5.55228 16 5V3C16 2.44772 15.5523 2 15 2Z" stroke="#B0AFC8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -166,18 +166,6 @@
                     </span>
                     <span class="text my-list-link">My List</span>
                 </a>
-                <a href="constructor.html" class="nav-item">
-                    <span class="icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 28 28" fill="none">
-                          <path d="M13.7202 10.0352V18.0409" stroke="#B0AFC8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                          <path d="M17.7271 14.0381H9.7124" stroke="#B0AFC8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                          <path d="M13.7198 3.13379C21.8981 3.13379 24.6253 5.86099 24.6253 14.0392C24.6253 22.2175 21.8981 24.9447 13.7198 24.9447C5.54165 24.9447 2.81445 22.2175 2.81445 14.0392C2.81445 7.35283 4.63781 4.30979 9.77189 3.42275" stroke="#B0AFC8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </span>
-                    <span class="text">Create</span>
-                </a>
-
-
                 <div class="divider"></div>
                 <p class="category-title">CATEGORIES</p>
 
@@ -206,65 +194,14 @@
             <div class="section-header">
                 <h1 id="top-h1">Top this week</h1>
             </div>
-            <div class="results-grid-top">
-                <div class="anime-card">
-                    <div class="card-poster">
-                        <img src="https://m.media-amazon.com/images/M/MV5BN2QyZGU4ZDctOWMzMy00NTc5LThlOGQtODhmNDI1NmY5YzAwXkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_.jpg" alt="Dune: Part Two">
-                    </div>
-
-                    <div class="card-info">
-                        <h3 class="card-title">Dune: Part Two</h3>
-
-                        <div class="card-meta">
-                            <span class="type">Cinema</span>
-                            <span class="dot">•</span>
-                            <span class="author">Denis Villeneuve</span>
-                        </div>
-
-                        <div class="card-extra">
-                            <button class="save-btn" onclick="toggleSave(this, event)">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="9" height="11" viewBox="0 0 9 11" fill="none">
-                                    <path d="M7.35714 0.5C7.66025 0.5 7.95094 0.617065 8.16527 0.825443C8.37959 1.03382 8.5 1.31644 8.5 1.61113V9.94461C8.49997 10.0419 8.47366 10.1375 8.4237 10.2218C8.37375 10.3061 8.3019 10.3761 8.21535 10.425C8.12879 10.4738 8.03057 10.4997 7.9305 10.5C7.83044 10.5003 7.73203 10.4751 7.64514 10.4268L5.06686 8.9946C4.89421 8.89872 4.69883 8.84829 4.5 8.84829C4.30117 8.84829 4.10579 8.89872 3.93314 8.9946L1.35486 10.4268C1.26797 10.4751 1.16956 10.5003 1.0695 10.5C0.969431 10.4997 0.871207 10.4738 0.784653 10.425C0.6981 10.3761 0.626251 10.3061 0.576297 10.2218C0.526342 10.1375 0.500032 10.0419 0.5 9.94461V1.61113C0.5 1.31644 0.620408 1.03382 0.834735 0.825443C1.04906 0.617065 1.33975 0.5 1.64286 0.5H7.35714Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                                <span class="save-text">Save</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div class="results-grid-top"></div>
         </div>
 
         <div class="all">
-
             <div class="section-header">
                 <h1 id="all">All</h1>
             </div>
-            <div class="results-grid-all">
-                <div class="anime-card">
-                    <div class="card-poster">
-                        <img src="https://m.media-amazon.com/images/M/MV5BN2QyZGU4ZDctOWMzMy00NTc5LThlOGQtODhmNDI1NmY5YzAwXkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_.jpg" alt="Dune: Part Two">
-                    </div>
-
-                    <div class="card-info">
-                        <h3 class="card-title">Dune: Part Two</h3>
-
-                        <div class="card-meta">
-                            <span class="type">Cinema</span>
-                            <span class="dot">•</span>
-                            <span class="author">Denis Villeneuve</span>
-                        </div>
-
-                        <div class="card-extra">
-                            <button class="save-btn" onclick="toggleSave(this, event)">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="9" height="11" viewBox="0 0 9 11" fill="none">
-                                    <path d="M7.35714 0.5C7.66025 0.5 7.95094 0.617065 8.16527 0.825443C8.37959 1.03382 8.5 1.31644 8.5 1.61113V9.94461C8.49997 10.0419 8.47366 10.1375 8.4237 10.2218C8.37375 10.3061 8.3019 10.3761 8.21535 10.425C8.12879 10.4738 8.03057 10.4997 7.9305 10.5C7.83044 10.5003 7.73203 10.4751 7.64514 10.4268L5.06686 8.9946C4.89421 8.89872 4.69883 8.84829 4.5 8.84829C4.30117 8.84829 4.10579 8.89872 3.93314 8.9946L1.35486 10.4268C1.26797 10.4751 1.16956 10.5003 1.0695 10.5C0.969431 10.4997 0.871207 10.4738 0.784653 10.425C0.6981 10.3761 0.626251 10.3061 0.576297 10.2218C0.526342 10.1375 0.500032 10.0419 0.5 9.94461V1.61113C0.5 1.31644 0.620408 1.03382 0.834735 0.825443C1.04906 0.617065 1.33975 0.5 1.64286 0.5H7.35714Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                                <span class="save-text">Save</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div class="results-grid-all"></div>
         </div>
     </main>
 
