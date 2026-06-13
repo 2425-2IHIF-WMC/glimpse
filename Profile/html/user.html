@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glimpse — User Profile</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/Profile/css/otherProfile.css">
+</head>
+<body>
+
+<header class="header">
+    <div class="logo" onclick="window.location.href='/'">
+        <div class="logo-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 21" fill="none">
+                <g opacity="0.96">
+                    <path d="M0.114258 20.8071L23.9998 20.9998L22.1302 17.6475L0.114258 20.8071Z" fill="url(#g0)"/>
+                    <path d="M0.299805 20.846L20.7181 15.2973L19.6116 13.4863L0.299805 20.846Z" fill="url(#g1)"/>
+                    <path d="M0.0380859 20.9997L18.4292 11.2125L17.4753 9.55566L0.0380859 20.9997Z" fill="url(#g2)"/>
+                    <path d="M0.0761719 20.9616L20.6803 15.2973L19.6501 13.4863L0.0761719 20.9616Z" fill="url(#g3)"/>
+                    <path d="M0 20.9954L16.2162 7.39854L15.186 5.70312L0 20.9954Z" fill="url(#g4)"/>
+                    <path d="M0 21L13.9269 3.35229L11.9046 0L0 21Z" fill="url(#g5)"/>
+                </g>
+                <defs>
+                    <linearGradient id="g0" x1="0" y1="21" x2="24" y2="17" gradientUnits="userSpaceOnUse"><stop stop-color="#FF5FF4"/><stop offset="0.47" stop-color="#5D46FF"/><stop offset="1" stop-color="#00AAB8"/></linearGradient>
+                    <linearGradient id="g1" x1="65" y1="17" x2="78" y2="3" gradientUnits="userSpaceOnUse"><stop stop-color="#BB4CE8" stop-opacity="0.2"/><stop offset="0.25" stop-color="#BB4CE8" stop-opacity="0.8"/><stop offset="1" stop-color="#00BBC8"/></linearGradient>
+                    <linearGradient id="g2" x1="0" y1="21" x2="16" y2="8" gradientUnits="userSpaceOnUse"><stop stop-color="#FF5FF4"/><stop offset="0.52" stop-color="#5D46FF"/><stop offset="1" stop-color="#00CCD8"/></linearGradient>
+                    <linearGradient id="g3" x1="0" y1="21" x2="19" y2="12" gradientUnits="userSpaceOnUse"><stop stop-color="#FF5FF4"/><stop offset="0.48" stop-color="#5D46FF"/><stop offset="1" stop-color="#00CCD8"/></linearGradient>
+                    <linearGradient id="g4" x1="0" y1="21" x2="14" y2="5" gradientUnits="userSpaceOnUse"><stop stop-color="#FF5FF4"/><stop offset="0.5" stop-color="#5D46FF"/><stop offset="1" stop-color="#00DDEE"/></linearGradient>
+                    <linearGradient id="g5" x1="0" y1="21" x2="3" y2="0" gradientUnits="userSpaceOnUse"><stop stop-color="#FF5FF4"/><stop offset="0.51" stop-color="#5D46FF"/><stop offset="1" stop-color="#00EEFF"/></linearGradient>
+                </defs>
+            </svg>
+        </div>
+        <span class="logo-text">Glimpse</span>
+    </div>
+    <a class="back-btn" onclick="history.back()">Back</a>
+</header>
+
+<div class="page">
+    <div class="user-card">
+        <div class="banner" id="banner"></div>
+        <div class="user-info">
+            <div class="avatar" id="avatar">?</div>
+            <div class="username" id="username">Loading...</div>
+            <div class="bio" id="bio"></div>
+
+            <div class="list-title">Their List</div>
+            <div class="titles-grid" id="titlesGrid">
+                <p class="empty">Loading...</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/Profile/js/otherProfile.js"></script>
+
+</body>
+</html>
