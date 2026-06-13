@@ -155,7 +155,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px; 
+    gap: 8px;
     width: 100%;
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
@@ -164,7 +164,13 @@
     font-size: 14px;
     padding: 8px 0;
     cursor: pointer;
-    transition: background 0.2s ease;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.save-btn.added {
+    background: #B6A0FF;
+    border-color: #B6A0FF;
+    color: #340090;
 }
 
 
