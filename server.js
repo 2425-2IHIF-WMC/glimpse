@@ -47,6 +47,18 @@ app.get("/profile", (req, res) => {
     res.sendFile(path.join(__dirname, "Profile/html/profile.html"));
 });
 
+app.get("/user/:userId", (req, res) => {
+    const data = read();
+    const user = data.users.find(u => String(u.id) === String(req.params.userId));
+
+    if (!user) {
+        res.sendFile(path.join(__dirname, "error_pages/404.html"));
+        return;
+    }
+
+    res.sendFile(path.join(__dirname, "Profile/html/user.html"));
+});
+
 app.get("/login", (req, res) => {
     res.sendFile(path.join(__dirname, "registration/login.html"));
 });
@@ -349,6 +361,59 @@ app.delete("/api/users/:id", (req, res) => {
     res.json({
         success: true
     });
+});
+
+// ===== REVIEWS API =====
+
+app.get("/api/reviews", (req, res) => {
+    const data = read();
+
+    if (!data.reviews) {
+        data.reviews = [];
+    }
+
+    const results = [];
+
+    for (let i = 0; i < data.reviews.length; i++) {
+        if (data.reviews[i].contentId === req.query.contentId) {
+            results.push(data.reviews[i]);
+        }
+    }
+
+    res.json(results);
+});
+
+app.post("/api/reviews", (req, res) => {
+    const data = read();
+
+    if (!data.reviews) {
+        data.reviews = [];
+    }
+
+    const newReview = {
+        id: Date.now().toString(),
+        userId: req.body.userId,
+        authorName: req.body.authorName,
+        authorAvatar: req.body.authorAvatar || '',
+        contentId: req.body.contentId,
+        text: req.body.text,
+        createdAt: new Date().toLocaleDateString()
+    };
+
+    data.reviews.push(newReview);
+    save(data);
+
+    res.json(newReview);
+});
+
+app.delete("/api/reviews/:id", (req, res) => {
+    const data = read();
+
+    data.reviews = data.reviews.filter(r => r.id !== req.params.id);
+
+    save(data);
+
+    res.json({ success: true });
 });
 
 // ===== START SERVER =====
