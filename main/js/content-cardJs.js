@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (nameEl) nameEl.textContent = currentUser.username;
 
     const avatarEl = document.querySelector(".user-profile .avatar");
-    if (currentUser.avatarImage && avatarEl) {
+    if (avatarEl && currentUser.avatarImage) {
         avatarEl.style.backgroundImage = `url(${currentUser.avatarImage})`;
         avatarEl.style.backgroundSize = "cover";
         avatarEl.style.backgroundPosition = "center";
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.href = '/profile';
         });
     }
-    
+
     const itemId = localStorage.getItem('selectedItemId');
     const apiSource = localStorage.getItem('apiSource');
 
@@ -43,11 +43,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         loadReviews(itemId, apiSource);
     }
-    
+
     const saveBtn = document.getElementById("saveTitleBtn");
     const saveText = saveBtn ? saveBtn.querySelector(".save-text-") : null;
 
-    let savedTitleId = null; 
+    let savedTitleId = null;
 
     async function checkIfSaved() {
         if (!currentUser) return;
@@ -110,7 +110,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     userId: currentUser.id,
-                    ...loadedTitle
+                    externalId: loadedTitle.externalId,
+                    mal_id: loadedTitle.mal_id,
+                    apiSource: loadedTitle.apiSource,
+                    name: loadedTitle.name,
+                    image: loadedTitle.image,
+                    description: loadedTitle.description,
+                    score: loadedTitle.score,
+                    episodes: loadedTitle.episodes,
+                    watchedEpisodes: loadedTitle.watchedEpisodes,
+                    rating: loadedTitle.rating,
+                    status: loadedTitle.status,
+                    type: loadedTitle.type,
+                    genres: loadedTitle.genres
                 })
             });
 
@@ -133,8 +145,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-
-
 function getContentType() {
     const type = String(mediaType).toLowerCase();
 
@@ -142,12 +152,7 @@ function getContentType() {
         return "series";
     }
 
-    if (
-        type === "documentary" ||
-        type === "cinema" ||
-        type === "movie" ||
-        type === "movies"
-    ) {
+    if (type === "documentary" || type === "cinema" || type === "movie" || type === "movies") {
         return "movie";
     }
 
@@ -157,7 +162,6 @@ function getContentType() {
 async function loadCinemaDetails(id) {
     try {
         let url = '';
-
         if (mediaType === 'Series') {
             url = `https://api.themoviedb.org/3/tv/${id}?api_key=${TMDB_API_KEY}`;
         } else {
@@ -169,13 +173,25 @@ async function loadCinemaDetails(id) {
 
         loadedSource = "TMDB";
 
+        let image = "";
+        if (data.poster_path) {
+            image = "https://image.tmdb.org/t/p/w500" + data.poster_path;
+        }
+
+        let genres = [];
+        if (data.genres) {
+            genres = data.genres.map(g => g.name);
+        }
+
+        let name = data.title;
+        if (!name) name = data.name;
+
         loadedTitle = {
             externalId: String(id),
+            mal_id: null,
             apiSource: "TMDB",
-            name: data.title || data.name,
-            image: data.poster_path
-                ? "https://image.tmdb.org/t/p/w500" + data.poster_path
-                : "",
+            name: name,
+            image: image,
             description: data.overview || "",
             score: data.vote_average || null,
             episodes: data.number_of_episodes || 1,
@@ -183,23 +199,26 @@ async function loadCinemaDetails(id) {
             rating: null,
             status: "Plan to Watch",
             type: getContentType(),
-            genres: data.genres ? data.genres.map(g => g.name) : []
+            genres: genres
         };
 
         const nameEl = document.querySelector('.name-item');
-        if (nameEl) nameEl.textContent = data.title || data.name;
+        if (nameEl) nameEl.textContent = name;
 
         const aboutEl = document.getElementById('about-text');
         if (aboutEl) aboutEl.textContent = data.overview;
 
         const ratingScoreEl = document.querySelector('.rating-score');
         const imdbScoreEl = document.querySelector('.imdb-score');
-        const rating = data.vote_average ? data.vote_average.toFixed(1) : "0.0";
-        if (ratingScoreEl) ratingScoreEl.textContent = `${rating}/10`;
+        let rating = "0.0";
+        if (data.vote_average) {
+            rating = data.vote_average.toFixed(1);
+        }
+        if (ratingScoreEl) ratingScoreEl.textContent = rating + '/10';
         if (imdbScoreEl) imdbScoreEl.textContent = rating;
 
         if (data.backdrop_path) {
-            const bgUrl = `https://image.tmdb.org/t/p/original${data.backdrop_path}`;
+            const bgUrl = "https://image.tmdb.org/t/p/original" + data.backdrop_path;
             const header = document.querySelector('.section-header');
             const trailerCont = document.getElementById('trailer-container');
             if (header) header.style.backgroundImage = `url('${bgUrl}')`;
@@ -219,11 +238,16 @@ async function loadAnimeDetails(id) {
 
         loadedSource = "Jikan";
 
+        let name = anime.title_english;
+        if (!name) name = anime.title;
+
+        let genres = anime.genres.map(g => g.name);
+
         loadedTitle = {
             externalId: String(anime.mal_id),
             mal_id: anime.mal_id,
             apiSource: "Jikan",
-            name: anime.title_english || anime.title,
+            name: name,
             image: anime.images.jpg.image_url,
             description: anime.synopsis || "",
             score: anime.score || null,
@@ -232,11 +256,11 @@ async function loadAnimeDetails(id) {
             rating: null,
             status: "Plan to Watch",
             type: "anime",
-            genres: anime.genres.map(g => g.name)
+            genres: genres
         };
 
         const nameEl = document.querySelector('.name-item');
-        if (nameEl) nameEl.textContent = anime.title_english || anime.title;
+        if (nameEl) nameEl.textContent = name;
 
         const aboutEl = document.getElementById('about-text');
         if (aboutEl) {
@@ -249,7 +273,7 @@ async function loadAnimeDetails(id) {
         const imdbScoreEl = document.querySelector('.imdb-score');
         const imdbTitleEl = document.querySelector('.imdb-title');
 
-        if (ratingScoreEl) ratingScoreEl.textContent = `${anime.score || 0}/10`;
+        if (ratingScoreEl) ratingScoreEl.textContent = (anime.score || 0) + '/10';
         if (imdbScoreEl) imdbScoreEl.textContent = anime.score || "N/A";
         if (imdbTitleEl) imdbTitleEl.textContent = "MAL";
 
@@ -263,7 +287,7 @@ async function loadAnimeDetails(id) {
         const tmdbBg = await getTmdbBackdrop(searchQuery);
 
         if (tmdbBg) {
-            bgUrl = tmdbBg; 
+            bgUrl = tmdbBg;
         } else {
             if (anime.trailer && anime.trailer.images) {
                 bgUrl = anime.trailer.images.maximum_image_url || anime.trailer.images.large_image_url;
@@ -276,14 +300,19 @@ async function loadAnimeDetails(id) {
         }
 
         if (header) {
-            header.style.backgroundImage = isVerticalPoster
-                ? `linear-gradient(rgba(11, 11, 18, 0.85), rgba(11, 11, 18, 0.95)), url('${bgUrl}')`
-                : `url('${bgUrl}')`;
+            if (isVerticalPoster) {
+                header.style.backgroundImage = `linear-gradient(rgba(11, 11, 18, 0.85), rgba(11, 11, 18, 0.95)), url('${bgUrl}')`;
+            } else {
+                header.style.backgroundImage = `url('${bgUrl}')`;
+            }
         }
+
         if (trailerCont) {
-            trailerCont.style.backgroundImage = isVerticalPoster
-                ? `linear-gradient(rgba(11, 11, 18, 0.8), rgba(11, 11, 18, 0.9)), url('${bgUrl}')`
-                : `url('${bgUrl}')`;
+            if (isVerticalPoster) {
+                trailerCont.style.backgroundImage = `linear-gradient(rgba(11, 11, 18, 0.8), rgba(11, 11, 18, 0.9)), url('${bgUrl}')`;
+            } else {
+                trailerCont.style.backgroundImage = `url('${bgUrl}')`;
+            }
         }
 
     } catch (error) {
@@ -292,13 +321,14 @@ async function loadAnimeDetails(id) {
 }
 
 async function getTmdbBackdrop(title) {
-    try{
+    try {
         const response = await fetch(`https://api.themoviedb.org/3/search/multi?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(title)}`);
         const data = await response.json();
+
         if (data.results && data.results.length > 0) {
             const resultWithBg = data.results.find(item => item.backdrop_path);
             if (resultWithBg) {
-                return `https://image.tmdb.org/t/p/original${resultWithBg.backdrop_path}`;
+                return "https://image.tmdb.org/t/p/original" + resultWithBg.backdrop_path;
             }
         }
     } catch (e) {
@@ -337,17 +367,22 @@ async function loadReviews(id, apiSource) {
                 let avatar = 'https://via.placeholder.com/40';
                 if (r.author_details && r.author_details.avatar_path) {
                     if (r.author_details.avatar_path.startsWith('/')) {
-                        avatar = `https://image.tmdb.org/t/p/w200${r.author_details.avatar_path}`;
+                        avatar = "https://image.tmdb.org/t/p/w200" + r.author_details.avatar_path;
                     } else {
                         avatar = r.author_details.avatar_path.substring(1);
                     }
+                }
+
+                let rating = null;
+                if (r.author_details) {
+                    rating = r.author_details.rating;
                 }
 
                 formattedReviews.push({
                     author: r.author,
                     avatar: avatar,
                     text: r.content,
-                    rating: r.author_details ? r.author_details.rating : null
+                    rating: rating
                 });
             }
         }
@@ -394,7 +429,6 @@ async function loadReviews(id, apiSource) {
                     </div>
                     <div class="review-info">
                         <span class="review-author">${r.author}</span>
-                        
                     </div>
                 </div>
                 <p class="review-text">${r.text}</p>

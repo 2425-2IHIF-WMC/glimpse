@@ -150,7 +150,13 @@ main {
 }
 
 .added {
-    background: #2d2d2d !important;
-    color: #999 !important;
-    cursor: not-allowed !important;
+    background: #2d2d2d;
+    color: #999;
+    cursor: not-allowed;
 }
+
+/*.added {*/
+/*    background: #2d2d2d !important;*/
+/*    color: #999 !important;*/
+/*    cursor: not-allowed !important;*/
+/*}*/

@@ -283,7 +283,16 @@ html {
     scrollbar-color: rgba(182, 160, 255, 0.3) transparent;
 }
 
-.live-results::-webkit-scrollbar { width: 6px; }
-.live-results::-webkit-scrollbar-track { background: transparent; }
-.live-results::-webkit-scrollbar-thumb { background: rgba(182, 160, 255, 0.3); border-radius: 10px; }
-.live-results::-webkit-scrollbar-thumb:hover { background: rgba(182, 160, 255, 0.8); }
+.live-results::-webkit-scrollbar { 
+    width: 6px; 
+}
+.live-results::-webkit-scrollbar-track { 
+    background: transparent; 
+}
+.live-results::-webkit-scrollbar-thumb { 
+    background: rgba(182, 160, 255, 0.3); 
+    border-radius: 10px; 
+}
+.live-results::-webkit-scrollbar-thumb:hover { 
+    background: rgba(182, 160, 255, 0.8); 
+}

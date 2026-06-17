@@ -1,5 +1,4 @@
-﻿
-let currentFilter = 'all';
+﻿let currentFilter = 'all';
 let currentPage = 1;
 let liveSearchTimer;
 let savedTitles = [];
@@ -51,13 +50,18 @@ async function toggleSave(btn, event) {
         text.textContent = 'Save';
         btn.classList.remove('added');
     } else {
+        let malId = null;
+        if (apiSource === 'Jikan') {
+            malId = itemId;
+        }
+
         const res = await fetch('/api/titles', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 userId: currentUser.id,
                 externalId: itemId,
-                mal_id: apiSource === 'Jikan' ? itemId : undefined,
+                mal_id: malId,
                 name: btn.dataset.title,
                 image: btn.dataset.image,
                 type: btn.dataset.type,
@@ -101,7 +105,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (!currentUser) {
         window.location.href = '../../registration/login.html';
-        return; 
+        return;
     }
 
     const nameEl = document.querySelector('.user-name');
@@ -183,7 +187,7 @@ async function loadContent() {
             const seriesUrl = `https://api.themoviedb.org/3/discover/tv?api_key=${TMDB_API_KEY}&sort_by=popularity.desc`;
             const docUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_API_KEY}&with_genres=99`;
 
-            const [trendingItems, filmsItems, seriesItems, docItems, animeItems] = await Promise.all([
+            const allResults = await Promise.all([
                 fetchCategory(trendingUrl),
                 fetchCategory(filmsUrl, 'Cinema'),
                 fetchCategory(seriesUrl, 'Series'),
@@ -191,8 +195,14 @@ async function loadContent() {
                 fetchJikanAnime()
             ]);
 
-            let mixedTop = [...trendingItems, ...animeItems];
-            let mixedAll = [...filmsItems, ...seriesItems, ...docItems, ...animeItems];
+            const trendingItems = allResults[0];
+            const filmsItems = allResults[1];
+            const seriesItems = allResults[2];
+            const docItems = allResults[3];
+            const animeItems = allResults[4];
+
+            let mixedTop = trendingItems.concat(animeItems);
+            let mixedAll = filmsItems.concat(seriesItems).concat(docItems).concat(animeItems);
 
             mixedTop.sort((a, b) => b.score - a.score);
             mixedAll.sort((a, b) => b.score - a.score);
@@ -225,11 +235,16 @@ async function loadContent() {
             if(resultsAnimeMovie) resultsAnimeMovie.innerHTML = "";
             if(resultsAnimeOVA) resultsAnimeOVA.innerHTML = "";
 
-            const [tvItems, movieItems, ovaItems] = await Promise.all([
+            const animeResults = await Promise.all([
                 fetchJikanAnime('tv'),
                 fetchJikanAnime('movie'),
                 fetchJikanAnime('ova')
             ]);
+
+            const tvItems = animeResults[0];
+            const movieItems = animeResults[1];
+            const ovaItems = animeResults[2];
+
             if(resultsAnimeTV) tvItems.forEach(item => resultsAnimeTV.appendChild(createCard(item)));
             if(resultsAnimeMovie) movieItems.forEach(item => resultsAnimeMovie.appendChild(createCard(item)));
             if(resultsAnimeOVA) ovaItems.forEach(item => resultsAnimeOVA.appendChild(createCard(item)));
@@ -259,7 +274,7 @@ async function loadContent() {
             const moviesHorrorUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_API_KEY}&sort_by=popularity.desc&with_genres=27`;
             const moviesSciFiUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_API_KEY}&sort_by=popularity.desc&with_genres=878`;
 
-            const [nowPlayingItems, actionItems, topRatedItems, upcomingItems, horrorItems, scifiItems] = await Promise.all([
+            const movieResults = await Promise.all([
                 fetchCategory(moviesNowPlayingUrl, 'Cinema'),
                 fetchCategory(moviesUpcomingUrl, 'Cinema'),
                 fetchCategory(moviesHorrorUrl, 'Cinema'),
@@ -267,6 +282,13 @@ async function loadContent() {
                 fetchCategory(moviesActionUrl, 'Cinema'),
                 fetchCategory(moviesTopRatedUrl, 'Cinema')
             ]);
+
+            const nowPlayingItems = movieResults[0];
+            const upcomingItems = movieResults[1];
+            const horrorItems = movieResults[2];
+            const scifiItems = movieResults[3];
+            const actionItems = movieResults[4];
+            const topRatedItems = movieResults[5];
 
             if(resultsFilmsAction) actionItems.forEach(item => resultsFilmsAction.appendChild(createCard(item)));
             if(resultsFilmsHorror) horrorItems.forEach(item => resultsFilmsHorror.appendChild(createCard(item)));
@@ -290,10 +312,14 @@ async function loadContent() {
 
             const tvNetflixUrl = `https://api.themoviedb.org/3/discover/tv?api_key=${TMDB_API_KEY}&sort_by=popularity.desc&with_networks=213`;
             const tvHboUrl = `https://api.themoviedb.org/3/discover/tv?api_key=${TMDB_API_KEY}&sort_by=popularity.desc&with_networks=49`;
-            const [netflixSeries, hboSeries] = await Promise.all([
+
+            const seriesResults = await Promise.all([
                 fetchCategory(tvNetflixUrl, 'Series'),
                 fetchCategory(tvHboUrl, 'Series')
             ]);
+
+            const netflixSeries = seriesResults[0];
+            const hboSeries = seriesResults[1];
 
             if(resultsSeriesNetflix) netflixSeries.forEach(item => resultsSeriesNetflix.appendChild(createCard(item)));
             if(resultsSeriesHBO) hboSeries.forEach(item => resultsSeriesHBO.appendChild(createCard(item)));
@@ -321,11 +347,15 @@ async function loadContent() {
             const docSeriesUrl = `https://api.themoviedb.org/3/discover/tv?api_key=${TMDB_API_KEY}&sort_by=popularity.desc&with_genres=99`;
             const docHistoryUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_API_KEY}&sort_by=popularity.desc&with_genres=99,36`;
 
-            const [docMoviesItems, docSeriesItems, docHistoryItems] = await Promise.all([
+            const docResults = await Promise.all([
                 fetchCategory(docMoviesUrl, 'Documentary'),
                 fetchCategory(docSeriesUrl, 'Series'),
                 fetchCategory(docHistoryUrl, 'Documentary')
             ]);
+
+            const docMoviesItems = docResults[0];
+            const docSeriesItems = docResults[1];
+            const docHistoryItems = docResults[2];
 
             if(resultsDocMovies) docMoviesItems.forEach(item => resultsDocMovies.appendChild(createCard(item)));
             if(resultsDocSeries) docSeriesItems.forEach(item => resultsDocSeries.appendChild(createCard(item)));
@@ -336,39 +366,77 @@ async function loadContent() {
     }
 }
 
-async function fetchCategory(url, defaultType = null) {
+async function fetchCategory(url, defaultType) {
     const response = await fetch(url);
     const data = await response.json();
 
-    return data.results.map(item => ({
-        id: item.id,
-        title: item.title || item.name,
-        image: item.poster_path ? `https://image.tmdb.org/t/p/w500${item.poster_path}` : 'https://via.placeholder.com/225x335',
-        score: item.vote_average,
-        type: defaultType || (item.media_type === 'tv' ? 'Series' : 'Cinema'),
-        year: (item.release_date || item.first_air_date || "N/A").substring(0, 4),
-        genres: item.genre_ids,
-        apiSource: 'TMDB'
-    }));
+    return data.results.map(item => {
+        let type = defaultType;
+        if (!type) {
+            if (item.media_type === 'tv') {
+                type = 'Series';
+            } else {
+                type = 'Cinema';
+            }
+        }
+
+        let image = 'https://via.placeholder.com/225x335';
+        if (item.poster_path) {
+            image = 'https://image.tmdb.org/t/p/w500' + item.poster_path;
+        }
+
+        let title = item.title;
+        if (!title) title = item.name;
+
+        let year = 'N/A';
+        if (item.release_date) year = item.release_date.substring(0, 4);
+        if (item.first_air_date) year = item.first_air_date.substring(0, 4);
+
+        return {
+            id: item.id,
+            title: title,
+            image: image,
+            score: item.vote_average,
+            type: type,
+            year: year,
+            genres: item.genre_ids,
+            apiSource: 'TMDB'
+        };
+    });
 }
 
-async function fetchJikanAnime(animeType = ''){
-    const jikanUrl = animeType
-        ? `https://api.jikan.moe/v4/top/anime?type=${animeType}`
-        : `https://api.jikan.moe/v4/top/anime`;
-    try{
+async function fetchJikanAnime(animeType) {
+    let jikanUrl = 'https://api.jikan.moe/v4/top/anime';
+    if (animeType) {
+        jikanUrl = 'https://api.jikan.moe/v4/top/anime?type=' + animeType;
+    }
+
+    try {
         const response = await fetch(jikanUrl);
         const data = await response.json();
 
-        return data.data.map((item) => {
-            const genreList = item.genres ? item.genres.map(g => g.name) : [];
+        return data.data.map(item => {
+            let genreList = [];
+            if (item.genres) {
+                genreList = item.genres.map(g => g.name);
+            }
+
+            let title = item.title_english;
+            if (!title) title = item.title;
+
+            let type = item.type;
+            if (!type) type = 'Anime';
+
+            let year = item.year;
+            if (!year) year = 'N/A';
+
             return {
                 id: item.mal_id,
-                title: item.title_english || item.title,
+                title: title,
                 image: item.images.jpg.large_image_url,
                 score: item.score,
-                type: item.type || 'Anime',
-                year: item.year || "N/A",
+                type: type,
+                year: year,
                 genres: genreList,
                 apiSource: 'Jikan'
             };
@@ -385,6 +453,13 @@ function createCard(item) {
     const already = findSaved(item.id, item.apiSource);
     const isSaved = already !== null;
 
+    let saveText = 'Save';
+    let savedClass = '';
+    if (isSaved) {
+        saveText = 'Saved';
+        savedClass = 'added';
+    }
+
     card.innerHTML = `
         <div class="card-poster">
             <img src="${item.image}" alt="${item.title}">
@@ -397,7 +472,7 @@ function createCard(item) {
                 <span class="author">${item.year}</span>
             </div>
             <div class="card-extra">
-                <button class="save-btn ${isSaved ? 'added' : ''}"
+                <button class="save-btn ${savedClass}"
                     data-id="${item.id}"
                     data-title="${item.title}"
                     data-image="${item.image}"
@@ -408,7 +483,7 @@ function createCard(item) {
                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="14" viewBox="0 0 9 11" fill="none">
                         <path d="M7.35714 0.5C7.66025 0.5 7.95094 0.617065 8.16527 0.825443C8.37959 1.03382 8.5 1.31644 8.5 1.61113V9.94461C8.49997 10.0419 8.47366 10.1375 8.4237 10.2218C8.37375 10.3061 8.3019 10.3761 8.21535 10.425C8.12879 10.4738 8.03057 10.4997 7.9305 10.5C7.83044 10.5003 7.73203 10.4751 7.64514 10.4268L5.06686 8.9946C4.89421 8.89872 4.69883 8.84829 4.5 8.84829C4.30117 8.84829 4.10579 8.89872 3.93314 8.9946L1.35486 10.4268C1.26797 10.4751 1.16956 10.5003 1.0695 10.5C0.969431 10.4997 0.871207 10.4738 0.784653 10.425C0.6981 10.3761 0.626251 10.3061 0.576297 10.2218C0.526342 10.1375 0.500032 10.0419 0.5 9.94461V1.61113C0.5 1.31644 0.620408 1.03382 0.834735 0.825443C1.04906 0.617065 1.33975 0.5 1.64286 0.5H7.35714Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                    <span class="save-text">${isSaved ? 'Saved' : 'Save'}</span>
+                    <span class="save-text">${saveText}</span>
                 </button>
             </div>
         </div>
@@ -423,4 +498,3 @@ function createCard(item) {
 
     return card;
 }
-
